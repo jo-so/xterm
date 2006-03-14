@@ -1,6 +1,6 @@
 xterm (210-1) unstable; urgency=low
 
-  * New upstream release (the following are fixes immediately relevant to 
+  * New upstream release (the following are fixes immediately relevant to
     Debian. More are in the upstream changelog)
     + allow cursor to have the same color as foreground (text), since it is
       rendered as reverse (closes: #350664)
@@ -12,8 +12,9 @@ xterm (210-1) unstable; urgency=low
       extend it into the scrollback area. This still allows users to scroll
       back and select text (closes: #347415)
    * Remove the 01_stolen_from_HEAD patch, as it is now obsolete
+   * Switch build dependency from libxaw8-dev to libxaw7-dev
 
- -- David Nusinow <dnusinow@debian.org>  Mon, 13 Mar 2006 21:26:15 -0500
+ -- David Nusinow <dnusinow@debian.org>  Mon, 13 Mar 2006 21:51:55 -0500
 
 xterm (208-3) unstable; urgency=low
 

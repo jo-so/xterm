@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
 Uploaders: David Martínez Moreno <ender@debian.org>, David Nusinow <dnusinow@debian.org>
 Standards-Version: 3.6.2
-Build-Depends: libncurses5-dev | libncurses-dev, libxft-dev (>> 2.1.2), libxrender-dev (>> 1:0.9.0), libxaw8-dev, debhelper (>= 4.1.16), quilt, lynx
+Build-Depends: libncurses5-dev | libncurses-dev, libxft-dev (>> 2.1.2), libxrender-dev (>> 1:0.9.0), libxaw7-dev, debhelper (>= 4.1.16), quilt, lynx
 
 # Reasons for Build-Depends:
 #
@@ -48,7 +48,7 @@ Build-Depends: libncurses5-dev | libncurses-dev, libxft-dev (>> 2.1.2), libxrend
 #   libxrender-dev (>> 1:0.9.0)
 #       aclocal.m4:#include <X11/extensions/Xrender.h>
 #       configure:#include <X11/extensions/Xrender.h>
-#   libxaw8-dev
+#   libxaw7-dev
 #       main.c:#include <X11/Xaw/Form.h>
 #       main.c:#include <X11/Xaw3d/Form.h>
 #       main.c:#include <X11/XawPlus/Form.h>
