@@ -13,8 +13,9 @@ xterm (210-1) unstable; urgency=low
       back and select text (closes: #347415)
    * Remove the 01_stolen_from_HEAD patch, as it is now obsolete
    * Switch build dependency from libxaw8-dev to libxaw7-dev
+   * debian/rules clean target now calls make clean instead of distclean
 
- -- David Nusinow <dnusinow@debian.org>  Mon, 13 Mar 2006 21:51:55 -0500
+ -- David Nusinow <dnusinow@debian.org>  Mon, 13 Mar 2006 22:00:52 -0500
 
 xterm (208-3) unstable; urgency=low
 

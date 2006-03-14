@@ -105,7 +105,7 @@ clean: unpatch
 	dh_testroot
 	rm -f .pc patches
 	rm -rf $(STAMP_DIR)
-	-$(MAKE) distclean
+	-$(MAKE) clean
 	dh_clean debian/local/xterm.faq.gz
 
 .PHONY: install
