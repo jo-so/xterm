@@ -1,0 +1,14 @@
+# $Id: xterm.menu 189 2005-06-11 00:04:27Z branden $
+
+?package(xterm):\
+ needs="x11"\
+ section="XShells"\
+ longtitle="XTerm: terminal emulator for X"\
+ title="XTerm"\
+ command="xterm"
+?package(xterm):\
+ needs="x11"\
+ section="XShells"\
+ longtitle="XTerm: terminal emulator for X with Unicode support"\
+ title="XTerm (Unicode)"\
+ command="uxterm"

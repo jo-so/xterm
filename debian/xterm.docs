@@ -1,0 +1,6 @@
+README.i18n
+xterm.log.html
+debian/local/xterm.faq.html
+debian/local/xterm.faq.gz
+debian/tmp/usr/lib/xterm.termcap
+debian/tmp/usr/lib/xterm.terminfo

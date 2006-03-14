@@ -1,0 +1,72 @@
+#!/bin/sh
+# $Id: koi8rxterm 189 2005-06-11 00:04:27Z branden $
+# This is a wrapper script to set up xterm with a KOI8-R locale; based on
+# uxterm, by Thomas Dickey.
+
+program=xterm
+locale=`(LC_ALL=C LC_CTYPE=C LANG=C locale >/dev/null) 2>&1`
+found=no
+
+# Check for -version and -help options, to provide a simple return without
+# requiring the program to create a window:
+if test $# = 1
+then
+	case $1 in
+	-v|-ver*|-h|-he*)
+		$program "$@"
+		exit $?
+		;;
+	esac
+fi
+
+# Check environment variables that xterm does, in the same order:
+for name in LC_ALL LC_CTYPE LANG
+do
+	eval 'value=$'$name
+	if test -n "$value" ; then
+		case $value in
+		*.koi8r|*.KOI8R|*.koi8-r|*.KOI8-R)
+			found=yes
+			;;
+		*.koi8r@*|*.KOI8R@*|*.koi8-r@*|*.KOI8-R*)
+			found=yes
+			;;
+		C|POSIX)
+			# The user may not have configured his or her
+			# locale; try to muddle through anyway.
+			value=ru_RU.KOI8-R
+			;;
+		esac
+		break
+	fi
+done
+
+# If we didn't find a locale that uses KOI8-R, modify the safest one.  Not
+# everyone has a KOI8-R locale installed (and there appears to be no
+# trivial/portable way to determine whether it is, from a shell script).
+# We could check if the user's shell does not reset unknown locale
+# specifiers, but not all shells do.
+if test $found != yes ; then
+	if test -n "$value" ; then
+		value=`echo ${value} |sed -e 's/[.@].*//'`.KOI8-R
+	else
+		name="LC_CTYPE"
+		value="ru_RU.KOI8-R"
+	fi
+	eval ${name}=${value}
+	eval export ${name}
+	if test -z "$locale" ; then
+		# The 'locale' program tries to do a sanity check.
+		check=`(locale >/dev/null) 2>&1`
+		if test -n "$check" ; then
+			echo "koi8rxterm tried to use locale $value" >&2
+			echo "$check" >&2
+			exit 1
+		fi
+	fi
+fi
+
+# for testing:
+#test -f ./xterm && program=./xterm
+
+exec $program -class KOI8RXTerm -title 'koi8rxterm' -k8 "$@"

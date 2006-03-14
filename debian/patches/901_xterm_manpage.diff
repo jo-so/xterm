@@ -1,0 +1,34 @@
+$Id$
+
+Make Debian-specific tweaks to xterm manpage:
+* Use FHS paths to the utmp and wtmp files in xterm's manpage.
+* Correct section in the .TH header in order to clear a lintian warning.
+
+This patch by Branden Robinson and David Martínez.
+
+Index: xterm.man
+===================================================================
+--- xterm.man.orig	2006-03-13 21:25:38.000000000 -0500
++++ xterm.man	2006-03-13 21:43:18.000000000 -0500
+@@ -69,7 +69,7 @@
+ .sp
+ .in -4
+ ..
+-.TH XTERM 1 __vendorversion__
++.TH XTERM 1x __vendorversion__
+ .SH NAME
+ xterm \- terminal emulator for X
+ .SH SYNOPSIS
+@@ -4219,10 +4219,10 @@
+ .SH FILES
+ The actual pathnames given may differ on your system.
+ .TP 5
+-\fI/etc/utmp\fP
++\fI/var/run/utmp\fP
+ the system logfile, which records user logins.
+ .TP 5
+-\fI/etc/wtmp\fP
++\fI/var/log/wtmp\fP
+ the system logfile, which records user logins and logouts.
+ .TP 5
+ .I __apploaddir__/XTerm
