@@ -14,8 +14,9 @@ xterm (210-1) unstable; urgency=low
    * Remove the 01_stolen_from_HEAD patch, as it is now obsolete
    * Switch build dependency from libxaw8-dev to libxaw7-dev
    * debian/rules clean target now calls make clean instead of distclean
+   * Use dh_install's --list-missing option
 
- -- David Nusinow <dnusinow@debian.org>  Mon, 13 Mar 2006 22:00:52 -0500
+ -- David Nusinow <dnusinow@debian.org>  Mon, 13 Mar 2006 22:04:07 -0500
 
 xterm (208-3) unstable; urgency=low
 
