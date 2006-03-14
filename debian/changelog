@@ -15,8 +15,9 @@ xterm (210-1) unstable; urgency=low
    * Switch build dependency from libxaw8-dev to libxaw7-dev
    * debian/rules clean target now calls make clean instead of distclean
    * Use dh_install's --list-missing option
+   * Merge duplicate Provides fields
 
- -- David Nusinow <dnusinow@debian.org>  Mon, 13 Mar 2006 22:04:07 -0500
+ -- David Nusinow <dnusinow@debian.org>  Mon, 13 Mar 2006 22:12:41 -0500
 
 xterm (208-3) unstable; urgency=low
 
