@@ -1,3 +1,9 @@
+xterm (210-2) unstable; urgency=low
+
+  * Remove useless provides and conflicts with old xutils. Thanks James Troup.
+
+ -- David Nusinow <dnusinow@debian.org>  Thu, 16 Mar 2006 20:05:08 -0500
+
 xterm (210-1) unstable; urgency=low
 
   * New upstream release (the following are fixes immediately relevant to

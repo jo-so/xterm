@@ -91,8 +91,7 @@ Architecture: any
 Depends: xlibs-data, ${shlibs:Depends}
 Recommends: xutils
 Suggests: xfonts-cyrillic
-Provides: x-terminal-emulator, xutils (<< 6.9.0.dfsg.1)
-Conflicts: xutils (<< 6.9.0.dfsg.1)
+Provides: x-terminal-emulator
 Description: X terminal emulator
  xterm is a terminal emulator for the X Window System.  It provides DEC VT102
  and Tektronix 4014 compatible terminals for programs that cannot use the
