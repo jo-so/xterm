@@ -1,3 +1,9 @@
+xterm (210-3) unstable; urgency=low
+
+  * Depend on xbitmaps rather than xlibs-data.
+
+ -- David Nusinow <dnusinow@debian.org>  Thu, 13 Apr 2006 00:20:50 -0400
+
 xterm (210-2) unstable; urgency=low
 
   * Remove useless provides and conflicts with old xutils. Thanks James Troup.

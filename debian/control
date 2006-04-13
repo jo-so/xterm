@@ -88,7 +88,7 @@ Build-Depends: libncurses5-dev | libncurses-dev, libxft-dev (>> 2.1.2), libxrend
 
 Package: xterm
 Architecture: any
-Depends: xlibs-data, ${shlibs:Depends}
+Depends: xbitmaps, ${shlibs:Depends}
 Recommends: xutils
 Suggests: xfonts-cyrillic
 Provides: x-terminal-emulator
