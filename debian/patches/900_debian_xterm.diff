@@ -25,9 +25,9 @@ This patch by Branden Robinson.
 
 Index: termcap
 ===================================================================
---- termcap.orig	2006-03-13 21:25:38.000000000 -0500
-+++ termcap	2006-03-13 21:43:11.000000000 -0500
-@@ -41,6 +41,14 @@
+--- termcap.orig	2006-10-23 22:34:40.000000000 +0200
++++ termcap	2006-10-23 23:56:58.000000000 +0200
+@@ -73,6 +73,14 @@
  	:so=\E[7m:sr=\EM:st=\EH:te=\E[?1049l:ti=\E[?1049h:\
  	:ue=\E[24m:up=\E[A:us=\E[4m:ve=\E[?25h:vi=\E[?25l:
  
@@ -42,7 +42,7 @@ Index: termcap
  # The xterm-new description has all of the features, but is not completely
  # compatible with vt220.  If you are using a Sun or PC keyboard, set the
  # sunKeyboard resource to true:
-@@ -202,5 +210,6 @@
+@@ -234,5 +242,6 @@
  # is widely used for a variety of incompatible terminal emulations including
  # color_xterm and rxvt.
  v0|xterm|X11 terminal emulator:\
@@ -52,9 +52,9 @@ Index: termcap
  #	:tc=xterm-r6:
 Index: terminfo
 ===================================================================
---- terminfo.orig	2006-03-13 21:25:38.000000000 -0500
-+++ terminfo	2006-03-13 21:43:11.000000000 -0500
-@@ -303,6 +303,13 @@
+--- terminfo.orig	2006-10-23 22:34:19.000000000 +0200
++++ terminfo	2006-10-23 23:56:58.000000000 +0200
+@@ -823,6 +823,13 @@
  	u8=\E[?1;2c,
  	u9=\E[c,
  	vpa=\E[%i%p1%dd,
@@ -68,7 +68,7 @@ Index: terminfo
  #
  # The xterm-new description has all of the features, but is not completely
  # compatible with vt220.  If you are using a Sun or PC keyboard, set the
-@@ -1004,5 +1011,6 @@
+@@ -1602,5 +1609,6 @@
  # is widely used for a variety of incompatible terminal emulations including
  # color_xterm and rxvt.
  xterm|X11 terminal emulator,
@@ -78,8 +78,8 @@ Index: terminfo
  #	use=xterm-r6,
 Index: XTerm.ad
 ===================================================================
---- XTerm.ad.orig	2006-03-13 21:25:38.000000000 -0500
-+++ XTerm.ad	2006-03-13 21:43:11.000000000 -0500
+--- XTerm.ad.orig	2006-10-23 22:34:18.000000000 +0200
++++ XTerm.ad	2006-10-23 23:56:58.000000000 +0200
 @@ -115,6 +115,10 @@
  *tek4014*font3: 6x13
  *tek4014*fontSmall: 6x10
@@ -93,8 +93,8 @@ Index: XTerm.ad
  ! at startup because it is needed to make the layout work for the menubar:
 Index: XTerm-col.ad
 ===================================================================
---- XTerm-col.ad.orig	2006-03-13 21:25:38.000000000 -0500
-+++ XTerm-col.ad	2006-03-13 21:43:11.000000000 -0500
+--- XTerm-col.ad.orig	2006-10-23 22:34:22.000000000 +0200
++++ XTerm-col.ad	2006-10-23 23:56:58.000000000 +0200
 @@ -7,9 +7,9 @@
  *VT100*boldColors: on
  *VT100*dynamicColors: on
@@ -108,9 +108,9 @@ Index: XTerm-col.ad
  
  ! - OR -
  ! Uncomment this for black text on a "white" background.
-@@ -111,20 +111,32 @@
- *.Form.menubar.*.foreground: gray15
- *.Form.background: AntiqueWhite
+@@ -114,20 +114,32 @@
+ *Form.background: AntiqueWhite
+ *form.background: AntiqueWhite
  
 +*mainMenu*background: AntiqueWhite
 +*mainMenu*foreground: gray15

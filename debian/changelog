@@ -1,3 +1,13 @@
+xterm (222-1) UNRELEASED; urgency=low
+
+  * New upstream release
+    + Refresh patches.
+  * Acknowledge NMU (thanks, Christoph!).
+  * Update KOI8RXTerm app-defaults, thanks to Thomas Dickey (closes: #384925).
+  * Configure with --enable-luit, again thanks to Thomas (closes: #381591).
+
+ -- Julien Cristau <julien.cristau@ens-lyon.org>  Tue, 24 Oct 2006 00:06:04 +0200
+
 xterm (210-3.1) unstable; urgency=high
 
   * Non-maintainer upload.

@@ -8,8 +8,8 @@ This patch by Branden Robinson and David Martínez.
 
 Index: xterm.man
 ===================================================================
---- xterm.man.orig	2006-03-13 21:25:38.000000000 -0500
-+++ xterm.man	2006-03-13 21:43:18.000000000 -0500
+--- xterm.man.orig	2006-10-23 22:34:32.000000000 +0200
++++ xterm.man	2006-10-23 23:57:04.000000000 +0200
 @@ -69,7 +69,7 @@
  .sp
  .in -4
@@ -19,7 +19,7 @@ Index: xterm.man
  .SH NAME
  xterm \- terminal emulator for X
  .SH SYNOPSIS
-@@ -4219,10 +4219,10 @@
+@@ -4368,10 +4368,10 @@
  .SH FILES
  The actual pathnames given may differ on your system.
  .TP 5

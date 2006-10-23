@@ -5,6 +5,6 @@ Index: xterm-210/XTerm.ad
 @@ -190,3 +190,5 @@
  !
  ! Alternatively,
- !*on2Clicks: regex [[:alpha:]]+://([[:alnum:]!#+,./=?@~-]|(%[[:xdigit:]][[:xdigit:]]))+
+ !*on2Clicks: regex [[:alpha:]]+://([[:alnum:]!#+,./=?@_~-]|(%[[:xdigit:]][[:xdigit:]]))+
 +
 +*allowWindowOps: false

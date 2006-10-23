@@ -85,10 +85,11 @@ unpatch:
 configure: $(STAMP_DIR)/patch $(STAMP_DIR)/configure
 $(STAMP_DIR)/configure: $(STAMP_DIR)/patch
 	dh_testdir
-	./configure --enable-logging --enable-wide-chars --enable-256-color \
-				--prefix=/usr --exec-prefix=/usr --mandir=/usr/share/man \
-				--with-app-defaults=/etc/X11/app-defaults \
-				--disable-imake --enable-narrowproto
+	./configure --enable-logging --enable-wide-chars --enable-luit \
+		--enable-256-color \
+		--prefix=/usr --exec-prefix=/usr --mandir=/usr/share/man \
+		--with-app-defaults=/etc/X11/app-defaults \
+		--disable-imake --enable-narrowproto
 	touch $@
 
 
