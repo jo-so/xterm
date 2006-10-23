@@ -1,3 +1,11 @@
+xterm (210-3.1) unstable; urgency=high
+
+  * Non-maintainer upload.
+  * Apply patch by Samuel Thibault to disable allowWindowOps in XTerm.ad
+    (Closes: #384593).
+
+ -- Christoph Berg <myon@debian.org>  Fri, 15 Sep 2006 16:18:06 +0200
+
 xterm (210-3) unstable; urgency=low
 
   * Depend on xbitmaps rather than xlibs-data.
