@@ -165,6 +165,10 @@ binary-arch: install
 	dh_md5sums
 	dh_builddeb
 
+# this target is required by policy
+.PHONY: binary-indep
+binary-indep:
+
 # Note: This rule is for Debian package maintainers' convenience, and is not
 # needed for conventional build scenarios.
 .PHONY: patch-audit
