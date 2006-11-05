@@ -7,8 +7,9 @@ xterm (222-1) UNRELEASED; urgency=low
   * Configure with --enable-luit, again thanks to Thomas (closes: #381591).
   * Add an empty binary-indep target in debian/rules, thanks to Aurélien Jarno
     (closes: #395764).
+  * Add myself to Uploaders.
 
- -- Julien Cristau <julien.cristau@ens-lyon.org>  Sat, 28 Oct 2006 03:54:14 +0200
+ -- Julien Cristau <julien.cristau@ens-lyon.org>  Sun,  5 Nov 2006 14:17:44 +0100
 
 xterm (210-3.1) unstable; urgency=high
 
