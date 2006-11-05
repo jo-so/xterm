@@ -1,4 +1,4 @@
-xterm (222-1) UNRELEASED; urgency=low
+xterm (222-1) unstable; urgency=low
 
   * New upstream release
     + Refresh patches.
@@ -8,8 +8,11 @@ xterm (222-1) UNRELEASED; urgency=low
   * Add an empty binary-indep target in debian/rules, thanks to Aurélien Jarno
     (closes: #395764).
   * Add myself to Uploaders.
+  * Bump Standards-Version to 3.7.2.
+  * Use "make distclean" instead of "make clean" so that configure-generated
+    files are deleted.
 
- -- Julien Cristau <julien.cristau@ens-lyon.org>  Sun,  5 Nov 2006 14:17:44 +0100
+ -- Julien Cristau <julien.cristau@ens-lyon.org>  Sun,  5 Nov 2006 14:49:08 +0100
 
 xterm (210-3.1) unstable; urgency=high
 
