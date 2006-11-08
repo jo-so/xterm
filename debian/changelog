@@ -1,3 +1,14 @@
+xterm (222-2) unstable; urgency=low
+
+  * Install all manpages with "1" as extension instead of "1x".  Also use
+    the x-terminal-emulator.1.gz slave alternative, instead of
+    x-terminal-emulator.1x.gz.  We also need to clean up the mess this wrong
+    path caused, and make sure that the x-terminal-emulator.1.gz link in
+    /usr/share/man/man1/ is still there.  If it disappeared, we add it in
+    postinst.  Thanks to Vincent Lefevre and Joey Hess (closes: #349462).
+
+ -- Julien Cristau <julien.cristau@ens-lyon.org>  Wed,  8 Nov 2006 05:12:34 +0100
+
 xterm (222-1) unstable; urgency=low
 
   * New upstream release

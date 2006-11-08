@@ -116,18 +116,18 @@ install: build
 	dh_clean -k
 	dh_installdirs
 	# General installation
-	$(MAKE) install mandir=/usr/share/man/man1 libdir=/etc manext=1x DESTDIR=$(DEBINSTALLTREE)
+	$(MAKE) install mandir=/usr/share/man/man1 libdir=/etc DESTDIR=$(DEBINSTALLTREE)
 	
 	## Install lxterm command and manual page.
 	install -m 755 debian/local/lxterm $(DEBINSTALLTREE)/usr/bin
-	install -m 755 debian/local/lxterm.1x $(DEBINSTALLTREE)/usr/share/man/man1
+	install -m 755 debian/local/lxterm.1 $(DEBINSTALLTREE)/usr/share/man/man1
 	## Install koi8rxterm command, manual page, and app-defaults file.
 	install -m 755 debian/local/koi8rxterm $(DEBINSTALLTREE)/usr/bin
-	install -m 755 debian/local/koi8rxterm.1x $(DEBINSTALLTREE)/usr/share/man/man1
+	install -m 755 debian/local/koi8rxterm.1 $(DEBINSTALLTREE)/usr/share/man/man1
 	install -d $(DEBINSTALLTREE)/etc/X11/app-defaults
 	install -m 644 debian/local/KOI8RXTerm $(DEBINSTALLTREE)/etc/X11/app-defaults
 	## Install manual page for uxterm.
-	install -m 644 debian/local/uxterm.1x $(DEBINSTALLTREE)/usr/share/man/man1
+	install -m 644 debian/local/uxterm.1 $(DEBINSTALLTREE)/usr/share/man/man1
 	## Install terminfo and termcap precompiled definitions.
 	install -d $(DEBINSTALLTREE)/usr/lib
 	install -m 644 termcap  $(DEBINSTALLTREE)/usr/lib/xterm.termcap
