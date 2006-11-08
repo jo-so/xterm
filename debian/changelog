@@ -8,8 +8,11 @@ xterm (222-2) unstable; urgency=low
     postinst.  Thanks to Vincent Lefevre and Joey Hess (closes: #349462).
   * Merge changes by Branden Robinson from the 7.1 branch (on xterm 215).
     Therefore, this upload closes: #301173.
+  * Also add the changelog entry for xterm 208-3.1, so that the BTS doesn't
+    consider bugs reported against that version as "from other Branch".
+    The changes from this NMU have been obsoleted by 210-2.
 
- -- Julien Cristau <julien.cristau@ens-lyon.org>  Wed,  8 Nov 2006 06:33:08 +0100
+ -- Julien Cristau <julien.cristau@ens-lyon.org>  Wed,  8 Nov 2006 10:43:47 +0100
 
 xterm (222-1) unstable; urgency=low
 
@@ -80,6 +83,12 @@ xterm (210-1) unstable; urgency=low
    * Merge duplicate Provides fields
 
  -- David Nusinow <dnusinow@debian.org>  Mon, 13 Mar 2006 22:12:41 -0500
+ 
+xterm (208-3.1) unstable; urgency=low
+
+  * Emergency NMU to fix queue/accepted breakage: s/Provides/Replaces/
+
+ -- Adam Conrad <adconrad@0c3.net>  Thu, 19 Jan 2006 04:41:26 +1100
 
 xterm (208-3) unstable; urgency=low
 
