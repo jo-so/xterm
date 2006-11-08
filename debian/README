@@ -93,4 +93,4 @@ local:
   This contains Debian-specific programs and documentation that we include
   in our xterm binary packages; for instance, our UTF-8 wrapper.
 
-vim:set ai et sw=2 sts=2 tw=80:
+vim:set ai et sw=2 ts=2 tw=80:

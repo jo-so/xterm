@@ -195,4 +195,4 @@ patch-audit: prepare unpatch
 	  exit 1; \
 	fi
 
-# vim:set noet ai sts=8 sw=8 tw=0:
+# vim:set ai noet sw=8 ts=8 tw=0:

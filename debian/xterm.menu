@@ -1,4 +1,4 @@
-# $Id: xterm.menu 189 2005-06-11 00:04:27Z branden $
+# $Id$
 
 ?package(xterm):\
  needs="x11"\

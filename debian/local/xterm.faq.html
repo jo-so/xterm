@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
 <!--
  *****************************************************************************
- * Copyright 1997-2003,2004 by Thomas E. Dickey                              *
+ * Copyright 1997-2004,2005 by Thomas E. Dickey                              *
  * All Rights Reserved.                                                      *
  *                                                                           *
  * Permission to use, copy, modify, and distribute this software and its     *
@@ -20,7 +20,7 @@
  * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF   *
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.            *
  *****************************************************************************
-  $XTermId: xterm.faq.html,v 1.84 2004/07/13 21:47:03 tom Exp $
+  $XTermId: xterm.faq.html,v 1.90 2005/11/02 21:23:05 tom Exp $
   -->
 <HTML>
 <HEAD>
@@ -30,7 +30,7 @@
 </HEAD>
 <BODY>
 <HR>
-Copyright 1997-2003,2004 by Thomas E. Dickey
+Copyright 1997-2004,2005 by Thomas E. Dickey
 <HR>
 <H1>Contents</H1>
 <UL>
@@ -894,7 +894,7 @@ Hemant Shah &lt;shah@typhoon.xnet.com&gt;):
 	current_title=$(xprop -id $WINDOWID | grep WM_NAME | cut -d= -f2)
 </code></PRE>
 Here's another source of information:
-<a href="http://www.giccs.georgetown.edu/~ric/howto/Xterm-Title/">Xterm-Title HowTo</a>
+<a href="http://cns.georgetown.edu/~ric/howto/Xterm-Title/">Xterm-Title HowTo</a>
 
 <H2><A NAME="how2_blink">How do I make the cursor blink?</A></H2>
 Standard xterm does not implement a blinking cursor.
@@ -909,7 +909,6 @@ and XFree86 xterm
 <li>Starting xterm, or not
 <ul>
 <LI><A HREF="#no_ptys">Xterm does not run (no available pty's)</A>
-<LI><A HREF="#no_ncurses">I need libncurses.so.3.0</A>
 <LI><A HREF="#no_termcap">I need /etc/termcap</A>
 <LI><A HREF="#no_libpath">Why does $LD_LIBRARY_PATH get reset?</A>
 <LI><A HREF="#no_ls_and_e">Why do the -e and -ls options not work together?</A>
@@ -946,6 +945,7 @@ and XFree86 xterm
 <LI><A HREF="#xterm_resize">FVWM does weird things when I try to resize xterm</A>
 <LI><A HREF="#xterm_tite">Why doesn't the screen clear when running vi?</A>
 <LI><A HREF="#xterm_vite">Why is the cursor misplaced after running vi?</A>
+<LI><A HREF="#narrowproto">Why doesn't the scrollbar work?</A>
 </ul>
 <LI><A HREF="#warning_msg">What is this warning message?</A>
 </UL>
@@ -1143,7 +1143,7 @@ The relevant section of the app-default file looks like
 </code></pre>
 For example, a more-specific pattern for the resource name lets you override:
 <pre><code>
-	XTerm.VT100.translations:       #override \n\
+	XTerm*VT100.translations:       #override \n\
 		~Shift&lt;Key&gt;Home:  string(\033[1~)\n\
 		~Shift&lt;Key&gt;End:   string(\033[4~)\n\
 		~Shift&lt;Key&gt;Prior: string(\033[5~)\n\
@@ -1314,30 +1314,6 @@ the unshifted mouse button clicks for the application's use.
 Unless you have modified the treatment of the shifted mouse button events
 (e.g., with your window manager), you can always do cut/paste by pressing
 the shift key while clicking with the mouse.
-
-<H2><A NAME="no_ncurses">I need libncurses.so.3.0</A></H2>
-During initialization, xterm checks to see if the value of $TERM is
-legal, i.e., is defined via the termcap interface.
-Some people have linked xterm against ncurses, which provides a similar
-interface, since they do not want to package termcap on their system.
-<P>
-The libncurses.so.3.0 corresponds to ncurses 1.9.8a; while there have
-been interface changes to ncurses past this point (the current version of
-<A HREF="../ncurses/ncurses.faq.html#latest_version">ncurses</A>),
-the termcap interface should still be compatible.
-So (for xterm) it doesn't matter much which version of ncurses you have
-installed.  However, other applications may not work properly.
-Some people have advised just linking libncurses.so.2.0 to libncurses.so.3.0,
-but that won't work well at all (one person simply linked libncurses.so.3.0
-to the libtermcap.so, which may work...).
-A better solution would be to install the later version of ncurses,
-with a link (if you must) from the newer version to the older library.
-<P>
-Since there is little agreement on the set of shared libraries that
-are assumed to be present on the user's system, XFree86 distributes
-xterm statically linked against termcap because that is simplest,
-and because you lose functionality (the $TERMCAP variable) when linked
-against terminfo libraries such as ncurses.
 
 <H2><A NAME="no_libpath">Why does $LD_LIBRARY_PATH get reset?</A></H2>
 If xterm is running setuid (which is needed on some systems which have
@@ -1619,6 +1595,24 @@ changes the behavior of the cursor save/restore
 operations so they apply only to the current screen.
 That makes it less likely to misplace your cursor.
 
+<H2><A NAME="narrowproto">Why doesn't the scrollbar work?</A></H2>
+Originally xterm was built using imake rather than a configure script. 
+One feature of imake that is not possible to guess within the
+configure script is the wide-prototype compile-time definition
+NARROWPROTO.  When this is not set properly, the Athena widget
+scrollbars do not work properly.  xterm's configure script has a
+fallback case which allows disabling imake.  However, this is moot
+with the Xorg "modular" build, whose compiler options are unrelated to
+imake or older versions of any libraries that it may distribute.  In
+this case, the configure script needs some help.  Use this option to
+enable or disable NARROW proto (and disable imake with the
+--disable-imake option) to match the whims of Xorg hackers.
+<p>
+For instance
+<pre><code>
+	configure --disable-imake --disable-narrowproto
+</code></pre>
+
 <H2><A NAME="xterm_erase">Why doesn't my delete key work?</A></H2>
 This seems to be a problem with the older XFree86 release (3.1.2).
 I have picked up pieces of the story (xterm and the keyboard work as
@@ -1831,45 +1825,45 @@ You must have the <code>eightBitInput</code> resource set to do this.
 <PRE><code>
 	XTerm*internalBorder:  10
 	XTerm*highlightSelection:  true
-	XTerm*VT100*colorBDMode:  on
-	XTerm*VT100*colorBD:  blue
-	XTerm*VT100*colorULMode:  on
-	XTerm*VT100*colorUL:  magenta
-	XTerm.VT100.eightBitInput:  true
-	XTerm.VT100.eightBitOutput:  true
+	XTerm*VT100.colorBDMode:  on
+	XTerm*VT100.colorBD:  blue
+	XTerm*VT100.colorULMode:  on
+	XTerm*VT100.colorUL:  magenta
+	XTerm*VT100.eightBitInput:  true
+	XTerm*VT100.eightBitOutput:  true
 	XTerm*scrollBar:  true
-	XTerm.VT100.titeInhibit:  true
+	XTerm*VT100.titeInhibit:  true
 
-	XTerm.VT100*colorMode:  on
-	XTerm.VT100*dynamicColors:  on
+	XTerm*VT100.colorMode:  on
+	XTerm*VT100.dynamicColors:  on
 
 	! Uncomment this to use color for underline attribute
-	XTerm.VT100*colorULMode:  on
-	XTerm.VT100*underLine:  off
+	XTerm*VT100.colorULMode:  on
+	XTerm*VT100.underLine:  off
 
 	! Uncomment this to use color for the bold attribute
-	XTerm.VT100*colorBDMode: on
+	XTerm*VT100.colorBDMode: on
 
-	XTerm.VT100*color0: black
-	XTerm.VT100*color1: red3
-	XTerm.VT100*color2: green3
-	XTerm.VT100*color3: yellow3
-	XTerm.VT100*color4: blue3
-	XTerm.VT100*color5: magenta3
-	XTerm.VT100*color6: cyan3
-	XTerm.VT100*color7: gray90
-	XTerm.VT100*color8: gray30
-	XTerm.VT100*color9: red
-	XTerm.VT100*color10: green
-	XTerm.VT100*color11: yellow
-	XTerm.VT100*color12: blue
-	XTerm.VT100*color13: magenta
-	XTerm.VT100*color14: cyan
-	XTerm.VT100*color15: white
-	XTerm.VT100*colorUL: yellow
-	XTerm.VT100*colorBD: white
+	XTerm*VT100.color0: black
+	XTerm*VT100.color1: red3
+	XTerm*VT100.color2: green3
+	XTerm*VT100.color3: yellow3
+	XTerm*VT100.color4: blue3
+	XTerm*VT100.color5: magenta3
+	XTerm*VT100.color6: cyan3
+	XTerm*VT100.color7: gray90
+	XTerm*VT100.color8: gray30
+	XTerm*VT100.color9: red
+	XTerm*VT100.color10: green
+	XTerm*VT100.color11: yellow
+	XTerm*VT100.color12: blue
+	XTerm*VT100.color13: magenta
+	XTerm*VT100.color14: cyan
+	XTerm*VT100.color15: white
+	XTerm*VT100.colorUL: yellow
+	XTerm*VT100.colorBD: white
 
-	XTerm.VT100*cursorColor: lime green
+	XTerm*VT100.cursorColor: lime green
 </code>
 </PRE>
 XFree86 xterm comes with two copies of the resource file,
@@ -1902,12 +1896,12 @@ This resource makes the geometry apply to the menus as well as the VT100 widget:
 while this applies only to the VT100 widget
 (which is probably what you intended):
 <PRE><code>
-	XTerm.VT100*geometry: 80x24
+	XTerm.VT100.geometry: 80x24
 </code></PRE>
 or better yet (to allow for the toolbar option, which uses a level of
 widget hierarchy):
 <PRE><code>
-	XTerm*VT100*geometry: 80x24
+	XTerm*VT100.geometry: 80x24
 </code></PRE>
 
 <H2><A NAME="warning_msg">What is this warning message?</A></H2>
@@ -2239,7 +2233,7 @@ as the more widely known emulators.
 There are several variants on this: xterm adapted for Motif libraries.
 I have seen none that work properly:
 <UL>
-<LI><a href="http://camms1.caos.kun.nl/~schaft/mxterm/mxterm.html">MXTERM:
+<LI><a href="http://www.cmbi.kun.nl/~schaft/mxterm/mxterm.html">MXTERM:
 a motif Xterm with character attributes color rendered</a>
 I've noticed this one only recently.
 It is a reworking of the earlier patches for color_xterm

@@ -5,40 +5,37 @@
 # /usr/share/common-licenses/GPL or <http://www.gnu.org/copyleft/gpl.txt>.
 # Acknowledgements to Stephen Early, Mark Eichin, and Manoj Srivastava.
 
-# $Id: xterm.preinst.in 189 2005-06-11 00:04:27Z branden $
+# $Id$
 
 set -e
 
-THIS_PACKAGE=xterm
-THIS_SCRIPT=preinst
-
-#INCLUDE_SHELL_LIB#
-
 if [ "$1" = "upgrade" ] || [ "$1" = "install" ]; then
-  if dpkg --compare-versions "$2" lt "4.0.1-1"; then
-    # clean up after older alternative that used different path
-    if update-alternatives --display x-terminal-emulator |
-       fgrep -q /usr/bin/X11/xterm; then
-      update-alternatives --remove x-terminal-emulator /usr/bin/X11/xterm
+    if dpkg --compare-versions "$2" lt "4.0.1-1"; then
+        # Clean up after older alternative that used different path.
+        if update-alternatives --display x-terminal-emulator |
+          fgrep -q /usr/bin/X11/xterm; then
+            update-alternatives --remove x-terminal-emulator /usr/bin/X11/xterm
+        fi
     fi
-  fi
 
-  if dpkg --compare-versions "$2" lt "204"; then
-    # clean up after older alternative that used different path
-    if update-alternatives --display x-terminal-emulator |
-       fgrep -q /usr/X11R6/bin/xterm; then
-
-      update-alternatives --remove x-terminal-emulator /usr/X11R6/bin/koi8rxterm
-      update-alternatives --remove x-terminal-emulator /usr/X11R6/bin/uxterm
-      update-alternatives --remove x-terminal-emulator /usr/X11R6/bin/xterm
-      update-alternatives --remove x-terminal-emulator /usr/X11R6/bin/lxterm
-
+    if dpkg --compare-versions "$2" lt "204"; then
+        # Clean up after older alternative that used different path.
+        if update-alternatives --display x-terminal-emulator |
+          fgrep -q /usr/X11R6/bin/xterm; then
+            update-alternatives --remove x-terminal-emulator \
+              /usr/X11R6/bin/koi8rxterm
+            update-alternatives --remove x-terminal-emulator \
+              /usr/X11R6/bin/uxterm
+            update-alternatives --remove x-terminal-emulator \
+              /usr/X11R6/bin/xterm
+            update-alternatives --remove x-terminal-emulator \
+              /usr/X11R6/bin/lxterm
+        fi
     fi
-  fi
 fi
 
 #DEBHELPER#
 
 exit 0
 
-# vim:set ai et sts=2 sw=2 tw=0:
+# vim:set ai et sw=4 ts=4 tw=80:

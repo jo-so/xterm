@@ -15,4 +15,4 @@ xterm (204-0pre1) experimental; urgency=low
 
   $Id$
 
-# vim:set ai et sts=2 sw=2 tw=78:
+# vim:set ai et sw=2 ts=2 tw=78:

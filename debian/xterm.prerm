@@ -5,24 +5,19 @@
 # /usr/share/common-licenses/GPL or <http://www.gnu.org/copyleft/gpl.txt>.
 # Acknowledgements to Stephen Early, Mark Eichin, and Manoj Srivastava.
 
-# $Id: xterm.prerm.in 189 2005-06-11 00:04:27Z branden $
+# $Id$
 
 set -e
 
-THIS_PACKAGE=xterm
-THIS_SCRIPT=prerm
-
-#INCLUDE_SHELL_LIB#
-
 if [ "$1" = "remove" ] || [ "$1" = "deconfigure" ]; then
-  update-alternatives --remove x-terminal-emulator /usr/bin/koi8rxterm
-  update-alternatives --remove x-terminal-emulator /usr/bin/uxterm
-  update-alternatives --remove x-terminal-emulator /usr/bin/xterm
-  update-alternatives --remove x-terminal-emulator /usr/bin/lxterm
+    update-alternatives --remove x-terminal-emulator /usr/bin/koi8rxterm
+    update-alternatives --remove x-terminal-emulator /usr/bin/uxterm
+    update-alternatives --remove x-terminal-emulator /usr/bin/xterm
+    update-alternatives --remove x-terminal-emulator /usr/bin/lxterm
 fi
 
 #DEBHELPER#
 
 exit 0
 
-# vim:set ai et sts=2 sw=2 tw=0:
+# vim:set ai et sw=4 ts=4 tw=80:
