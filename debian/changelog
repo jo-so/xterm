@@ -1,19 +1,28 @@
 xterm (222-2) unstable; urgency=low
 
-  * Install all manpages with "1" as extension instead of "1x".  Also use
-    the x-terminal-emulator.1.gz slave alternative, instead of
+  [ Julien Cristau ]
+  * Install all manpages with "1" as extension instead of "1x"
+    (closes: #346377).
+  * Use the x-terminal-emulator.1.gz slave alternative, instead of
     x-terminal-emulator.1x.gz.  We also need to clean up the mess this wrong
     path caused, and make sure that the x-terminal-emulator.1.gz link in
     /usr/share/man/man1/ is still there.  If it disappeared, we add it in
     postinst.  Thanks to Vincent Lefevre and Joey Hess (closes: #349462).
-  * Merge changes by Branden Robinson from the 7.1 branch (on xterm 215).
-    Therefore, this upload closes: #301173.
   * Also add the changelog entry for xterm 208-3.1, so that the BTS doesn't
     consider bugs reported against that version as "from other Branch".
     The changes from this NMU have been obsoleted by 210-2.
   * Add patch 903 by Tim Pope <debian-bug@rebelongto.us> to not ignore the
     boldmode setting.  Thanks to Joey Hess <joeyh@debian.org> for reporting
     this issue and to Thomas Dickey for his comments (closes: #347790).
+
+  [ Branden Robinson ]
+  * Ship "Xterm Control Sequences" document again, in both GNU Roff and plain
+    text formats, and register the latter with doc-base.  (The former is
+    easily viewable in a terminal with "groff -Tutf8 ctlseqs.ms | more", so it
+    seems useful.)  (Closes: #301173)
+  * Update copy of XTerm FAQ to revision 1.90 (dated 2005-11-02).
+  * Resync koi8rxterm script with recent upstream changes to uxterm, upon
+    which it is based.
 
  -- Julien Cristau <julien.cristau@ens-lyon.org>  Fri, 10 Nov 2006 02:48:04 +0100
 
@@ -40,19 +49,6 @@ xterm (210-3.1) unstable; urgency=high
     (Closes: #384593).
 
  -- Christoph Berg <myon@debian.org>  Fri, 15 Sep 2006 16:18:06 +0200
-
-xterm (215-1) unstable; urgency=low
-
-  * Merge upstream release Patch #215 (released 2006-06-19).
-  * Ship "Xterm Control Sequences" document again, in both GNU Roff and plain
-    text formats, and register the latter with doc-base.  (The former is
-    easily viewable in a terminal with "groff -Tutf8 ctlseqs.ms | more", so it
-    seems useful.)  (Closes: #301173)
-  * Update copy of XTerm FAQ to revision 1.90 (dated 2005-11-02).
-  * Resync koi8rxterm script with recent upstream changes to uxterm, upon
-    which it is based.
-
- -- Branden Robinson <branden@debian.org>  Tue,  1 Aug 2006 12:42:13 -0400
 
 xterm (210-3) unstable; urgency=low
 
