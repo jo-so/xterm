@@ -1,3 +1,11 @@
+xterm (222-3) unstable; urgency=low
+
+  * Split xterm.doc-base in xterm.doc-base.faq and xterm.doc-base.ctlseqs, to
+    make the package installable again, thanks to Ryan Murray
+    (closes: #400375).
+
+ -- Julien Cristau <julien.cristau@ens-lyon.org>  Sat, 25 Nov 2006 20:35:12 +0100
+
 xterm (222-2) unstable; urgency=low
 
   [ Julien Cristau ]

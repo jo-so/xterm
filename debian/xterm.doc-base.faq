@@ -12,13 +12,3 @@ Files: /usr/share/doc/xterm/xterm.faq.gz
 Format: HTML
 Index: /usr/share/doc/xterm/xterm.faq.html
 Files: /usr/share/doc/xterm/xterm.faq.html
-
-Document: xterm-ctlseqs
-Title: Xterm Control Sequences
-Author: Edward Moy, Stephen Gildea, Thomas Dickey
-Abstract: This document describes the terminal control sequences that XTerm
- recognizes.
-Section: XShells
-
-Format: text
-Files: /usr/share/doc/xterm/ctlseqs.txt.gz
