@@ -1,5 +1,6 @@
-xterm (223-1) UNRELEASED; urgency=low
+xterm (223-1) unstable; urgency=low
 
+  [ Julien Cristau ]
   * New upstream release. Includes the following fixes for bugs reported in
     the Debian BTS:
     + add the Xaw scrollbar translations resource to the xterm manpage, add an
@@ -14,7 +15,7 @@ xterm (223-1) UNRELEASED; urgency=low
       bug exposed in patch #196 (closes: #397624).
    * The fix for #347790 is now included upstream.
 
- -- Julien Cristau <julien.cristau@ens-lyon.org>  Sun,  3 Dec 2006 00:37:54 +0100
+ -- David Nusinow <dnusinow@debian.org>  Mon,  4 Dec 2006 19:27:21 -0500
 
 xterm (222-3) unstable; urgency=low
 
