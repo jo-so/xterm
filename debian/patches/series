@@ -1,3 +1,2 @@
 900_debian_xterm.diff -p0
 901_xterm_manpage.diff -p0
-902_disallowWindowOps

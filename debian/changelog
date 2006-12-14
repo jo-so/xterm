@@ -1,3 +1,10 @@
+xterm (223-2) unstable; urgency=low
+
+  * No longer disable allowWindowOps in XTerm.ad, as commands are now
+    sanitized by xterm (closes: #402917).
+
+ -- Julien Cristau <julien.cristau@ens-lyon.org>  Thu, 14 Dec 2006 17:29:30 +0100
+
 xterm (223-1) unstable; urgency=low
 
   [ Julien Cristau ]
