@@ -7,9 +7,9 @@ This patch by Branden Robinson and David Martínez.
 
 Index: xterm.man
 ===================================================================
---- xterm.man.orig	2006-10-23 22:34:32.000000000 +0200
-+++ xterm.man	2006-10-23 23:57:04.000000000 +0200
-@@ -4368,10 +4368,10 @@
+--- xterm.man.orig	2007-02-11 23:53:23.000000000 +0100
++++ xterm.man	2007-02-11 23:53:49.000000000 +0100
+@@ -4415,10 +4415,10 @@
  .SH FILES
  The actual pathnames given may differ on your system.
  .TP 5

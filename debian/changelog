@@ -1,3 +1,20 @@
+xterm (224-1) UNRELEASED; urgency=low
+
+  * New upstream release.
+    + fix build for GNU/KFreeBSD (closes: #404111).
+    + undo a comparison in handle_translated_exposure which did not work
+      due  to  X server optimization. That caused the inner border to be
+      repainted  with  unexpected  colors when handling a repaint, e.g.,
+      after  switching to/from another workspace (closes: #401726).
+    + allow  -cr option to override cursor color when -ah option is used
+      (closes: #406502).
+    + add  a  note  in  xterm's  manpage explaining that the -bw (or -w)
+      option  is  only  used  by  the  window manager, if at all
+      (closes: #405043).
+  * Refresh patch 901_xterm_manpage.diff.
+
+ -- Julien Cristau <jcristau@debian.org>  Sun, 11 Feb 2007 23:54:56 +0100
+
 xterm (223-2) unstable; urgency=low
 
   * No longer disable allowWindowOps in XTerm.ad, as commands are now
