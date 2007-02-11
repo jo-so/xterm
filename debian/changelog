@@ -1,4 +1,4 @@
-xterm (224-1) UNRELEASED; urgency=low
+xterm (224-1) unstable; urgency=low
 
   * New upstream release.
     + fix build for GNU/KFreeBSD (closes: #404111).
@@ -14,7 +14,7 @@ xterm (224-1) UNRELEASED; urgency=low
   * Refresh patch 901_xterm_manpage.diff.
   * Change my email address in debian/control.
 
- -- Julien Cristau <jcristau@debian.org>  Mon, 12 Feb 2007 00:08:17 +0100
+ -- Julien Cristau <jcristau@debian.org>  Mon, 12 Feb 2007 00:14:06 +0100
 
 xterm (223-2) unstable; urgency=low
 
