@@ -1,3 +1,9 @@
+xterm (224-2) UNRELEASED; urgency=low
+
+  * Update and complete debian/copyright.
+
+ -- Julien Cristau <jcristau@debian.org>  Mon, 12 Feb 2007 06:43:57 +0100
+
 xterm (224-1) unstable; urgency=low
 
   * New upstream release.
