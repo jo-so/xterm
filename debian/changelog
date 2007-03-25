@@ -1,4 +1,4 @@
-xterm (225-1) UNRELEASED; urgency=low
+xterm (225-1) unstable; urgency=low
 
   * New upstream release.
     + add initialFont resource to xterm widget, like tek-widget
@@ -7,7 +7,7 @@ xterm (225-1) UNRELEASED; urgency=low
       xterm no longer match the documented behavior (closes: #412599).
   * Update and complete debian/copyright.
 
- -- Julien Cristau <jcristau@debian.org>  Sun, 25 Mar 2007 03:27:45 +0200
+ -- Julien Cristau <jcristau@debian.org>  Sun, 25 Mar 2007 19:18:41 +0200
 
 xterm (224-1) unstable; urgency=low
 
