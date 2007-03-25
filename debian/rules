@@ -89,7 +89,8 @@ $(STAMP_DIR)/configure: $(STAMP_DIR)/patch
 		--enable-256-color \
 		--prefix=/usr --exec-prefix=/usr --mandir=/usr/share/man \
 		--with-app-defaults=/etc/X11/app-defaults \
-		--disable-imake --enable-narrowproto
+		--disable-imake --enable-narrowproto --enable-exec-xterm \
+		$(confflags)
 	touch $@
 
 
