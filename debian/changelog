@@ -1,3 +1,10 @@
+xterm (225-2) unstable; urgency=low
+
+  * Remove debian/NEWS; the events it attested to (like the "upcoming 7.0
+    modularization" are no longer news, and are in the past.
+
+ -- Branden Robinson <branden@debian.org>  Sun,  8 Apr 2007 22:37:50 -0400
+
 xterm (225-1) unstable; urgency=low
 
   * New upstream release.
