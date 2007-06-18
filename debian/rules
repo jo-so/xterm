@@ -38,6 +38,9 @@ STAMP_DIR:=stampdir
 
 DEBINSTALLTREE:=$(CURDIR)/debian/tmp
 
+DESKTOP_FLAGS = --vendor debian \
+		--dir=$(DEBINSTALLTREE)/usr/share/applications
+
 # Set up the $(STAMP_DIR) directory.
 .PHONY: stampdir
 stampdir: $(STAMP_DIR)/stampdir
@@ -90,7 +93,7 @@ $(STAMP_DIR)/configure: $(STAMP_DIR)/patch
 		--prefix=/usr --exec-prefix=/usr --mandir=/usr/share/man \
 		--with-app-defaults=/etc/X11/app-defaults \
 		--disable-imake --enable-narrowproto --enable-exec-xterm \
-		$(confflags)
+		$(confflags) DESKTOP_FLAGS="$(DESKTOP_FLAGS)"
 	touch $@
 
 
@@ -117,7 +120,7 @@ install: build
 	dh_clean -k
 	dh_installdirs
 	# General installation
-	$(MAKE) install mandir=/usr/share/man/man1 libdir=/etc DESTDIR=$(DEBINSTALLTREE)
+	$(MAKE) install install-desktop mandir=/usr/share/man/man1 libdir=/etc DESTDIR=$(DEBINSTALLTREE)
 	
 	## Install lxterm command and manual page.
 	install -m 755 debian/local/lxterm $(DEBINSTALLTREE)/usr/bin
@@ -137,6 +140,7 @@ install: build
 	dh_installchangelogs
 	dh_installmenu
 	dh_install --sourcedir=debian/tmp --list-missing
+	dh_desktop
 	# Lintian overrides.
 	cp debian/xterm.overrides $(CURDIR)/debian/xterm/usr/share/lintian/overrides/xterm
 

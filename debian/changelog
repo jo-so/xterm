@@ -1,4 +1,4 @@
-xterm (226-1) UNRELEASED; urgency=low
+xterm (226-1) unstable; urgency=low
 
   [ Branden Robinson ]
   * Remove debian/NEWS; the events it attested to (like the "upcoming 7.0
@@ -8,10 +8,28 @@ xterm (226-1) UNRELEASED; urgency=low
   * Configure with --with-tty-group=tty, to prevent security problems in case
     of buggy build environment (closes: #349142).
   * New upstream release.
+    + fix  an  infinite  loop  when  showing  a  2-column character in a
+      1-column screen (closes: #426863).
+    + add  XF86Paste  and  SunPaste  to the default translations
+      (closes: #422521, patch by Bernhard R Link).
+    + improve  permissions  logic  when  closing pseudo-terminal
+      (closes: #12261, patch by Nathanael Nerode, analysis by Richard
+      Braakman).
+    + add  a check in case someone tries to call the popup-menu() action
+      on a menu which is not initialized (closes: #426364).
+    + fix error-checking on internal font switching for "Selection" menu
+      entry (closes: #421523).
+    + amend select/paste change from patch #225 by limiting it to
+      non-UTF-8/non-KOI8-R encoding (closes: #420974).
+    + add  workaround  for  groff  ".URL" codes which are not present in
+      some commonly-used bitmap fonts (closes: #418324).
   * Update reference to xlibs-data in xterm's description, refer to xbitmaps
     instead.
+  * Build-depend on desktop-file-utils to install the new desktop files for
+    xterm and uxterm, and change debian/rules and debian/xterm.install to
+    install these files and the icons.
 
- -- Julien Cristau <jcristau@debian.org>  Mon, 18 Jun 2007 11:33:39 +0100
+ -- Julien Cristau <jcristau@debian.org>  Mon, 18 Jun 2007 14:02:22 +0100
 
 xterm (225-1) unstable; urgency=low
 
