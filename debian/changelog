@@ -8,8 +8,10 @@ xterm (226-1) UNRELEASED; urgency=low
   * Configure with --with-tty-group=tty, to prevent security problems in case
     of buggy build environment (closes: #349142).
   * New upstream release.
+  * Update reference to xlibs-data in xterm's description, refer to xbitmaps
+    instead.
 
- -- Julien Cristau <jcristau@debian.org>  Sun, 17 Jun 2007 22:26:02 +0100
+ -- Julien Cristau <jcristau@debian.org>  Mon, 18 Jun 2007 11:33:39 +0100
 
 xterm (225-1) unstable; urgency=low
 
