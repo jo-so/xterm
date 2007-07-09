@@ -1,3 +1,10 @@
+xterm (226-2) UNRELEASED; urgency=low
+
+  * Fix debian/rules to not be confused by ~/.quiltrc or QUILT_PATCHES,
+    closes: #369920.
+
+ -- Brice Goglin <Brice.Goglin@ens-lyon.org>  Mon, 09 Jul 2007 19:45:10 +0200
+
 xterm (226-1) unstable; urgency=low
 
   [ Branden Robinson ]

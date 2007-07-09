@@ -11,6 +11,11 @@
 # debhelper
 export DH_OPTIONS
 
+# force quilt to not use ~/.quiltrc
+QUILT = quilt --quiltrc /dev/null
+# force QUILT_PATCHES to the default in case it is exported in the environment
+QUILT_PATCHES = patches/
+
 DEB_HOST_GNU_TYPE ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
 DEB_BUILD_GNU_TYPE ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
 
@@ -63,7 +68,7 @@ $(STAMP_DIR)/prepare: $(STAMP_DIR)/stampdir
 patch: $(STAMP_DIR)/patch
 $(STAMP_DIR)/patch: $(STAMP_DIR)/prepare
 	@echo -n "Applying patches... "
-	@if quilt push -a -v > $(STAMP_DIR)/log/patch 2>&1; then \
+	@if $(QUILT) push -a -v 2>&1 | tee $(STAMP_DIR)/log/patch; then \
 	  echo "successful."; \
 	else \
 	  echo "failed! (Check $(STAMP_DIR)/log/patch for details)"; \
@@ -75,9 +80,10 @@ $(STAMP_DIR)/patch: $(STAMP_DIR)/prepare
 # Revert all patches to the upstream source.
 .PHONY: unpatch
 unpatch: 
+	rm -f $(STAMP_DIR)/patch
 	@if [ -e $(STAMP_DIR)/patches/applied-patches ]; then \
 	  echo -n "Unapplying patches... "; \
-	  if quilt pop -a > $(STAMP_DIR)/log/unpatch 2>&1; then \
+	  if $(QUILT) pop -a 2>&1 | tee $(STAMP_DIR)/log/unpatch; then \
 	    echo " successful."; \
 	  else \
 	    echo " failed! (Check $(STAMP_DIR)/log/unpatch for details)"; \
@@ -180,17 +186,17 @@ binary-indep:
 patch-audit: prepare unpatch
 	touch stampdir/log/patch; \
 	FUZZY=no; \
-	while [ -n "`quilt next`" ]; do \
-	  RESULT=`quilt push -v | tee -a stampdir/log/patch | grep ^Hunk | sed 's/^Hunk.*\(succeeded\|FAILED\).*/\1/'`;\
+	while [ -n "`$(QUILT) next`" ]; do \
+	  RESULT=`$(QUILT) push -v | tee -a stampdir/log/patch | grep ^Hunk | sed 's/^Hunk.*\(succeeded\|FAILED\).*/\1/'`;\
 	  case "$$RESULT" in \
 	    succeeded) \
-	      echo "The patch is fuzzy: `quilt top`"; \
-		  echo "The patch is fuzzy: `quilt top`" > stampdir/log/`quilt top`; \
+	      echo "The patch is fuzzy: `$(QUILT) top`"; \
+		  echo "The patch is fuzzy: `$(QUILT) top`" > stampdir/log/`$(QUILT) top`; \
 	      FUZZY=yes; \
 	    ;; \
 	    FAILED) \
-	      echo "The patch is broken: `quilt next`"; \
-		  echo "The patch is fuzzy: `quilt next`" > stampdir/log/`quilt next`; \
+	      echo "The patch is broken: `$(QUILT) next`"; \
+		  echo "The patch is fuzzy: `$(QUILT) next`" > stampdir/log/`$(QUILT) next`; \
 	      exit 1; \
 	    ;; \
 	  esac; \
