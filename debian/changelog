@@ -1,3 +1,14 @@
+xterm (228-1) unstable; urgency=low
+
+  * New upstream release
+    + fix missing assignment for UTF-8 parsing in widget initialization
+      (closes: #403360).
+    + correct index expression used to set line-wrapping flag, making
+      selection from scrollback work consistently (closes: #430121).
+  * Refresh 901_xterm_manpage.diff.
+
+ -- Julien Cristau <jcristau@debian.org>  Mon, 23 Jul 2007 03:43:32 +0200
+
 xterm (226-1) unstable; urgency=low
 
   [ Branden Robinson ]
