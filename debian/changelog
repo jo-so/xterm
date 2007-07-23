@@ -1,11 +1,16 @@
 xterm (228-1) unstable; urgency=low
 
+  [ Julien Cristau ]
   * New upstream release
     + fix missing assignment for UTF-8 parsing in widget initialization
       (closes: #403360).
     + correct index expression used to set line-wrapping flag, making
       selection from scrollback work consistently (closes: #430121).
   * Refresh 901_xterm_manpage.diff.
+
+  [ Brice Goglin ]
+  * Fix debian/rules to not be confused by ~/.quiltrc or QUILT_PATCHES,
+    closes: #369920.
 
  -- Julien Cristau <jcristau@debian.org>  Mon, 23 Jul 2007 03:43:32 +0200
 
