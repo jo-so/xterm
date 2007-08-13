@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
 Uploaders: David Martínez Moreno <ender@debian.org>, David Nusinow <dnusinow@debian.org>, Julien Cristau <jcristau@debian.org>
 Standards-Version: 3.7.2
-Build-Depends: libncurses5-dev | libncurses-dev, libxft-dev (>> 2.1.2), libxrender-dev (>> 1:0.9.0), libxaw7-dev, debhelper (>= 4.1.16), quilt, lynx, desktop-file-utils
+Build-Depends: libncurses5-dev | libncurses-dev, libxft-dev (>> 2.1.2), libxrender-dev (>> 1:0.9.0), libxaw7-dev, debhelper (>= 4.1.16), quilt, lynx
 
 # Reasons for Build-Depends:
 #

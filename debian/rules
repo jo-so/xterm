@@ -130,7 +130,7 @@ install: build
 	dh_clean -k
 	dh_installdirs
 	# General installation
-	$(MAKE) install install-desktop mandir=/usr/share/man/man1 libdir=/etc DESTDIR=$(DEBINSTALLTREE)
+	$(MAKE) install mandir=/usr/share/man/man1 libdir=/etc DESTDIR=$(DEBINSTALLTREE)
 	
 	## Install lxterm command and manual page.
 	install -m 755 debian/local/lxterm $(DEBINSTALLTREE)/usr/bin
@@ -150,7 +150,6 @@ install: build
 	dh_installchangelogs
 	dh_installmenu
 	dh_install --sourcedir=debian/tmp --list-missing
-	dh_desktop
 	# Lintian overrides.
 	cp debian/xterm.overrides $(CURDIR)/debian/xterm/usr/share/lintian/overrides/xterm
 

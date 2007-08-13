@@ -4,8 +4,10 @@ xterm (229-1) UNRELEASED; urgency=low
   * New upstream release
     + undo an incorrect fix for a memory leak in patch #209
       (closes: #435858).
+  * Stop installing the .desktop files and adapt xterm.menu to the new menu
+    structure.
 
- -- Julien Cristau <jcristau@debian.org>  Mon, 13 Aug 2007 01:59:47 +0200
+ -- Julien Cristau <jcristau@debian.org>  Mon, 13 Aug 2007 02:11:11 +0200
 
 xterm (228-1) unstable; urgency=low
 
