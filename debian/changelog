@@ -1,4 +1,4 @@
-xterm (229-1) UNRELEASED; urgency=low
+xterm (229-1) unstable; urgency=low
 
   * Fix typo in uxterm(1) (LP: #128136).
   * New upstream release
@@ -9,7 +9,7 @@ xterm (229-1) UNRELEASED; urgency=low
   * Use a separate build dir.
   * Build with -Wall.
 
- -- Julien Cristau <jcristau@debian.org>  Mon, 13 Aug 2007 12:14:20 +0200
+ -- Julien Cristau <jcristau@debian.org>  Mon, 13 Aug 2007 16:10:01 +0200
 
 xterm (228-1) unstable; urgency=low
 
