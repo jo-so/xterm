@@ -1,8 +1,11 @@
-xterm (228-2) UNRELEASED; urgency=low
+xterm (229-1) UNRELEASED; urgency=low
 
   * Fix typo in uxterm(1) (LP: #128136).
+  * New upstream release
+    + undo an incorrect fix for a memory leak in patch #209
+      (closes: #435858).
 
- -- Julien Cristau <jcristau@debian.org>  Sat, 28 Jul 2007 23:08:10 +0200
+ -- Julien Cristau <jcristau@debian.org>  Mon, 13 Aug 2007 01:59:47 +0200
 
 xterm (228-1) unstable; urgency=low
 
