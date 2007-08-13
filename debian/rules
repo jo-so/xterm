@@ -25,10 +25,11 @@ else
 	confflags += --build $(DEB_BUILD_GNU_TYPE) --host $(DEB_HOST_GNU_TYPE)
 endif
 
+CFLAGS = -g -Wall
 ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
-	CXXFLAGS += -O0
+	CFLAGS += -O0
 else
-	CXXFLAGS += -O2
+	CFLAGS += -O2
 endif
 
 # Figure out who's building this package.
@@ -105,7 +106,7 @@ $(STAMP_DIR)/configure: $(STAMP_DIR)/patch
 		--prefix=/usr --exec-prefix=/usr --mandir=/usr/share/man \
 		--with-app-defaults=/etc/X11/app-defaults \
 		--disable-imake --enable-narrowproto --enable-exec-xterm \
-		$(confflags) DESKTOP_FLAGS="$(DESKTOP_FLAGS)"
+		$(confflags) DESKTOP_FLAGS="$(DESKTOP_FLAGS)" CFLAGS="$(CFLAGS)"
 	touch $@
 
 

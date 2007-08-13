@@ -7,8 +7,9 @@ xterm (229-1) UNRELEASED; urgency=low
   * Stop installing the .desktop files and adapt xterm.menu to the new menu
     structure.
   * Use a separate build dir.
+  * Build with -Wall.
 
- -- Julien Cristau <jcristau@debian.org>  Mon, 13 Aug 2007 12:00:25 +0200
+ -- Julien Cristau <jcristau@debian.org>  Mon, 13 Aug 2007 12:14:20 +0200
 
 xterm (228-1) unstable; urgency=low
 
