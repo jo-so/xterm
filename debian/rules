@@ -98,7 +98,9 @@ unpatch:
 configure: $(STAMP_DIR)/patch $(STAMP_DIR)/configure
 $(STAMP_DIR)/configure: $(STAMP_DIR)/patch
 	dh_testdir
-	./configure --enable-logging --enable-wide-chars --enable-luit \
+	[ -d obj-$(DEB_BUILD_GNU_TYPE) ] || mkdir obj-$(DEB_BUILD_GNU_TYPE)
+	cd obj-$(DEB_BUILD_GNU_TYPE) && \
+	../configure --enable-logging --enable-wide-chars --enable-luit \
 		--with-tty-group=tty --enable-256-color \
 		--prefix=/usr --exec-prefix=/usr --mandir=/usr/share/man \
 		--with-app-defaults=/etc/X11/app-defaults \
@@ -111,7 +113,7 @@ $(STAMP_DIR)/configure: $(STAMP_DIR)/patch
 build: $(STAMP_DIR)/build
 $(STAMP_DIR)/build: $(STAMP_DIR)/configure debian/local/xterm.faq.gz
 	dh_testdir
-	$(MAKE)
+	cd obj-$(DEB_BUILD_GNU_TYPE) && $(MAKE)
 	touch $@
 
 .PHONY: clean
@@ -120,7 +122,7 @@ clean: unpatch
 	dh_testroot
 	rm -f .pc patches
 	rm -rf $(STAMP_DIR)
-	-$(MAKE) distclean
+	rm -rf obj-$(DEB_BUILD_GNU_TYPE)
 	dh_clean debian/local/xterm.faq.gz
 
 .PHONY: install
@@ -130,6 +132,7 @@ install: build
 	dh_clean -k
 	dh_installdirs
 	# General installation
+	cd obj-$(DEB_BUILD_GNU_TYPE) && \
 	$(MAKE) install mandir=/usr/share/man/man1 libdir=/etc DESTDIR=$(DEBINSTALLTREE)
 	
 	## Install lxterm command and manual page.
