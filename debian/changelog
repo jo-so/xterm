@@ -9,8 +9,10 @@ xterm (230-1) UNRELEASED; urgency=low
       (closes: #456236)
     + fix an ifdef in logic for selecting regular expressions while in a
       narrow-character locale (closes: #449227)
+  * koi8rxterm, its manpage and app-defaults file, and the uxterm manpage are
+    now upstream, so remove our versions.
 
- -- Julien Cristau <jcristau@debian.org>  Wed, 02 Jan 2008 20:07:29 +0100
+ -- Julien Cristau <jcristau@debian.org>  Wed, 02 Jan 2008 22:15:47 +0100
 
 xterm (229-1) unstable; urgency=low
 
