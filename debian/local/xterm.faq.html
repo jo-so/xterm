@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
 <!--
  *****************************************************************************
- * Copyright 1997-2004,2005 by Thomas E. Dickey                              *
+ * Copyright 1997-2005,2007 by Thomas E. Dickey                              *
  * All Rights Reserved.                                                      *
  *                                                                           *
  * Permission to use, copy, modify, and distribute this software and its     *
@@ -20,7 +20,7 @@
  * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF   *
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.            *
  *****************************************************************************
-  $XTermId: xterm.faq.html,v 1.90 2005/11/02 21:23:05 tom Exp $
+  $XTermId: xterm.faq.html,v 1.99 2007/11/29 22:26:28 tom Exp $
   -->
 <HTML>
 <HEAD>
@@ -30,7 +30,7 @@
 </HEAD>
 <BODY>
 <HR>
-Copyright 1997-2004,2005 by Thomas E. Dickey
+Copyright 1997-2005,2007 by Thomas E. Dickey
 <HR>
 <H1>Contents</H1>
 <UL>
@@ -822,9 +822,8 @@ and the script:
 </code></pre>
 
 <H2><A NAME="how2_title">How do I set the title?</A></H2>
-The control sequences are documented in
-<a href="ftp://invisible-island.net/xterm/ctlseqs.txt.gz">ctlseqs.ms</a>;
-a copy is contained in the <A HREF="#latest_version">xterm.tar.gz</A> file.
+The control sequences for doing this
+are documented in <a href="#ctlseqs_ms">ctlseqs.ms</a>.
 <P>
 The usual context for this question is setting the title according to
 the current working directory.
@@ -2134,14 +2133,48 @@ interpreted by the emulator.
 <p>
 But it suffices for vi.
 <p>
-Even the most recent GNOME Terminal (version 1.4.0.4, late 2001)
-does not implement a complete vt102: it is missing several features
+A more recent GNOME Terminal (version 1.4.0.4, late 2001)
+did not implement a complete vt102: it was missing several features
 which can be demonstrated in
 <A HREF="../vttest/vttest.html">vttest</A>).
 Most of the bugs in the Device Attributes
 responses remain, but it works a little better with vim.
 However, there are problems with the alternate screen that show up with vim.
 Again, these can be demonstrated with vttest (menu 11.6.3 in the 20011130 snapshot).
+<p>
+The documentation for GNOME terminal asserts:
+<blockquote>
+GNOME Terminal emulates the xterm application developed by the X Consortium. 
+In turn, the xterm application emulates the DEC VT102 terminal and also
+supports the DEC VT220 escape sequences.  An escape sequence is a series of
+characters that starts with the Esc character.  GNOME Terminal accepts all of
+the escape sequences that the VT102 and VT220 terminals use for functions such
+as to position the cursor and to clear the screen.
+</blockquote>
+<p>
+That sounds fine, except that it is both inaccurate and misleading:
+<dl>
+<dt>inaccurate
+<dd>combining the "X Consortium" and "DEC VT220", for example, since
+that was done after the demise of said organization.
+<p>
+It emulates a <em>subset</em> of VT100,
+lacks support for most of the VT220 control sequences (including
+some used for positioning the cursor) that are not recognized by a VT100.
+<dt>misleading
+<dd>as noted in <a href="#ctlseqs_ms">Xterm Control Sequences</a>,
+xterm (mostly after "X Consortium") supports control sequences which are
+not VT100/VT220.
+GNOME Terminal implements many of these, but not all.
+</dl>
+<p>
+Perhaps that was unintentional - GNOME developers do not appear to document
+what their program <em>does</em> outside of that remark.
+However, an inspection of the changelog for libvte does show that
+most of the borrowing from xterm is cited in an oblique manner - not
+once mentioning XFree86 for example, leaving the impression (as indicated
+by "X Consortium") that all of the work on xterm was done before development
+of GNOME Terminal commenced.
 
 <H3><A NAME="bug_multignome">MULTI GNOME TERMINAL (MGT)</A>
 <A HREF="http://multignometerm.sourceforge.net/">link</A></H3>
@@ -2159,8 +2192,8 @@ This is based on the XFree86 source.
 <H3><A NAME="bug_konsole">KONSOLE</A>
 <a href="http://www.kde.org/">link</a></H3>
 More than just a rewrite of <a href="#bug_kvt">kvt</a> into C++.
-But there are several incompatibilities between konsole 1.0.2 (late 2001)
-and xterm:
+But there are several incompatibilities between konsole
+(noted with version 1.0.2 in late 2001) and xterm:
 <ul>
   <li>none of the selections of keyboard mappings match the actual behavior
       of xterm (a few come close, but do so by matching the terminfo
@@ -2181,6 +2214,32 @@ and xterm:
       does not save and restore the cursor,
       causing the cursor to be in unexpected locations
       after exiting a fullscreen application such as vi.
+</ul>
+The problems with setmode 1049 were fixed after some time;
+other issues linger on.
+<p>
+Like <a href="#bug_gnometerm">GNOME Terminal</a>,
+konsole's documentation is incomplete and inaccurate.
+This gem from its handbook illustrates the problem:
+<blockquote>
+After a decade, Konsole is the first rewrite from the ground up.  While xterm
+has definitely been hacked to death (its README begins with the words Abandon
+All Hope, Ye Who Enter Here), Konsole offers a fresh start using contemporary
+technologies and understanding of X.
+</blockquote>
+The problem:
+<ul>
+<li>the remark was apparently written in 1997.
+It was inaccurate at that time, since it disregards
+the earlier xvt/rxvt applications.
+Limiting it only to a plain statement that konsole was a rewrite of
+<a href="#bug_kvt">kvt</a> would have been more accurate.
+Lacking that context, we find nonfactual articles such as
+<a href="http://everything2.com/index.pl?node=Konsole">this</a> on the net.
+<li>for those lacking a proper education, the README was apparently intended
+to be a humorous reference to Dante's <em>Inferno</em>.
+<li>reading konsole's source code and considering "hacked to death"
+can provide some occasion for humor.  Enjoy.
 </ul>
 
 <H3><A NAME="bug_kterm">KTERM</A>
@@ -2212,8 +2271,7 @@ operations that save/restore the cursor position.
 <H3><A NAME="bug_mterm">MTERM</A></H3>
 There are a few variants of this: the xterm bundled with some Motif clients
 is more common.
-More interesting, however is one (not Motif)
-which is not readily available any longer, attributed to "Der Mouse".
+More interesting, however is one (not Motif), attributed to "Der Mouse".
 <blockquote>
    (mouse@Lightning.McRCIM.McGill.EDU)
    Available: larry.mcrcim.mcgill.edu (132.206.1.1) in
@@ -2222,6 +2280,7 @@ which is not readily available any longer, attributed to "Der Mouse".
 I saw only an incomplete version of this while it was advertised
 in the mid-90's.
 It is available by email from &lt;mouse@Rodents.Montreal.QC.CA&gt;.
+or via <a href="ftp://ftp.rodents.montreal.qc.ca/mouse/X/mterm.src/">ftp</a>.
 This is not a patched version of xterm,
 though it was apparently written, like rxvt, to emulate vt100's.
 While it does have some interesting features (such as blinking characters),
@@ -2384,7 +2443,7 @@ all you need to do is type
 </code></PRE>
 I have written a simple <EM>configure</EM> script for xterm which uses imake
 (or <EM>xmkmf</EM>) to generate a Makefile from the Makefile.in.
-I plan to restructure xterm to eliminate the hardcoded
+I have restructured xterm to eliminate most hardcoded
 <code>#ifdef</code>'s, replacing them with definitions that can be derived
 with the configuration script.
 The <EM>configure</EM> script is more flexible than <EM>xmkmf</EM>, since it
@@ -2395,9 +2454,8 @@ Type
 </PRE>
 to get a list of options.
 <P>
-Though I plan to replace the hardcoded ifdef's with
-autoconfigured values, it will still continue to build properly with the imake environment,
-since that is how large distributions incorporate xterm.
+Though I have replaced most hardcoded ifdef's with autoconfigured values,
+it will still continue to build properly with the imake environment.
 
 <H2><A NAME="report_bugs">How do I report bugs?</A></H2>
 You should report bugs to
@@ -2410,26 +2468,45 @@ See also
 <H1><A NAME="more_info">Additional Information</A></H1>
 There appears to be no comprehensive source of information on xterm
 better than the documentation which comes with the source code.
+
+<h2><a name="other_sites">Other Sites</a></h2>
 I have found Richard Shuford's
 <a href="http://www.cs.utk.edu/~shuford/terminal_index.html">archive</a>
 to be invaluable for notes on the DEC VT220 and related terminals.
 Though not available at the time that I was collecting most of my notes,
 <a href="http://vt100.net">VT100.net</a> is also a good source of primary
 information.
+
+<h2><a name="xterm_man">The XTerm Manual</a></h2>
 <p>
 The command-line options, X resources and similar configurable options
 of xterm are documented in the manual page.
+<p>
+Here are copies of the file in various forms:
+<a href="http://invisible-island.net/xterm/manpage/xterm.html">html</a>,
+<a href="http://invisible-island.net/xterm/manpage/xterm.pdf">pdf</a> and
+<a href="http://invisible-island.net/xterm/manpage/xterm.txt">text</a>.
+
+<h2><a name="ctlseqs_ms">Xterm Control Sequences</a></h2>
 Control sequences, i.e., programming information are in the
-<code>ctlseqs.ms</code> file which I bundle with the program source.
+<code>ctlseqs.ms</code> file which I bundle with the
+<A HREF="#latest_version">program source</a>.
 (It used to be in the same directory in the X distribution, but was moved
-to a difference part of the tree some time ago).  Note that you must format
+to a different part of the tree long ago).
+Note that you must format
 this file with different options than a manpage, e.g.,
 <pre><code>
 	tbl ctlseqs.ms | nroff -ms &gt;ctlseqs.txt
 	tbl ctlseqs.ms | groff -ms &gt;ctlseqs.ps
 </code></pre>
-As a PostScript file, the individual letters of the control sequences are
+As a PostScript or PDF file,
+the individual letters of the control sequences are
 all boxed, for emphasis, but I find the text file equally readable.
+<p>
+Here are copies of the file in various forms:
+<a href="http://invisible-island.net/xterm/ctlseqs/ctlseqs.html">html</a>,
+<a href="http://invisible-island.net/xterm/ctlseqs/ctlseqs.pdf">pdf</a> and
+<a href="http://invisible-island.net/xterm/ctlseqs/ctlseqs.txt">text</a>.
 
 <H1><A NAME="future_work">Ongoing/future work</A></H1>
 <UL>

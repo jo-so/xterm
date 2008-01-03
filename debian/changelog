@@ -12,8 +12,9 @@ xterm (230-1) unstable; urgency=low
   * koi8rxterm, its manpage and app-defaults file, and the uxterm manpage are
     now upstream, so remove our versions.
   * Bump Standards-Version to 3.7.3 (no changes).
+  * Update copy of XTerm FAQ to revision 1.99 (dated 2007-11-29).
 
- -- Julien Cristau <jcristau@debian.org>  Wed, 02 Jan 2008 22:17:12 +0100
+ -- Julien Cristau <jcristau@debian.org>  Thu, 03 Jan 2008 12:07:38 +0100
 
 xterm (229-1) unstable; urgency=low
 
