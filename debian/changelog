@@ -10,6 +10,8 @@ xterm (232-1) UNRELEASED; urgency=low
     + add pointerMode resource to control whether and when the pointer cursor
       is hidden as the user types; also fix it so it's really hidden instead
       of showing a black dot (closes: #460545)
+    + add limit-checks to tabs.c, increase maximum column for setting
+      tab-stops from 320 to 1024 (closes: #462621)
   * Set pointerMode to "never" by default, to restore pre-230 behaviour.
     Document that change in xterm.man (new patch 902_pointermode_never.diff).
   * Look for luit in /usr/bin, not /usr/X11R6/bin.
