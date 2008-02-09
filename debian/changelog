@@ -14,6 +14,8 @@ xterm (232-1) UNRELEASED; urgency=low
     Document that change in xterm.man (new patch 902_pointermode_never.diff).
   * Look for luit in /usr/bin, not /usr/X11R6/bin.
   * Refresh patches.
+  * debian/control: luit is in x11-utils now, update Recommends and
+    Description.
 
  -- Julien Cristau <jcristau@debian.org>  Sat, 09 Feb 2008 02:11:30 +0100
 

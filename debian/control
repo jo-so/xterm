@@ -89,7 +89,7 @@ Build-Depends: libncurses5-dev | libncurses-dev, libxft-dev (>> 2.1.2), libxrend
 Package: xterm
 Architecture: any
 Depends: xbitmaps, ${shlibs:Depends}
-Recommends: xutils
+Recommends: x11-utils | xutils
 Suggests: xfonts-cyrillic
 Provides: x-terminal-emulator
 Description: X terminal emulator
@@ -101,7 +101,7 @@ Description: X terminal emulator
  This package provides four commands: xterm, which is the traditional
  terminal emulator; uxterm, which is a wrapper around xterm that is
  intelligent about locale settings (especially those which use the UTF-8
- character encoding), but which requires the luit program from the xutils
+ character encoding), but which requires the luit program from the x11-utils
  package; koi8rxterm, a wrapper similar to uxterm for locales that use the
  KOI8-R character set; and lxterm, a simple wrapper that chooses which of the
  previous commands to execute based on the user's locale settings.
