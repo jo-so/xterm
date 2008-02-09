@@ -23,11 +23,9 @@ Make Debian-specific tweaks to xterm:
 
 This patch by Branden Robinson.
 
-Index: termcap
-===================================================================
---- termcap.orig	2007-06-17 22:24:53.000000000 +0100
-+++ termcap	2007-06-17 22:24:57.000000000 +0100
-@@ -73,6 +73,14 @@
+--- termcap.orig
++++ termcap
+@@ -71,6 +71,14 @@
  	:so=\E[7m:sr=\EM:st=\EH:te=\E[?1049l:ti=\E[?1049h:\
  	:ue=\E[24m:up=\E[A:us=\E[4m:ve=\E[?25h:vi=\E[?25l:
  
@@ -42,7 +40,7 @@ Index: termcap
  # The xterm-new description has all of the features, but is not completely
  # compatible with vt220.  If you are using a Sun or PC keyboard, set the
  # sunKeyboard resource to true:
-@@ -234,5 +242,6 @@
+@@ -232,5 +240,6 @@
  # is widely used for a variety of incompatible terminal emulations including
  # color_xterm and rxvt.
  v0|xterm|X11 terminal emulator:\
@@ -50,11 +48,9 @@ Index: termcap
 +	:tc=xterm-debian:
 +#	:tc=xterm-new:
  #	:tc=xterm-r6:
-Index: terminfo
-===================================================================
---- terminfo.orig	2007-06-17 22:24:53.000000000 +0100
-+++ terminfo	2007-06-17 22:24:57.000000000 +0100
-@@ -885,6 +885,13 @@
+--- terminfo.orig
++++ terminfo
+@@ -955,6 +955,13 @@
  	u8=\E[?1;2c,
  	u9=\E[c,
  	vpa=\E[%i%p1%dd,
@@ -68,7 +64,7 @@ Index: terminfo
  #
  # The xterm-new description has all of the features, but is not completely
  # compatible with vt220.  If you are using a Sun or PC keyboard, set the
-@@ -1664,5 +1671,6 @@
+@@ -1935,5 +1942,6 @@
  # is widely used for a variety of incompatible terminal emulations including
  # color_xterm and rxvt.
  xterm|X11 terminal emulator,
@@ -76,10 +72,8 @@ Index: terminfo
 +	use=xterm-debian,
 +#	use=xterm-new,
  #	use=xterm-r6,
-Index: XTerm.ad
-===================================================================
---- XTerm.ad.orig	2007-06-17 22:24:53.000000000 +0100
-+++ XTerm.ad	2007-06-17 22:24:57.000000000 +0100
+--- XTerm.ad.orig
++++ XTerm.ad
 @@ -116,6 +116,10 @@
  *tek4014*font3: 6x13
  *tek4014*fontSmall: 6x10
@@ -91,10 +85,8 @@ Index: XTerm.ad
  ! If xterm is built with a toolbar, the widget hierarchy looks like this,
  ! showing widget name / class names.  The complete menu hierarchy is built
  ! at startup because it is needed to make the layout work for the menubar:
-Index: XTerm-col.ad
-===================================================================
---- XTerm-col.ad.orig	2007-06-17 22:24:53.000000000 +0100
-+++ XTerm-col.ad	2007-06-17 22:24:57.000000000 +0100
+--- XTerm-col.ad.orig
++++ XTerm-col.ad
 @@ -7,9 +7,9 @@
  *VT100*boldColors: on
  *VT100*dynamicColors: on

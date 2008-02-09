@@ -25,7 +25,7 @@ else
 	confflags += --build $(DEB_BUILD_GNU_TYPE) --host $(DEB_HOST_GNU_TYPE)
 endif
 
-CFLAGS = -g -Wall
+CFLAGS = -g -Wall -DDEF_POINTER_MODE=pNever
 ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
 	CFLAGS += -O0
 else
@@ -106,7 +106,8 @@ $(STAMP_DIR)/configure: $(STAMP_DIR)/patch
 		--prefix=/usr --exec-prefix=/usr --mandir=/usr/share/man \
 		--with-app-defaults=/etc/X11/app-defaults \
 		--disable-imake --enable-narrowproto --enable-exec-xterm \
-		$(confflags) DESKTOP_FLAGS="$(DESKTOP_FLAGS)" CFLAGS="$(CFLAGS)"
+		$(confflags) DESKTOP_FLAGS="$(DESKTOP_FLAGS)" \
+		CFLAGS="$(CFLAGS)" LUIT=/usr/bin/luit
 	touch $@
 
 

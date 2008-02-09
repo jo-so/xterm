@@ -1,3 +1,22 @@
+xterm (232-1) UNRELEASED; urgency=low
+
+  * New upstream release.
+    + corrected logic in a font-cache used for reverse-video
+      (closes: #404079)
+    + allow building with configure options --disable-ansi-color and
+      --disable-leaks (closes: #459817)
+    + allow building with configure options --enable-wide-chars and
+      --disable-c1-print (closes: #459816)
+    + add pointerMode resource to control whether and when the pointer cursor
+      is hidden as the user types; also fix it so it's really hidden instead
+      of showing a black dot (closes: #460545)
+  * Set pointerMode to "never" by default, to restore pre-230 behaviour.
+    Document that change in xterm.man (new patch 902_pointermode_never.diff).
+  * Look for luit in /usr/bin, not /usr/X11R6/bin.
+  * Refresh patches.
+
+ -- Julien Cristau <jcristau@debian.org>  Sat, 09 Feb 2008 02:11:30 +0100
+
 xterm (231-1) unstable; urgency=low
 
   * New upstream release
