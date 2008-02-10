@@ -18,6 +18,8 @@ xterm (232-1) UNRELEASED; urgency=low
   * Refresh patches.
   * debian/control: luit is in x11-utils now, update Recommends and
     Description.
+  * Add Vcs-* and Homepage fields in debian/control.  Thanks, Joey Hess!
+    (closes: #464947)
 
  -- Julien Cristau <jcristau@debian.org>  Sat, 09 Feb 2008 02:11:30 +0100
 
