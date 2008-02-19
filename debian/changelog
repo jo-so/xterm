@@ -1,4 +1,4 @@
-xterm (232-1) UNRELEASED; urgency=low
+xterm (232-1) unstable; urgency=low
 
   * New upstream release.
     + corrected logic in a font-cache used for reverse-video
@@ -21,7 +21,7 @@ xterm (232-1) UNRELEASED; urgency=low
   * Add Vcs-* and Homepage fields in debian/control.  Thanks, Joey Hess!
     (closes: #464947)
 
- -- Julien Cristau <jcristau@debian.org>  Sat, 09 Feb 2008 02:11:30 +0100
+ -- Julien Cristau <jcristau@debian.org>  Tue, 19 Feb 2008 21:20:08 +0100
 
 xterm (231-1) unstable; urgency=low
 
