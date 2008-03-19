@@ -1,4 +1,4 @@
-xterm (234-1) UNRELEASED; urgency=low
+xterm (234-1) unstable; urgency=low
 
   * New upstream release.
     + fix a case where an incorrect font was freed during initialization
@@ -9,7 +9,7 @@ xterm (234-1) UNRELEASED; urgency=low
   * Change doc-base section from `XShells' to `Terminal Emulators'; thanks,
     lintian!
 
- -- Julien Cristau <jcristau@debian.org>  Wed, 19 Mar 2008 01:15:36 +0100
+ -- Julien Cristau <jcristau@debian.org>  Wed, 19 Mar 2008 15:08:03 +0100
 
 xterm (232-1) unstable; urgency=low
 
