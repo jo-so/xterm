@@ -4,7 +4,7 @@ Author: Thomas Dickey
 Abstract: This document provides answers to frequently asked questions
  about the XTerm terminal emulator as it ships with the X.Org distribution
  of the X Window System.
-Section: XShells
+Section: Terminal Emulators
 
 Format: text
 Files: /usr/share/doc/xterm/xterm.faq.gz

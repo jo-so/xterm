@@ -6,6 +6,8 @@ xterm (234-1) UNRELEASED; urgency=low
     + improve resize computation for situations where the negotiation fails,
       by invoking the xterm widget's core-class resize method
       (closes: #365602)
+  * Change doc-base section from `XShells' to `Terminal Emulators'; thanks,
+    lintian!
 
  -- Julien Cristau <jcristau@debian.org>  Wed, 19 Mar 2008 01:15:36 +0100
 
