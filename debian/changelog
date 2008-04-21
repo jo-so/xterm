@@ -1,4 +1,4 @@
-xterm (235-1) UNRELEASED; urgency=low
+xterm (235-1) unstable; urgency=low
 
   * New upstream release.
     + adjust saved-cursor position if the window is resized while displaying
@@ -7,7 +7,7 @@ xterm (235-1) UNRELEASED; urgency=low
       set via the utf8Fonts subresource (closes: #347790)
   * Refresh patches 901_xterm_manpage.diff and 902_pointermode_never.diff.
 
- -- Julien Cristau <jcristau@debian.org>  Mon, 21 Apr 2008 02:39:18 +0200
+ -- Julien Cristau <jcristau@debian.org>  Mon, 21 Apr 2008 02:48:05 +0200
 
 xterm (234-1) unstable; urgency=low
 
