@@ -1,6 +1,10 @@
-xterm (235-2) UNRELEASED; urgency=low
+xterm (236-1) UNRELEASED; urgency=low
 
+  [ Brice Goglin ]
   * Update patches to not use -p0, closes: #485360.
+
+  [ Julien Cristau ]
+  * New upstream release.
 
  -- Brice Goglin <bgoglin@debian.org>  Sun, 15 Jun 2008 20:10:16 +0200
 
