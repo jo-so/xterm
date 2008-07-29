@@ -25,11 +25,15 @@ else
 	confflags += --build $(DEB_BUILD_GNU_TYPE) --host $(DEB_HOST_GNU_TYPE)
 endif
 
-CFLAGS = -g -Wall -DDEF_POINTER_MODE=pNever
-ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
+CFLAGS = -g -Wall
+ifneq (,$(filter noopt,$(DEB_BUILD_OPTIONS)))
 	CFLAGS += -O0
 else
 	CFLAGS += -O2
+endif
+ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
+	NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
+	MAKEFLAGS += -j$(NUMJOBS)
 endif
 
 # Figure out who's building this package.
@@ -46,6 +50,9 @@ DEBINSTALLTREE:=$(CURDIR)/debian/tmp
 
 DESKTOP_FLAGS = --vendor debian \
 		--dir=$(DEBINSTALLTREE)/usr/share/applications
+
+# by default, never hide the cursor
+CFLAGS += -DDEF_POINTER_MODE=pNever
 
 # Set up the $(STAMP_DIR) directory.
 .PHONY: stampdir
@@ -96,7 +103,8 @@ unpatch:
 	  fi; \
 	fi
 
-configure: $(STAMP_DIR)/patch $(STAMP_DIR)/configure
+.PHONY: configure
+configure: $(STAMP_DIR)/configure
 $(STAMP_DIR)/configure: $(STAMP_DIR)/patch
 	dh_testdir
 	[ -d obj-$(DEB_BUILD_GNU_TYPE) ] || mkdir obj-$(DEB_BUILD_GNU_TYPE)
