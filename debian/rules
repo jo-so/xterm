@@ -179,7 +179,6 @@ binary-arch: install
 	chown :utmp debian/xterm/usr/bin/xterm
 	chmod g+s debian/xterm/usr/bin/xterm
 	dh_installdeb
-	dh_makeshlibs
 	dh_shlibdeps
 	dh_gencontrol
 	dh_md5sums
