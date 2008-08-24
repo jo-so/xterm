@@ -109,13 +109,23 @@ $(STAMP_DIR)/configure: $(STAMP_DIR)/patch
 	dh_testdir
 	[ -d obj-$(DEB_BUILD_GNU_TYPE) ] || mkdir obj-$(DEB_BUILD_GNU_TYPE)
 	cd obj-$(DEB_BUILD_GNU_TYPE) && \
-	../configure --enable-logging --enable-wide-chars --enable-luit \
-		--with-tty-group=tty --enable-256-color \
-		--prefix=/usr --exec-prefix=/usr --mandir=/usr/share/man \
+	../configure \
+		--prefix=/usr \
+		--exec-prefix=/usr \
+		--mandir=/usr/share/man \
 		--with-app-defaults=/etc/X11/app-defaults \
-		--disable-imake --enable-narrowproto --enable-exec-xterm \
-		$(confflags) DESKTOP_FLAGS="$(DESKTOP_FLAGS)" \
-		CFLAGS="$(CFLAGS)" LUIT=/usr/bin/luit
+		--with-tty-group=tty \
+		--enable-logging \
+		--enable-wide-chars \
+		--enable-luit \
+		--enable-256-color \
+		--disable-imake \
+		--enable-narrowproto \
+		--enable-exec-xterm \
+		$(confflags) \
+		DESKTOP_FLAGS="$(DESKTOP_FLAGS)" \
+		CFLAGS="$(CFLAGS)" \
+		LUIT=/usr/bin/luit
 	touch $@
 
 
