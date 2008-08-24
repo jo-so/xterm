@@ -7,6 +7,7 @@ xterm (236-1) UNRELEASED; urgency=low
   * New upstream release.
   * Handle parallel=n in DEB_BUILD_OPTIONS.
   * Don't call dh_makeshlibs.
+  * Configure with --enable-dabbrev (closes: #454202).
 
  -- Brice Goglin <bgoglin@debian.org>  Sun, 15 Jun 2008 20:10:16 +0200
 

@@ -122,6 +122,7 @@ $(STAMP_DIR)/configure: $(STAMP_DIR)/patch
 		--disable-imake \
 		--enable-narrowproto \
 		--enable-exec-xterm \
+		--enable-dabbrev \
 		$(confflags) \
 		DESKTOP_FLAGS="$(DESKTOP_FLAGS)" \
 		CFLAGS="$(CFLAGS)" \
