@@ -5,6 +5,7 @@ xterm (236-1) UNRELEASED; urgency=low
 
   [ Julien Cristau ]
   * New upstream release.
+    + fixes for vt100-style character sets in UTF-8 mode (LP: #230919)
   * Handle parallel=n in DEB_BUILD_OPTIONS.
   * Don't call dh_makeshlibs.
   * Configure with --enable-dabbrev (closes: #454202).
