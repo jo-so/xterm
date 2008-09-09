@@ -1,3 +1,11 @@
+xterm (236-2) UNRELEASED; urgency=low
+
+  * debian/rules: don't fail in patch if the patches are already applied; also
+    create the patch stamp in the same way as the other stamp files
+    (closes: #498327).  Thanks, Petr Salinger!
+
+ -- Julien Cristau <jcristau@debian.org>  Tue, 09 Sep 2008 15:28:07 +0100
+
 xterm (236-1) unstable; urgency=low
 
   [ Brice Goglin ]
