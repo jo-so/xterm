@@ -1,4 +1,4 @@
-xterm (236-1) UNRELEASED; urgency=low
+xterm (236-1) unstable; urgency=low
 
   [ Brice Goglin ]
   * Update patches to not use -p0, closes: #485360.
@@ -12,7 +12,7 @@ xterm (236-1) UNRELEASED; urgency=low
   * Update copyright date to 2008 in debian/copyright for Thomas E. Dickey's
     contributions.
 
- -- Brice Goglin <bgoglin@debian.org>  Sun, 15 Jun 2008 20:10:16 +0200
+ -- Julien Cristau <jcristau@debian.org>  Tue, 09 Sep 2008 01:21:27 +0100
 
 xterm (235-1) unstable; urgency=low
 
