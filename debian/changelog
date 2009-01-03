@@ -1,3 +1,13 @@
+xterm (238-1) UNRELEASED; urgency=low
+
+  * New upstream release.
+    + respond to incorrectly formatted DECRQSS with a cancel
+      (closes: #510030).  Reference: CVE-2008-2383.
+  * Default the allowWindowOps and allowFontOps resources to false, to prevent
+    potential security issues.  Thanks to Paul Szabo.
+
+ -- Julien Cristau <jcristau@debian.org>  Sat, 03 Jan 2009 16:51:01 +0100
+
 xterm (237-1) unstable; urgency=low
 
   * debian/rules: don't fail in patch if the patches are already applied; also

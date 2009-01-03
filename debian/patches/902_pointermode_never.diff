@@ -1,11 +1,11 @@
 Debian-specific tweak: the pointerMode resource is set to 0 (never)
 by default.
 
-Index: a/xterm.man
+Index: xterm-238/xterm.man
 ===================================================================
---- a/xterm.man.orig
-+++ b/xterm.man
-@@ -2543,11 +2543,11 @@
+--- xterm-238.orig/xterm.man
++++ xterm-238/xterm.man
+@@ -2576,11 +2576,11 @@
  .RS
  .TP 3
  0
