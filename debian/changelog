@@ -1,3 +1,12 @@
+xterm (239-1) unstable; urgency=low
+
+  * New upstream release.
+    + correct a cast in input.c, which broke translation of numeric keypad
+      codes to pageup, pagedown, etc., on 64-bit platform (closes: #511138).
+  * debian/copyright: Update Thomas Dickey's copyright notices
+
+ -- Julien Cristau <jcristau@debian.org>  Sat, 10 Jan 2009 19:22:31 +0100
+
 xterm (238-2) unstable; urgency=low
 
   * Also default allowTcapOps to false, as suggested by Florian Weimer.
