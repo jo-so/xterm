@@ -1,21 +1,21 @@
-Index: xterm-238/charproc.c
+Index: xterm/charproc.c
 ===================================================================
---- xterm-238.orig/charproc.c
-+++ xterm-238/charproc.c
+--- xterm.orig/charproc.c
++++ xterm/charproc.c
 @@ -389,7 +389,7 @@
  static XtResource resources[] =
  {
      Bres(XtNallowSendEvents, XtCAllowSendEvents, screen.allowSendEvent0, False),
 -    Bres(XtNallowFontOps, XtCAllowFontOps, screen.allowFontOp0, True),
 +    Bres(XtNallowFontOps, XtCAllowFontOps, screen.allowFontOp0, False),
-     Bres(XtNallowTcapOps, XtCAllowTcapOps, screen.allowTcapOp0, True),
+     Bres(XtNallowTcapOps, XtCAllowTcapOps, screen.allowTcapOp0, False),
      Bres(XtNallowTitleOps, XtCAllowTitleOps, screen.allowTitleOp0, True),
      Bres(XtNallowWindowOps, XtCAllowWindowOps, screen.allowWindowOp0, False),
-Index: xterm-238/xterm.man
+Index: xterm/xterm.man
 ===================================================================
---- xterm-238.orig/xterm.man
-+++ xterm-238/xterm.man
-@@ -1448,7 +1448,7 @@
+--- xterm.orig/xterm.man
++++ xterm/xterm.man
+@@ -1472,7 +1472,7 @@
  .TP
  .B "allowFontOps (\fPclass\fB AllowFontOps)"
  Specifies whether control sequences that set/query the font should be allowed.

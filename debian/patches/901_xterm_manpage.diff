@@ -5,11 +5,11 @@ Make Debian-specific tweaks to xterm manpage:
 
 This patch by Branden Robinson and David Martínez.
 
-Index: xterm-238/xterm.man
+Index: xterm/xterm.man
 ===================================================================
---- xterm-238.orig/xterm.man
-+++ xterm-238/xterm.man
-@@ -4790,10 +4790,10 @@
+--- xterm.orig/xterm.man
++++ xterm/xterm.man
+@@ -4844,10 +4844,10 @@
  .SH FILES
  The actual pathnames given may differ on your system.
  .TP 5

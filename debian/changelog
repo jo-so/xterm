@@ -1,3 +1,12 @@
+xterm (241-1) UNRELEASED; urgency=low
+
+  * New upstream release.
+  * Drop patch 905_tcapops.diff, allowTcapOps now defaults to false upstream.
+  * Refresh patches 901_xterm_manpage.diff, 902_pointermode_never.diff,
+    903_windowops.diff, 904_fontops.diff.
+
+ -- Julien Cristau <jcristau@debian.org>  Mon, 26 Jan 2009 02:26:06 +0100
+
 xterm (239-1) unstable; urgency=low
 
   * New upstream release.

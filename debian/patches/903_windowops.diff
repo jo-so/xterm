@@ -1,8 +1,8 @@
-Index: xterm-238/xterm.man
+Index: xterm/xterm.man
 ===================================================================
---- xterm-238.orig/xterm.man
-+++ xterm-238/xterm.man
-@@ -1472,7 +1472,7 @@
+--- xterm.orig/xterm.man
++++ xterm/xterm.man
+@@ -1514,7 +1514,7 @@
  .B "allowWindowOps (\fPclass\fB AllowWindowOps)"
  Specifies whether extended window control sequences (as used in dtterm)
  should be allowed.
@@ -11,13 +11,13 @@ Index: xterm-238/xterm.man
  .TP 8
  .B "altIsNotMeta (\fPclass\fB AltIsNotMeta\fP)"
  If ``true'', treat the Alt-key as if it were the Meta-key.
-Index: xterm-238/charproc.c
+Index: xterm/charproc.c
 ===================================================================
---- xterm-238.orig/charproc.c
-+++ xterm-238/charproc.c
+--- xterm.orig/charproc.c
++++ xterm/charproc.c
 @@ -392,7 +392,7 @@
      Bres(XtNallowFontOps, XtCAllowFontOps, screen.allowFontOp0, True),
-     Bres(XtNallowTcapOps, XtCAllowTcapOps, screen.allowTcapOp0, True),
+     Bres(XtNallowTcapOps, XtCAllowTcapOps, screen.allowTcapOp0, False),
      Bres(XtNallowTitleOps, XtCAllowTitleOps, screen.allowTitleOp0, True),
 -    Bres(XtNallowWindowOps, XtCAllowWindowOps, screen.allowWindowOp0, True),
 +    Bres(XtNallowWindowOps, XtCAllowWindowOps, screen.allowWindowOp0, False),
