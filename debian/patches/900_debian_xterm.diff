@@ -23,8 +23,10 @@ Make Debian-specific tweaks to xterm:
 
 This patch by Branden Robinson.
 
---- a/termcap.orig
-+++ b/termcap
+Index: xterm-242/termcap
+===================================================================
+--- xterm-242.orig/termcap
++++ xterm-242/termcap
 @@ -71,6 +71,14 @@
  	:so=\E[7m:sr=\EM:st=\EH:te=\E[?1049l:ti=\E[?1049h:\
  	:ue=\E[24m:up=\E[A:us=\E[4m:ve=\E[?25h:vi=\E[?25l:
@@ -48,8 +50,10 @@ This patch by Branden Robinson.
 +	:tc=xterm-debian:
 +#	:tc=xterm-new:
  #	:tc=xterm-r6:
---- a/terminfo.orig
-+++ b/terminfo
+Index: xterm-242/terminfo
+===================================================================
+--- xterm-242.orig/terminfo
++++ xterm-242/terminfo
 @@ -955,6 +955,13 @@
  	u8=\E[?1;2c,
  	u9=\E[c,
@@ -72,9 +76,11 @@ This patch by Branden Robinson.
 +	use=xterm-debian,
 +#	use=xterm-new,
  #	use=xterm-r6,
---- a/XTerm.ad.orig
-+++ b/XTerm.ad
-@@ -116,6 +116,10 @@
+Index: xterm-242/XTerm.ad
+===================================================================
+--- xterm-242.orig/XTerm.ad
++++ xterm-242/XTerm.ad
+@@ -121,6 +121,10 @@
  *tek4014*font3: 6x13
  *tek4014*fontSmall: 6x10
  
@@ -85,8 +91,10 @@ This patch by Branden Robinson.
  ! If xterm is built with a toolbar, the widget hierarchy looks like this,
  ! showing widget name / class names.  The complete menu hierarchy is built
  ! at startup because it is needed to make the layout work for the menubar:
---- a/XTerm-col.ad.orig
-+++ b/XTerm-col.ad
+Index: xterm-242/XTerm-col.ad
+===================================================================
+--- xterm-242.orig/XTerm-col.ad
++++ xterm-242/XTerm-col.ad
 @@ -7,9 +7,9 @@
  *VT100*boldColors: on
  *VT100*dynamicColors: on
