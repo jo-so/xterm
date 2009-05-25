@@ -53,6 +53,11 @@ DESKTOP_FLAGS = --vendor debian \
 
 # by default, never hide the cursor
 CFLAGS += -DDEF_POINTER_MODE=pNever
+# disable some unsafe operations
+CFLAGS += \
+	-DDEF_ALLOW_WINDOW=False \
+	-DDEF_ALLOW_FONT=False \
+	-DDEF_ALLOW_TCAP=False
 
 # Set up the $(STAMP_DIR) directory.
 .PHONY: stampdir
