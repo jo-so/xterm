@@ -1,4 +1,4 @@
-xterm (243-1) UNRELEASED; urgency=low
+xterm (243-1) unstable; urgency=low
 
   * New upstream release (closes: #526334)
     + fixes bell regression (closes: #520405)
@@ -7,7 +7,7 @@ xterm (243-1) UNRELEASED; urgency=low
     instead of the relevant patches, which now only touch the manpage.
   * Update copy of XTerm FAQ to revision 1.105 (dated 2009/01/11).
 
- -- Julien Cristau <jcristau@debian.org>  Mon, 25 May 2009 19:32:11 +0200
+ -- Julien Cristau <jcristau@debian.org>  Mon, 25 May 2009 19:58:19 +0200
 
 xterm (242-1) unstable; urgency=low
 
