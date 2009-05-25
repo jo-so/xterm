@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
 <!--
  *****************************************************************************
- * Copyright 1997-2005,2007 by Thomas E. Dickey                              *
+ * Copyright 1997-2007,2009 by Thomas E. Dickey                              *
  * All Rights Reserved.                                                      *
  *                                                                           *
  * Permission to use, copy, modify, and distribute this software and its     *
@@ -20,7 +20,7 @@
  * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF   *
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.            *
  *****************************************************************************
-  $XTermId: xterm.faq.html,v 1.99 2007/11/29 22:26:28 tom Exp $
+  $XTermId: xterm.faq.html,v 1.105 2009/01/11 01:27:40 tom Exp $
   -->
 <HTML>
 <HEAD>
@@ -30,7 +30,7 @@
 </HEAD>
 <BODY>
 <HR>
-Copyright 1997-2005,2007 by Thomas E. Dickey
+Copyright 1997-2007,2009 by Thomas E. Dickey
 <HR>
 <H1>Contents</H1>
 <UL>
@@ -937,6 +937,7 @@ and XFree86 xterm
 <LI><A HREF="#no_color">My terminal doesn't recognize color</A>
 <LI><A HREF="#xterm_terminfo">What $TERM should I use?</A>
 <LI><A HREF="#xterm_hilite">Reverse video is not reset</A>
+<LI><A HREF="#vim_16colors">My colors changed in vim</A>
 </ul>
 <li>Odd behavior
 <ul>
@@ -1411,6 +1412,37 @@ resource accordingly in the app-defaults file for the system which has the
 newer xterm.
 <p>
 However - see <a href="#xterm_terminfo">below</a>.
+
+<H2><A NAME="vim_16colors">My colors changed in vim</A></H2>
+Some <code>vim</code> users may notice their colors change after
+updating to <a href="xterm.log.html#xterm_238">patch 238</a>.
+Before, some text would display in a dark color using a bold font.
+Now, it displays in a bright color and normal font.
+<p>
+This is not a bug, but the result of a feature <em>tcap-query</em>
+which was added for vim in 2000.
+Several vim users requested that it be enabled by default
+in the configure script.
+It allows vim to ask what characters the different function keys actually
+send, eliminating the chance that the termcap does not match.
+<p>
+Vim also asks how many colors the terminal supports.
+Since <a href="xterm.log.html#xterm_148">patch 148</a>,
+xterm has responded with the number of distinct colors that it can display.
+By default, that is 16 (8 ANSI colors with bright counterparts for displaying
+PC-style "bold" text).
+<p>
+The interpretation of this depends on the application:
+termcaps do not tell how to display more than 8 colors.
+But vim understands how to tell xterm to display using 16 colors.
+It makes a difference when displaying bright colors.
+Vim has a table of 16 color names ("dos-colors"), which one can use to
+define parts of the color scheme.
+If the terminal supports only 8 colors (colors 0-7),
+vim uses the bold attribute to simulate colors 8-15.
+<p>
+Changing the color scheme to use bold where it is wanted will make the
+colors work as before &ndash; and work consistently with other terminals.
 
 <H2><A NAME="xterm_terminfo">What $TERM should I use?</A></H2>
 <p>

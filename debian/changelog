@@ -5,6 +5,7 @@ xterm (243-1) UNRELEASED; urgency=low
   * Refresh patch stack.
   * Defaults for allow-{tcap,window,font}ops are now set from debian/rules
     instead of the relevant patches, which now only touch the manpage.
+  * Update copy of XTerm FAQ to revision 1.105 (dated 2009/01/11).
 
  -- Julien Cristau <jcristau@debian.org>  Mon, 25 May 2009 19:32:11 +0200
 
