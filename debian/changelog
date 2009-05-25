@@ -1,3 +1,10 @@
+xterm (243-1) UNRELEASED; urgency=low
+
+  * New upstream release (closes: #526334)
+    + fixes bell regression (closes: #520405)
+
+ -- Julien Cristau <jcristau@debian.org>  Mon, 25 May 2009 19:32:11 +0200
+
 xterm (242-1) unstable; urgency=low
 
   * New upstream release.
