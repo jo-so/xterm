@@ -1,4 +1,4 @@
-xterm (244-1) UNRELEASED; urgency=low
+xterm (244-1) unstable; urgency=low
 
   * New upstream release
     + remove a limit-check in ptydata.c, allowing Unicode values past 64k to
@@ -16,7 +16,7 @@ xterm (244-1) UNRELEASED; urgency=low
   * Bump debian/compat to 5, as compatibility level 4 has been deprecated.
   * Remove obsolete debian/README.
 
- -- Julien Cristau <jcristau@debian.org>  Mon, 10 Aug 2009 10:55:18 +0200
+ -- Julien Cristau <jcristau@debian.org>  Mon, 10 Aug 2009 16:30:29 +0200
 
 xterm (243-1) unstable; urgency=low
 
