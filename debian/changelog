@@ -11,6 +11,7 @@ xterm (244-1) UNRELEASED; urgency=low
     version of) it (closes: #538594).  Incidentally, this provides
     README.source, and allows us to bump Standards-Version to 3.8.2.
   * Remove preinst dealing with upgrades from pre-etch versions.
+  * Remove from postinst some code to fix pre-etch non-released versions.
 
  -- Julien Cristau <jcristau@debian.org>  Mon, 10 Aug 2009 10:55:18 +0200
 

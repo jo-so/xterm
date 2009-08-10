@@ -34,15 +34,6 @@ update-alternatives --install /usr/bin/x-terminal-emulator \
   /usr/share/man/man1/x-terminal-emulator.1.gz x-terminal-emulator.1.gz \
   /usr/share/man/man1/lxterm.1.gz
 
-# in xterm versions from 204-0pre1 to 222-1, the manpage alternative was
-# set incorrectly to x-terminal-emulator.1x.gz. In some cases, this can lead
-# to the absence of the x-terminal-emulator.1.gz symbolic link after the
-# upgrade, so we check for this situation and add it back if necessary.
-# This can be removed after the release of etch.
-if ! [ -L /usr/share/man/man1/x-terminal-emulator.1.gz ]; then
-  ln -s /etc/alternatives/x-terminal-emulator.1.gz /usr/share/man/man1
-fi
-
 #DEBHELPER#
 
 exit 0
