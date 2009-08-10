@@ -1,3 +1,15 @@
+xterm (244-1) UNRELEASED; urgency=low
+
+  * New upstream release
+    + remove a limit-check in ptydata.c, allowing Unicode values past 64k to
+      be displayed using TrueType fonts (closes: #458432)
+    + demote recent (xterm 242) change to Debian #252873 fix to experimental,
+      ifdef'd out as EXP_BOGUS_FG (closes: #522141)
+    + work around groff mapping of ASCII quotes using macros (requested by
+      Reuben Thomas based on Colin Watson advice (closes: #378700)
+
+ -- Julien Cristau <jcristau@debian.org>  Mon, 10 Aug 2009 10:55:18 +0200
+
 xterm (243-1) unstable; urgency=low
 
   * New upstream release (closes: #526334)
