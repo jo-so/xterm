@@ -2,12 +2,12 @@ Index: xterm/xterm.man
 ===================================================================
 --- xterm.orig/xterm.man
 +++ xterm/xterm.man
-@@ -1474,7 +1474,7 @@
+@@ -1494,7 +1494,7 @@
  .TP
  .B "allowFontOps (\fPclass\fB AllowFontOps)"
  Specifies whether control sequences that set/query the font should be allowed.
--The default is ``true.''
-+The default is ``false.''
+-The default is \*(``true.\*(''
++The default is \*(``false.\*(''
  .TP 8
  .B "allowSendEvents (\fPclass\fB AllowSendEvents)"
  Specifies whether or not synthetic key and button events (generated using

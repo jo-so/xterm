@@ -2,12 +2,12 @@ Index: xterm/xterm.man
 ===================================================================
 --- xterm.orig/xterm.man
 +++ xterm/xterm.man
-@@ -1516,7 +1516,7 @@
+@@ -1536,7 +1536,7 @@
  .B "allowWindowOps (\fPclass\fB AllowWindowOps)"
  Specifies whether extended window control sequences (as used in dtterm)
  should be allowed.
--The default is ``true.''
-+The default is ``false.''
+-The default is \*(``true.\*(''
++The default is \*(``false.\*(''
  .TP 8
  .B "altIsNotMeta (\fPclass\fB AltIsNotMeta\fP)"
- If ``true'', treat the Alt-key as if it were the Meta-key.
+ If \*(``true\*('', treat the Alt-key as if it were the Meta-key.
