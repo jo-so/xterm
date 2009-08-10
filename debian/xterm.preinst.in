@@ -9,6 +9,11 @@
 
 set -e
 
+THIS_PACKAGE=xterm
+THIS_SCRIPT=preinst
+
+#INCLUDE_SHELL_LIB#
+
 if [ "$1" = "upgrade" ] || [ "$1" = "install" ]; then
     if dpkg --compare-versions "$2" lt "4.0.1-1"; then
         # Clean up after older alternative that used different path.

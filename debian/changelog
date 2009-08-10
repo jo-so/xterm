@@ -7,6 +7,9 @@ xterm (244-1) UNRELEASED; urgency=low
       ifdef'd out as EXP_BOGUS_FG (closes: #522141)
     + work around groff mapping of ASCII quotes using macros (requested by
       Reuben Thomas based on Colin Watson advice (closes: #378700)
+  * Switch debian/rules to xsfbs instead of copying half of (an outdated
+    version of) it (closes: #538594).  Incidentally, this provides
+    README.source, and allows us to bump Standards-Version to 3.8.2.
 
  -- Julien Cristau <jcristau@debian.org>  Mon, 10 Aug 2009 10:55:18 +0200
 
