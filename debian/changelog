@@ -13,6 +13,7 @@ xterm (244-1) UNRELEASED; urgency=low
   * Remove preinst dealing with upgrades from pre-etch versions.
   * Remove from postinst some code to fix pre-etch non-released versions.
   * Refresh/update patches.
+  * Bump debian/compat to 5, as compatibility level 4 has been deprecated.
 
  -- Julien Cristau <jcristau@debian.org>  Mon, 10 Aug 2009 10:55:18 +0200
 

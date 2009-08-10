@@ -7,7 +7,7 @@ Standards-Version: 3.8.2
 Vcs-Browser: http://git.debian.org/?p=pkg-xorg/app/xterm.git
 Vcs-Git: git://git.debian.org/git/pkg-xorg/app/xterm
 Homepage: http://invisible-island.net/xterm/xterm.html
-Build-Depends: libncurses5-dev | libncurses-dev, libxft-dev (>> 2.1.2), libxrender-dev (>> 1:0.9.0), libxaw7-dev, debhelper (>= 4.1.16), quilt, lynx
+Build-Depends: libncurses5-dev | libncurses-dev, libxft-dev (>> 2.1.2), libxrender-dev (>> 1:0.9.0), libxaw7-dev, debhelper (>= 5), quilt, lynx
 
 # Reasons for Build-Depends:
 #
@@ -82,7 +82,7 @@ Build-Depends: libncurses5-dev | libncurses-dev, libxft-dev (>> 2.1.2), libxrend
 #       Tekproc.c:#include <X11/Xaw/Form.h>
 #       Tekproc.c:#include <X11/Xaw3d/Form.h>
 #       Tekproc.c:#include <X11/XawPlus/Form.h>
-#   debhelper (>= 4.1.16)           po-debconf support
+#   debhelper (>= 5)                debian/compat = 5
 #   dpkg-dev (>= 1.10.14)           (1.10.11) comment support in debian/control;
 #                                   (1.10.14) architecture-specific binary
 #                                   package dependencies
