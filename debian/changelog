@@ -1,10 +1,10 @@
-xterm (244-2) UNRELEASED; urgency=low
+xterm (244-2) unstable; urgency=low
 
   * Configure with --disable-fifo-lines to work around a crash in the new
     saved-lines handling code (closes: #541236, #541160, #541132, #541109).
     Thanks to Thomas Dickey for the workaround.
 
- -- Julien Cristau <jcristau@debian.org>  Wed, 12 Aug 2009 22:18:53 +0200
+ -- Julien Cristau <jcristau@debian.org>  Wed, 12 Aug 2009 22:25:16 +0200
 
 xterm (244-1) unstable; urgency=low
 
