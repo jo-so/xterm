@@ -1,3 +1,20 @@
+xterm (246-1) UNRELEASED; urgency=low
+
+  * New upstream release
+    + interaction between allowSendEvents and the various allowXXXOps
+      resources clarified in manpage (closes: #531597)
+    + remove obsolete logic for saving/restoring wrapping flags, which did not
+      work on 64-bit platform.  Wrapping flags (stored in the line-index) are
+      now copied with line-data (closes: #541160)
+    + modify comments in app-defaults files to avoid problem with C
+      preprocessor used by xrdb (closes: #541603)
+    + restore special case in makeColorPair needed for colorBDMode resource
+      (closes: #541089)
+    + correct SetLineFlags() macro, broken in patch #244 when recoding to
+      avoid gcc-specific bitfields (closes: #541236)
+
+ -- Julien Cristau <jcristau@debian.org>  Thu, 20 Aug 2009 23:51:30 +0200
+
 xterm (244-2) unstable; urgency=low
 
   * Configure with --disable-fifo-lines to work around a crash in the new
