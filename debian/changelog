@@ -12,6 +12,8 @@ xterm (246-1) UNRELEASED; urgency=low
       (closes: #541089)
     + correct SetLineFlags() macro, broken in patch #244 when recoding to
       avoid gcc-specific bitfields (closes: #541236)
+  * The issues with the fifo-lines code should now be fixed, so enable it
+    again.
 
  -- Julien Cristau <jcristau@debian.org>  Thu, 20 Aug 2009 23:51:30 +0200
 

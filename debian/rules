@@ -66,7 +66,6 @@ $(STAMP_DIR)/configure: $(STAMP_DIR)/patch
 		--enable-narrowproto \
 		--enable-exec-xterm \
 		--enable-dabbrev \
-		--disable-fifo-lines \
 		$(confflags) \
 		DESKTOP_FLAGS="$(DESKTOP_FLAGS)" \
 		CFLAGS="$(CFLAGS)" \
