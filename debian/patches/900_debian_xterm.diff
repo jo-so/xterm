@@ -1,5 +1,3 @@
-$Id$
-
 Make Debian-specific tweaks to xterm:
 * Set the default VT widget foreground and background colors to gray90 on
   black, which approximates the color scheme of the Linux virtual console

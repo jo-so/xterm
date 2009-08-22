@@ -5,8 +5,6 @@
 # /usr/share/common-licenses/GPL or <http://www.gnu.org/copyleft/gpl.txt>.
 # Acknowledgements to Stephen Early, Mark Eichin, and Manoj Srivastava.
 
-# $Id$
-
 set -e
 
 THIS_PACKAGE=xterm

@@ -45,6 +45,4 @@ comply with the Debian Keyboard Policy and make xterm's behavior more
 consistent with the Linux virtual console (and therefore with the behavior
 of DEC VT 220 terminals).
 
-$Id$
-
 vim:set ai et sw=4 ts=4 tw=80:

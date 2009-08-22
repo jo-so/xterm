@@ -1,6 +1,4 @@
 #!/usr/bin/make -f
-# $Id$
-
 # Debian rules file for xterm source package
 
 # Copyright 2005 David Martínez Moreno

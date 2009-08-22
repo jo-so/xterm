@@ -1,5 +1,3 @@
-$Id$
-
 Make Debian-specific tweaks to xterm manpage:
 * Use FHS paths to the utmp and wtmp files in xterm's manpage.
 

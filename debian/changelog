@@ -3,6 +3,7 @@ xterm (246-2) UNRELEASED; urgency=low
   * Bump Standards-Version to 3.8.3.
   * Remove David Martínez Moreno from Uploaders as he hasn't been active on
     this package lately.
+  * Kill remaining subversion $Id$ tags from debian packaging files.
 
  -- Julien Cristau <jcristau@debian.org>  Sun, 23 Aug 2009 00:40:57 +0200
 
