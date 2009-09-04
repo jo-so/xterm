@@ -5,6 +5,7 @@ xterm (247-1) UNRELEASED; urgency=low
   * Remove David Martínez Moreno from Uploaders as he hasn't been active on
     this package lately.
   * Kill remaining subversion $Id$ tags from debian packaging files.
+  * Use libutempter, remove setgid bit from the xterm binary (closes: #537867).
 
  -- Julien Cristau <jcristau@debian.org>  Sun, 23 Aug 2009 00:40:57 +0200
 

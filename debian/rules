@@ -64,6 +64,7 @@ $(STAMP_DIR)/configure: $(STAMP_DIR)/patch
 		--enable-narrowproto \
 		--enable-exec-xterm \
 		--enable-dabbrev \
+		--with-utempter \
 		$(confflags) \
 		DESKTOP_FLAGS="$(DESKTOP_FLAGS)" \
 		CFLAGS="$(CFLAGS)" \
@@ -107,8 +108,6 @@ install: build
 	dh_installchangelogs
 	dh_installmenu
 	dh_install --sourcedir=debian/tmp --list-missing
-	# Lintian overrides.
-	cp debian/xterm.overrides $(CURDIR)/debian/xterm/usr/share/lintian/overrides/xterm
 
 # Generate plain text XTerm FAQ from HTML.
 debian/local/xterm.faq.gz: debian/local/xterm.faq.html
@@ -127,8 +126,6 @@ binary-arch: install
 	dh_strip
 	dh_compress
 	dh_fixperms
-	chown :utmp debian/xterm/usr/bin/xterm
-	chmod g+s debian/xterm/usr/bin/xterm
 	dh_installdeb
 	dh_shlibdeps
 	dh_gencontrol
