@@ -1,4 +1,4 @@
-xterm (247-1) UNRELEASED; urgency=low
+xterm (247-1) unstable; urgency=low
 
   * New upstream release.
   * Bump Standards-Version to 3.8.3.
@@ -7,7 +7,7 @@ xterm (247-1) UNRELEASED; urgency=low
   * Kill remaining subversion $Id$ tags from debian packaging files.
   * Use libutempter, remove setgid bit from the xterm binary (closes: #537867).
 
- -- Julien Cristau <jcristau@debian.org>  Sun, 23 Aug 2009 00:40:57 +0200
+ -- Julien Cristau <jcristau@debian.org>  Fri, 04 Sep 2009 16:24:35 +0200
 
 xterm (246-1) unstable; urgency=low
 
