@@ -7,7 +7,13 @@ Standards-Version: 3.8.3
 Vcs-Browser: http://git.debian.org/?p=pkg-xorg/app/xterm.git
 Vcs-Git: git://git.debian.org/git/pkg-xorg/app/xterm
 Homepage: http://invisible-island.net/xterm/xterm.html
-Build-Depends: libncurses5-dev | libncurses-dev, libxft-dev (>> 2.1.2), libxrender-dev (>> 1:0.9.0), libxaw7-dev, debhelper (>= 5), quilt, lynx
+Build-Depends:
+ libncurses5-dev | libncurses-dev,
+ libxft-dev (>> 2.1.2), libxrender-dev (>> 1:0.9.0),
+ libxaw7-dev,
+ debhelper (>= 5),
+ quilt,
+ lynx
 
 # Reasons for Build-Depends:
 #
