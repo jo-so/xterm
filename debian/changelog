@@ -1,5 +1,6 @@
-xterm (246-2) UNRELEASED; urgency=low
+xterm (247-1) UNRELEASED; urgency=low
 
+  * New upstream release.
   * Bump Standards-Version to 3.8.3.
   * Remove David Martínez Moreno from Uploaders as he hasn't been active on
     this package lately.
