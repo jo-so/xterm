@@ -1,3 +1,11 @@
+xterm (248-1) UNRELEASED; urgency=low
+
+  * New upstream release
+    + correct logic used to improve performance of missing-glyph check, which
+      did not handle line-drawing characters (closes: #545220)
+
+ -- Julien Cristau <jcristau@debian.org>  Wed, 16 Sep 2009 15:42:10 +0200
+
 xterm (247-1) unstable; urgency=low
 
   * New upstream release.
