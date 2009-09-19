@@ -66,6 +66,24 @@ Index: xterm/terminfo
  #
  # The xterm-new description has all of the features, but is not completely
  # compatible with vt220.  If you are using a Sun or PC keyboard, set the
+@@ -1393,7 +1400,7 @@
+ 	setaf=\E[%?%p1%{8}%<%t%p1%{30}%+%e%p1%{82}%+%;%dm,
+ 	setb=%p1%{8}%/%{6}%*%{4}%+\E[%d%p1%{8}%m%Pa%?%ga%{1}%=%t4%e%ga%{3}%=%t6%e%ga%{4}%=%t1%e%ga%{6}%=%t3%e%ga%d%;m,
+ 	setf=%p1%{8}%/%{6}%*%{3}%+\E[%d%p1%{8}%m%Pa%?%ga%{1}%=%t4%e%ga%{3}%=%t6%e%ga%{4}%=%t1%e%ga%{6}%=%t3%e%ga%d%;m,
+-	use=xterm-new,
++	use=xterm-debian,
+ #
+ # This uses RGB values 0..1000
+ #
+@@ -1408,7 +1415,7 @@
+ 	setaf=\E[%?%p1%{8}%<%t3%p1%d%e%p1%{16}%<%t9%p1%{8}%-%d%e38;5;%p1%d%;m,
+ 	setb@,
+ 	setf@,
+-	use=xterm-new,
++	use=xterm-debian,
+ xterm-88color|xterm with 88 colors,
+ 	colors#88,
+ 	pairs#7744,
 @@ -1935,5 +1942,6 @@
  # is widely used for a variety of incompatible terminal emulations including
  # color_xterm and rxvt.
