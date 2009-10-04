@@ -1,3 +1,15 @@
+xterm (249-1) unstable; urgency=low
+
+  * New upstream release.
+    + add limit-checks for result of visual_width() function, needed from
+      patch #242 and exposed by #244 changes (closes: #548321).
+  * Upstream changed the default of AllowWindowOps to false, remove patch
+    903_windowops.diff.
+  * Use the upstream default for pointerMode; drop patch
+    902_pointermode_never.diff.
+
+ -- Julien Cristau <jcristau@debian.org>  Sun, 04 Oct 2009 15:40:16 +0200
+
 xterm (248-1) unstable; urgency=low
 
   * New upstream release

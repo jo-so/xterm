@@ -36,11 +36,8 @@ HTML2TEXT:=lynx -dump -nolist
 DESKTOP_FLAGS = --vendor debian \
 		--dir=$(DEBTREEDIR)/usr/share/applications
 
-# by default, never hide the cursor
-CFLAGS += -DDEF_POINTER_MODE=pNever
 # disable some unsafe operations
 CFLAGS += \
-	-DDEF_ALLOW_WINDOW=False \
 	-DDEF_ALLOW_FONT=False \
 	-DDEF_ALLOW_TCAP=False
 
