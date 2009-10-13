@@ -1,3 +1,19 @@
+xterm (250-1) UNRELEASED; urgency=low
+
+  * New upstream release
+    + add check and error-message for fonts that have no printable values in
+      the ISO-8859-1 range (closes: #542434)
+    + limit minimum cell-width for packed font to maximum-advance
+      reported by Xft.  Some fonts are wider than that, even in the Latin-1
+      range (closes: #550497)
+    + correct off-by-one in okPosition fix from patch #249 limit-checks which
+      prevented double-click selection on the bottom line of the screen
+      (closes: #550368)
+    + document in xterm manpage the limited availability of resources color16
+      to color255 as noted in patch #188 (LP: #438850)
+
+ -- Julien Cristau <jcristau@debian.org>  Tue, 13 Oct 2009 13:29:15 +0200
+
 xterm (249-1) unstable; urgency=low
 
   * New upstream release.
