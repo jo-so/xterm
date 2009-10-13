@@ -1,4 +1,4 @@
-xterm (250-1) UNRELEASED; urgency=low
+xterm (250-1) unstable; urgency=low
 
   * New upstream release
     + add check and error-message for fonts that have no printable values in
@@ -12,7 +12,7 @@ xterm (250-1) UNRELEASED; urgency=low
     + document in xterm manpage the limited availability of resources color16
       to color255 as noted in patch #188 (LP: #438850)
 
- -- Julien Cristau <jcristau@debian.org>  Tue, 13 Oct 2009 13:29:15 +0200
+ -- Julien Cristau <jcristau@debian.org>  Tue, 13 Oct 2009 20:20:08 +0200
 
 xterm (249-1) unstable; urgency=low
 
