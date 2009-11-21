@@ -1,3 +1,9 @@
+xterm (251-1) UNRELEASED; urgency=low
+
+  * New upstream release.
+
+ -- Julien Cristau <jcristau@debian.org>  Sat, 21 Nov 2009 14:51:13 +0100
+
 xterm (250-1) unstable; urgency=low
 
   * New upstream release
