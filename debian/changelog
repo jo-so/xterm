@@ -2,6 +2,10 @@ xterm (251-1) UNRELEASED; urgency=low
 
   * New upstream release.
   * Update copy of XTerm FAQ to revision 1.107 (dated 2009/11/11).
+  * Upstream introduced a new 'disallowedWindowOps' resource to fine-tune
+    which operations are affected by the 'allowWindowOps' setting.  After
+    discussion with the security team, change the default for the new resource
+    to include all operations.
 
  -- Julien Cristau <jcristau@debian.org>  Sat, 21 Nov 2009 14:51:13 +0100
 
