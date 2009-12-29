@@ -1,3 +1,11 @@
+xterm (253-1) UNRELEASED; urgency=low
+
+  * New upstream release
+    + parenthesize expression in MoreRows macro, fixing a limit check added in
+      patch #251 (closes: #560039)
+
+ -- Julien Cristau <jcristau@debian.org>  Tue, 29 Dec 2009 11:37:02 +0000
+
 xterm (251-1) unstable; urgency=low
 
   * New upstream release.
