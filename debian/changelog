@@ -1,4 +1,4 @@
-xterm (253-1) UNRELEASED; urgency=low
+xterm (253-1) unstable; urgency=low
 
   * New upstream release
     + parenthesize expression in MoreRows macro, fixing a limit check added in
@@ -7,7 +7,7 @@ xterm (253-1) UNRELEASED; urgency=low
   * Add dependency on ${misc:Depends} (lintian).
   * Refresh patches 900_debian_xterm.diff and 901_xterm_manpage.diff.
 
- -- Julien Cristau <jcristau@debian.org>  Tue, 29 Dec 2009 11:37:02 +0000
+ -- Julien Cristau <jcristau@debian.org>  Tue, 29 Dec 2009 12:31:52 +0000
 
 xterm (251-1) unstable; urgency=low
 
