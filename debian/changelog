@@ -5,6 +5,7 @@ xterm (253-1) UNRELEASED; urgency=low
       patch #251 (closes: #560039)
   * Update debian/copyright.
   * Add dependency on ${misc:Depends} (lintian).
+  * Refresh patches 900_debian_xterm.diff and 901_xterm_manpage.diff.
 
  -- Julien Cristau <jcristau@debian.org>  Tue, 29 Dec 2009 11:37:02 +0000
 

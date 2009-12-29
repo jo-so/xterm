@@ -7,7 +7,7 @@ Index: xterm/xterm.man
 ===================================================================
 --- xterm.orig/xterm.man
 +++ xterm/xterm.man
-@@ -5167,10 +5167,10 @@
+@@ -5220,10 +5220,10 @@
  .SH FILES
  The actual pathnames given may differ on your system.
  .TP 5
