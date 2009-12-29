@@ -98,7 +98,10 @@ Build-Depends:
 
 Package: xterm
 Architecture: any
-Depends: xbitmaps, ${shlibs:Depends}
+Depends:
+ xbitmaps,
+ ${shlibs:Depends},
+ ${misc:Depends},
 Recommends: x11-utils | xutils
 Suggests: xfonts-cyrillic
 Provides: x-terminal-emulator

@@ -4,6 +4,7 @@ xterm (253-1) UNRELEASED; urgency=low
     + parenthesize expression in MoreRows macro, fixing a limit check added in
       patch #251 (closes: #560039)
   * Update debian/copyright.
+  * Add dependency on ${misc:Depends} (lintian).
 
  -- Julien Cristau <jcristau@debian.org>  Tue, 29 Dec 2009 11:37:02 +0000
 
