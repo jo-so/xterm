@@ -3,6 +3,7 @@ xterm (253-2) UNRELEASED; urgency=low
   * Rename the build directory to not include DEB_BUILD_GNU_TYPE for no
     good reason.  Thanks, Colin Watson!
   * Add build-dep on libxkbfile-dev for XkbBell(3).
+  * Remove myself from Uploaders
 
  -- Julien Cristau <jcristau@debian.org>  Sat, 16 Jan 2010 16:47:14 +0000
 
