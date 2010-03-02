@@ -7,6 +7,8 @@ xterm (255-1) UNRELEASED; urgency=low
   * New upstream release
     + correct logic used to switch to alternate screen using FIFO-lines
       configuration (closes: #565772)
+  * Refresh patches 900_debian_xterm.diff, 901_xterm_manpage.diff,
+    902_windowops.diff, 904_fontops.diff.
 
  -- Julien Cristau <jcristau@debian.org>  Tue, 02 Mar 2010 14:18:33 +0100
 

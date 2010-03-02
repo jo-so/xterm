@@ -78,7 +78,7 @@ Index: xterm/XTerm.ad
 ===================================================================
 --- xterm.orig/XTerm.ad
 +++ xterm/XTerm.ad
-@@ -153,6 +153,10 @@
+@@ -154,6 +154,10 @@
  *tek4014*font3: 6x13
  *tek4014*fontSmall: 6x10
  
