@@ -1,4 +1,4 @@
-xterm (255-1) UNRELEASED; urgency=low
+xterm (255-1) unstable; urgency=low
 
   * Rename the build directory to not include DEB_BUILD_GNU_TYPE for no
     good reason.  Thanks, Colin Watson!
@@ -13,7 +13,7 @@ xterm (255-1) UNRELEASED; urgency=low
     902_windowops.diff, 904_fontops.diff.
   * Bump Standards-Version to 3.8.4.
 
- -- Julien Cristau <jcristau@debian.org>  Tue, 02 Mar 2010 14:18:33 +0100
+ -- Julien Cristau <jcristau@debian.org>  Wed, 03 Mar 2010 14:38:17 +0100
 
 xterm (253-1) unstable; urgency=low
 
