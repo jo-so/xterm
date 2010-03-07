@@ -1,3 +1,9 @@
+xterm (256-1) UNRELEASED; urgency=low
+
+  * New upstream release.
+
+ -- Julien Cristau <jcristau@debian.org>  Sun, 07 Mar 2010 11:35:23 +0100
+
 xterm (255-1) unstable; urgency=low
 
   * Rename the build directory to not include DEB_BUILD_GNU_TYPE for no
