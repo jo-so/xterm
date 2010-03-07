@@ -2,7 +2,7 @@ Index: xterm/xterm.man
 ===================================================================
 --- xterm.orig/xterm.man
 +++ xterm/xterm.man
-@@ -1499,7 +1499,7 @@
+@@ -1497,7 +1497,7 @@
  .TP
  .B "allowFontOps (\fPclass\fB AllowFontOps)"
  Specifies whether control sequences that set/query the font should be allowed.

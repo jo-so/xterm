@@ -3,6 +3,7 @@ xterm (256-1) UNRELEASED; urgency=low
   * New upstream release.
   * Delete patch 901_xterm_manpage.diff, the utmp/wtmp paths are now set in
     the manpage at build/install time thanks to upstream changes.
+  * Refresh patches 902 and 904.
 
  -- Julien Cristau <jcristau@debian.org>  Sun, 07 Mar 2010 11:35:23 +0100
 
