@@ -15,7 +15,8 @@ Build-Depends:
  libutempter-dev,
  debhelper (>= 5),
  quilt,
- lynx
+ lynx,
+ xorg-docs-core,
 
 # Reasons for Build-Depends:
 #
@@ -90,6 +91,12 @@ Build-Depends:
 #       Tekproc.c:#include <X11/Xaw/Form.h>
 #       Tekproc.c:#include <X11/Xaw3d/Form.h>
 #       Tekproc.c:#include <X11/XawPlus/Form.h>
+#   libxkbfile-dev
+#       data.h:#include <X11/extensions/XKBbells.h>
+#   libutempter-dev
+#       main.c:#include <utempter.h>
+#   xorg-docs-core                  provides X(7) which minstall.sh tries to
+#                                   detect
 #   debhelper (>= 5)                debian/compat = 5
 #   dpkg-dev (>= 1.10.14)           (1.10.11) comment support in debian/control;
 #                                   (1.10.14) architecture-specific binary

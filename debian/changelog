@@ -4,6 +4,9 @@ xterm (256-1) UNRELEASED; urgency=low
   * Delete patch 901_xterm_manpage.diff, the utmp/wtmp paths are now set in
     the manpage at build/install time thanks to upstream changes.
   * Refresh patches 902 and 904.
+  * Add build dependency on xorg-docs-core to fix the reference to X(7) in
+    xterm(1).
+  * Also document the libxkbfile-dev and libutempter-dev build-deps.
 
  -- Julien Cristau <jcristau@debian.org>  Sun, 07 Mar 2010 11:35:23 +0100
 
