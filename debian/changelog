@@ -1,4 +1,4 @@
-xterm (256-1) UNRELEASED; urgency=low
+xterm (256-1) unstable; urgency=low
 
   * New upstream release.
   * Delete patch 901_xterm_manpage.diff, the utmp/wtmp paths are now set in
@@ -8,7 +8,7 @@ xterm (256-1) UNRELEASED; urgency=low
     xterm(1).
   * Also document the libxkbfile-dev and libutempter-dev build-deps.
 
- -- Julien Cristau <jcristau@debian.org>  Sun, 07 Mar 2010 11:35:23 +0100
+ -- Julien Cristau <jcristau@debian.org>  Sun, 14 Mar 2010 20:15:13 +0100
 
 xterm (255-1) unstable; urgency=low
 
