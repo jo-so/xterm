@@ -4,6 +4,7 @@ xterm (258-2) UNRELEASED; urgency=low
     FAQ (closes: #581647).  Thanks, Bob Proulx!
   * Add a NEWS entry about the changed default value for pointerMode (closes:
     #581653).  Request and wording from Bob Proulx, thanks!
+  * Refresh 902_windowops.diff and 904_fontops.diff.
 
  -- Julien Cristau <jcristau@debian.org>  Fri, 14 May 2010 19:51:07 +0200
 
