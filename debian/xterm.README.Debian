@@ -1,20 +1,6 @@
 Debian README for xterm package
 ===============================
 
-Newcomers to the X Window System should first read the Debian X FAQ
-(Frequently Asked Questions list): /usr/share/doc/x11-common/FAQ.gz.
-You can view this file with your favorite pager program after decompressing
-it.  For example:
-    $ zcat /usr/share/doc/x11-common/FAQ.gz | pager
-
-As of version 3.3.4-1, xterm logs to the wtmp and lastlog files.  If you do
-not have a utmp group on your system, xterm will be installed setuid root
-instead of setgid utmp.  xterm drops its root privileges after it
-initializes, so if it is setuid this can result in corrupt wtmp entries.
-The best thing to do is make a utmp group in /etc/group, or upgrade to
-version 2.0.3.4 or later of the base-passwd package, so that you have a
-utmp group.
-
 The xterm terminal type on a Debian system is an alias for xterm-debian.
 This means that "xterm" and "xterm-debian" are interchangeable as values of
 the $TERM environment variable in the shell.  Since the xterm-debian type
@@ -37,7 +23,7 @@ Debian uses may be found in the xterm documentation directory,
 /usr/share/doc/xterm.  People interested in reading further to stock up
 ammo for their backspace/delete and terminal type wars should consult Tom
 Dickey's (current maintainer of the xterm source code) FAQ, available in
-the file /usr/share/doc/xterm/xterm.faq{html,text.gz} and the website
+the file /usr/share/doc/xterm/xterm.faq.{html,gz} and the website
 <http://vt100.net>.
 
 The default keymappings for xterm are different than they are upstream to
