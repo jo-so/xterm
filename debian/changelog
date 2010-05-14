@@ -2,6 +2,8 @@ xterm (258-2) UNRELEASED; urgency=low
 
   * README.Debian: drop obsolete content, including a link to the old Debian X
     FAQ (closes: #581647).  Thanks, Bob Proulx!
+  * Add a NEWS entry about the changed default value for pointerMode (closes:
+    #581653).  Request and wording from Bob Proulx, thanks!
 
  -- Julien Cristau <jcristau@debian.org>  Fri, 14 May 2010 19:51:07 +0200
 
