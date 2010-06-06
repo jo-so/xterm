@@ -1,12 +1,16 @@
-xterm (258-2) UNRELEASED; urgency=low
+xterm (259-1) UNRELEASED; urgency=low
 
   * README.Debian: drop obsolete content, including a link to the old Debian X
     FAQ (closes: #581647).  Thanks, Bob Proulx!
   * Add a NEWS entry about the changed default value for pointerMode (closes:
     #581653).  Request and wording from Bob Proulx, thanks!
   * Refresh 902_windowops.diff and 904_fontops.diff.
+  * New upstream release
+    + change default for allowScrollLock resource to false, noting that the
+      supposedly unused key has been useful for various rebindings
+      (closes: #580946)
 
- -- Julien Cristau <jcristau@debian.org>  Fri, 14 May 2010 19:51:07 +0200
+ -- Julien Cristau <jcristau@debian.org>  Sun, 06 Jun 2010 13:49:43 +0200
 
 xterm (258-1) unstable; urgency=low
 
