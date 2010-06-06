@@ -1,4 +1,4 @@
-xterm (259-1) UNRELEASED; urgency=low
+xterm (259-1) unstable; urgency=low
 
   * README.Debian: drop obsolete content, including a link to the old Debian X
     FAQ (closes: #581647).  Thanks, Bob Proulx!
@@ -12,7 +12,7 @@ xterm (259-1) UNRELEASED; urgency=low
   * Update copy of XTerm FAQ to revision 1.138 (dated 2010/05/15).
   * Bump copyright year in debian/copyright.
 
- -- Julien Cristau <jcristau@debian.org>  Sun, 06 Jun 2010 13:49:43 +0200
+ -- Julien Cristau <jcristau@debian.org>  Sun, 06 Jun 2010 14:39:27 +0200
 
 xterm (258-1) unstable; urgency=low
 
