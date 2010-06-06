@@ -2,7 +2,7 @@ Index: xterm/xterm.man
 ===================================================================
 --- xterm.orig/xterm.man
 +++ xterm/xterm.man
-@@ -2076,8 +2076,9 @@
+@@ -2115,8 +2115,9 @@
  from \fIdtterm\fP the operation number).
  The default value is
  .RS
