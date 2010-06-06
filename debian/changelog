@@ -10,6 +10,7 @@ xterm (259-1) UNRELEASED; urgency=low
       supposedly unused key has been useful for various rebindings
       (closes: #580946)
   * Update copy of XTerm FAQ to revision 1.138 (dated 2010/05/15).
+  * Bump copyright year in debian/copyright.
 
  -- Julien Cristau <jcristau@debian.org>  Sun, 06 Jun 2010 13:49:43 +0200
 
