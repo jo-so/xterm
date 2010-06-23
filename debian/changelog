@@ -1,3 +1,17 @@
+xterm (260-1) UNRELEASED; urgency=low
+
+  * New upstream release
+    + extend renderFont resource to allow deferred switch to TrueType fonts
+      without affecting existing resource settings (closes: #585620)
+    + change configure script default for --enable-broken-st (i.e., the
+      brokenStringTerm feature) to normally enable it.  If the corresponding
+      resource is enabled, this feature eliminates an apparent freeze of xterm
+      when sending mis-encoded data to the screen (closes: #584801)
+    + undo a change to limit-check in ScrnRefresh in patch #257, which broke
+      fastScroll feature (closes: #584841)
+
+ -- Julien Cristau <jcristau@debian.org>  Wed, 23 Jun 2010 15:19:03 +0100
+
 xterm (259-1) unstable; urgency=low
 
   * README.Debian: drop obsolete content, including a link to the old Debian X
