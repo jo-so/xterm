@@ -1,4 +1,4 @@
-xterm (260-1) UNRELEASED; urgency=low
+xterm (260-1) unstable; urgency=low
 
   * New upstream release
     + extend renderFont resource to allow deferred switch to TrueType fonts
@@ -10,7 +10,7 @@ xterm (260-1) UNRELEASED; urgency=low
     + undo a change to limit-check in ScrnRefresh in patch #257, which broke
       fastScroll feature (closes: #584841)
 
- -- Julien Cristau <jcristau@debian.org>  Wed, 23 Jun 2010 15:19:03 +0100
+ -- Julien Cristau <jcristau@debian.org>  Fri, 25 Jun 2010 19:58:38 +0100
 
 xterm (259-1) unstable; urgency=low
 
