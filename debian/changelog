@@ -1,10 +1,10 @@
-xterm (261-1) UNRELEASED; urgency=low
+xterm (261-1) unstable; urgency=low
 
   * New upstream release
     + fix regression in renderFont logic, from patch #260 changes
       (closes: #587428)
 
- -- Julien Cristau <jcristau@debian.org>  Mon, 28 Jun 2010 21:51:27 +0100
+ -- Julien Cristau <jcristau@debian.org>  Mon, 28 Jun 2010 21:53:28 +0100
 
 xterm (260-1) unstable; urgency=low
 
