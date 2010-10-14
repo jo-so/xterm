@@ -1,3 +1,12 @@
+xterm (264-1) UNRELEASED; urgency=low
+
+  * New upstream release:
+    + Fix active-icon in specific cases (Closes: #591265).
+    + Fix pointer visibility issues (Closes: #594856).
+    + Fix segmentation fault with -fb and other options (Closes: #600129).
+
+ -- Cyril Brulebois <kibi@debian.org>  Thu, 14 Oct 2010 23:35:52 +0200
+
 xterm (261-1) unstable; urgency=low
 
   * New upstream release
