@@ -4,6 +4,7 @@ xterm (264-1) UNRELEASED; urgency=low
     + Fix active-icon in specific cases (Closes: #591265).
     + Fix pointer visibility issues (Closes: #594856).
     + Fix segmentation fault with -fb and other options (Closes: #600129).
+  * Add myself to Uploaders.
 
  -- Cyril Brulebois <kibi@debian.org>  Thu, 14 Oct 2010 23:35:52 +0200
 
