@@ -1,4 +1,4 @@
-xterm (264-1) UNRELEASED; urgency=low
+xterm (264-1) unstable; urgency=low
 
   * New upstream release:
     + Fix active-icon in specific cases (Closes: #591265).
@@ -6,7 +6,7 @@ xterm (264-1) UNRELEASED; urgency=low
     + Fix segmentation fault with -fb and other options (Closes: #600129).
   * Add myself to Uploaders.
 
- -- Cyril Brulebois <kibi@debian.org>  Thu, 14 Oct 2010 23:35:52 +0200
+ -- Cyril Brulebois <kibi@debian.org>  Thu, 14 Oct 2010 23:53:57 +0200
 
 xterm (261-1) unstable; urgency=low
 
