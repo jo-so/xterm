@@ -1,6 +1,6 @@
 xterm (266-1) UNRELEASED; urgency=low
 
-  * New upstream release:
+  * New upstream release (Closes: #601103, yay for patience…):
     + Fix a regression in fontname logic from patch #263, thanks to
       Vincent Lefevre (Closes: #600707).
   * Fix watch file: use PASV mode.
