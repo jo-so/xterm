@@ -1,11 +1,11 @@
-xterm (266-1) UNRELEASED; urgency=low
+xterm (266-1) unstable; urgency=low
 
   * New upstream release (Closes: #601103, yay for patience…):
     + Fix a regression in fontname logic from patch #263, thanks to
       Vincent Lefevre (Closes: #600707).
   * Fix watch file: use PASV mode.
 
- -- Cyril Brulebois <kibi@debian.org>  Fri, 22 Oct 2010 21:07:27 +0200
+ -- Cyril Brulebois <kibi@debian.org>  Wed, 27 Oct 2010 14:23:02 +0200
 
 xterm (264-1) unstable; urgency=low
 
