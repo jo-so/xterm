@@ -2,6 +2,7 @@ xterm (266-2) UNRELEASED; urgency=low
 
   * Prefer lynx-cur over lynx in Build-Depends.
   * Update xsfbs.
+  * Drop useless debian/xterm.dirs.
 
  -- Sven Joachim <svenjoac@gmx.de>  Sat, 20 Nov 2010 13:14:37 +0100
 
