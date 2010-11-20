@@ -20,7 +20,7 @@
  * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF   *
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.            *
  *****************************************************************************
-  $XTermId: xterm.faq.html,v 1.138 2010/05/15 20:46:49 tom Exp $
+  $XTermId: xterm.faq.html,v 1.158 2010/11/10 10:28:18 tom Exp $
   -->
 <HTML>
 <HEAD>
@@ -32,10 +32,13 @@
 <HR>
 Copyright 1997-2009,2010 by Thomas E. Dickey
 <HR>
+<a href="http://invisible-island.net/xterm/xterm.faq.html">Here</a>
+is the latest version of this file.
 <h2>Contents</h2>
 <UL>
 <LI><A HREF="#what_is_it">What is XTERM?</A>
 <LI><A HREF="#who_did_it">Who wrote XTERM?</A>
+<LI><A HREF="#what_is_vt220">What is a VT220?</A>
 <LI><A HREF="#what_platforms">What platforms does it run on?</A>
 <LI><A HREF="#latest_version">What is the latest version?</A>
 <LI><A HREF="#other_versions">What versions are available?</A>
@@ -59,6 +62,9 @@ terminal resizing capabilities (for example, the SIGWINCH signal in systems
 derived from 4.3bsd), xterm will use the facilities to notify programs running
 in the window whenever it is resized.
 </blockquote>
+That is, it is a <em>specific</em> program, not a generic item.
+This FAQ presents various useful bits of information for both
+the specific program as well as other programs that imitate it.
 
 <h2><A NAME="who_did_it">Who wrote XTERM?</A></h2>
 I've been working on xterm since early 1996
@@ -148,10 +154,62 @@ at the Smithsonian Astrophysical Observatory.
 </blockquote>
 <P>
 This FAQ is oriented toward the version of xterm originally distributed
-with XFree86 (also known as "new xterm",
+with XFree86 (more commonly known as modern, or "new xterm",
 with a corresponding terminal description "xterm-new"),
 which was based on the X11R6.3 xterm, with the addition of ANSI color and
 VT220 controls.
+
+<h2><A NAME="what_is_vt220">What is a VT220?</A></h2>
+<h3>Why a VT220?</h3>
+The manual page mentions a VT220.
+Most terminal emulators documentation talk about VT100.
+But a VT100 is a rather limited subset of what people expect:
+<ul>
+<li>VT100s have no function keys.
+Arguably, PF1-PF4 are function keys.
+My keyboard has 12 function keys.
+<li>VT100s do not do
+<a href="../ncurses/ncurses.faq.html">color</a>.
+</ul>
+<p>
+Initially, I was only interested in making colors workable for curses
+programs.
+<p>
+Later, I noticed that xterm had some support for what would now be termed as ISO-2022.
+That was a VT220 feature, rather than VT100.
+There were some missing pieces.
+So I decided to fill in those pieces and make xterm a VT220 emulator.
+(VT220s do not do ANSI color either&mdash;the missing pieces were in other areas).
+<p>
+Xterm also provides features that are in neither VT100 nor VT220,
+which are used by other programs as "xterm emulation".
+<ul>
+<li>set (and retrieve) window- and icon-labels using escape sequences.
+<li>interpret mouse clicks as escape sequences that can be read by a program.
+</ul>
+By the way, the control string used for setting the titles was
+not in a standard format:
+<ul>
+<li>In X10 (1988), the string was simply terminated by any nonprinting character.
+<li>X11R4 (1989) modified that to ensure that the nonprinting character is an
+ASCII BEL (control/G).
+<li>There is no explanation in the (sketchy) notes distributed with the
+X11R4 xterm;
+in retrospect it seems that the most likely explanation for the choice is
+that it was simpler to implement in shell scripts than <code>ESC&nbsp;\</code>.
+</ul>
+<p>
+I revised that area <a href="xterm.log.html#xterm_24">starting in 1996</a>,
+<ul>
+<li>first to use xterm's state table for handling the input, and then
+<li>to accept the standard string terminator as well.
+</ul>
+<h3>What is a State Table?</h3>
+That was mentioned regarding the title strings.
+Xterm uses a state machine to handle incoming characters.
+That is essentially what a real terminal does.
+Other "xterm" terminal emulators typically do not do this,
+which makes them not do well with <A HREF="../vttest/vttest.html">vttest</A>.
 
 <h2><A NAME="what_platforms">What platforms does it run on?</A></h2>
 <code>Xterm</code> runs in all of the implementations of X11.
@@ -263,7 +321,7 @@ after all):
 </UL>
 
 <h3><A NAME="how2_fsize">How do I change the font size?</A></h3>
-xterm uses fonts given as resource settings.
+Xterm uses fonts given as resource settings.
 You can switch between these fonts at runtime, using a menu.
 This is documented in the manpage, in the
 <a href="manpage/xterm.html#MENUS">MENUS</a> section.
@@ -274,11 +332,11 @@ Control right mouse button pops up the <em>VT FONTS</em> menu,
 from which you can select fonts that are specified in xterm's resources.
 Usually these are in increasing order of size.
 <p>
-XFree86 xterm provides the menu, plus a feature adapted from rxvt: pressing
+Modern xterm provides the menu, plus a feature adapted from rxvt: pressing
 the shifted keypad plus or minus keys steps through the font menu selections,
 in order of their size.
 <p>
-xterm's manpage does not document the syntax for X resources;
+Xterm's manpage does not document the syntax for X resources;
 it is done in the X documentation.
 If you are instead asking about a
 <a href="#utf8_fonts">problem displaying a given font</a>,
@@ -298,7 +356,7 @@ Even cursor movement, if you run an editor.
 </ul>
 Well, what about logging?
 Some versions of xterm support logging to a file.
-In fact XFree86 xterm does.  Logging was dropped from X Consortium xterm
+In fact modern xterm does.  Logging was dropped from X Consortium xterm
 during X11R5 due to security concerns.  Those were addressed, but logging
 was not reinstated
 (in fact there is a related <a href="#bug_xterm_r6">bug</a> in xterm).
@@ -317,7 +375,7 @@ Both <em>script</em> and logging are useful for recording, but they
 require interpretation to make sense of the trace.  You probably
 would not send that trace to a printer (not twice, anyway).
 <p>
-If you want to print the contents of the screen, XFree86 xterm
+If you want to print the contents of the screen, modern xterm
 implements, as part of the VT100 emulation, an "attached" printer.
 <ul>
 <li>The printer is really a pipe command, to which xterm writes.
@@ -351,9 +409,9 @@ If you use the popup menu to print the screen, this will close the
 printer pipe unless it was already opened by the application running in xterm.
 
 <h3><A NAME="how2_fkeys">How do I set up function keys?</A></h3>
-With XFree86 xterm, this is relatively simple.  So I'll answer that first.
+With modern xterm, this is relatively simple.  So I'll answer that first.
 <P>
-With X Consortium xterm, you have partial support for DEC VTxxx function keys.
+With X Consortium xterm, you had partial support for DEC VTxxx function keys.
 Function keys F1 to F12 correspond to DEC's F1 to F12 (sort of).
 Actually, DEC's VT220 terminals do not have codes for F1 through F5.
 They are reserved for local functions.
@@ -362,7 +420,8 @@ So you cannot do anything with the F13 through F20 (i.e., DO, HELP and SELECT).
 Finally, though xterm is reputed to be VT100-compatible, it has no support
 for the VT100 keypad (PF1 to PF4, and the "," key).
 <P>
-XFree86 xterm changes the X Consortium codes for F1 to F4 to match the
+Modern (XFree86) xterm changed the X Consortium codes
+for F1 to F4 to match the
 VT100 PF1 to PF4, except when the emulation level is VT220 and up.
 In this case, it generates the same F1 to F4 codes as X Consortium xterm.
 Moreover, it adds a new resource <code>sunKeyboard</code>, which
@@ -372,7 +431,7 @@ If so (this is selectable from the popup menu), you can use the control key
 with F1 to F12 to get F13 to F24, and use the "+" key on the keypad as an
 alias for "," (comma).
 <P>
-The emulation level for XFree86 xterm is set via the resource
+The emulation level for modern xterm is set via the resource
 <code>decTerminalID</code>, e.g., to 220 for a VT220.
 Once set, applications can set the emulation level up or down within that
 limit.  DEC's terminals are configured in much the same way by a setup
@@ -383,216 +442,216 @@ The traditional way to get function keys involves translations.
 I have seen a few postings on the newsgroups that do this.
 Here is one from Bruce Momjian &lt;root@candle.pha.pa.us&gt;
 for a VT220:
-<PRE><code>
-	xterm $XTERMFLAGS +rw +sb +ls $@ -tm 'erase ^? intr ^c' \
-		-name vt220 -title vt220 -tn xterm-220 "$@" &amp;
-</code></PRE>
-<P>
+<!--{{atr2html--><p style="font-family: monospace; font-size: 10pt;">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xterm&nbsp;<font color="#008080">$XTERMFLAGS</font>&nbsp;+rw&nbsp;+sb&nbsp;+ls&nbsp;<font color="#008080">$@</font>&nbsp;-tm&nbsp;<font color="#800080">'erase&nbsp;^?&nbsp;intr&nbsp;^c'</font>&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-name&nbsp;vt220&nbsp;-title&nbsp;vt220&nbsp;-tn&nbsp;xterm-220&nbsp;<font color="#800080">"$@"</font>&nbsp;&amp;amp;<br>
+<!--atr2html}}--></p>
 with the corresponding resources:
-<PRE><code>
-	XTerm*VT100.translations: #override \n\
-		&lt;Key&gt;Home: string(0x1b) string("[3~") \n \
-		&lt;Key&gt;End: string(0x1b) string("[4~") \n
-	vt220*VT100.translations: #override \n\
-	~Shift	&lt;Key&gt;F1: string(0x1b) string("OP") \n \
-	~Shift	&lt;Key&gt;F2: string(0x1b) string("OQ") \n \
-	~Shift	&lt;Key&gt;F3: string(0x1b) string("OR") \n \
-	~Shift	&lt;Key&gt;F4: string(0x1b) string("OS") \n \
-	~Shift	&lt;Key&gt;F5: string(0x1b) string("[16~") \n \
-	~Shift	&lt;Key&gt;F6: string(0x1b) string("[17~") \n \
-	~Shift	&lt;Key&gt;F7: string(0x1b) string("[18~") \n \
-	~Shift	&lt;Key&gt;F8: string(0x1b) string("[19~") \n \
-	~Shift	&lt;Key&gt;F9: string(0x1b) string("[20~") \n \
-	~Shift	&lt;Key&gt;F10: string(0x1b) string("[21~") \n \
-	~Shift	&lt;Key&gt;F11: string(0x1b) string("[28~") \n \
-	~Shift	&lt;Key&gt;F12: string(0x1b) string("[29~") \n \
-	Shift	&lt;Key&gt;F1: string(0x1b) string("[23~") \n \
-	Shift	&lt;Key&gt;F2: string(0x1b) string("[24~") \n \
-	Shift	&lt;Key&gt;F3: string(0x1b) string("[25~") \n \
-	Shift	&lt;Key&gt;F4: string(0x1b) string("[26~") \n \
-	Shift	&lt;Key&gt;F5: string(0x1b) string("[K~") \n \
-	Shift	&lt;Key&gt;F6: string(0x1b) string("[31~") \n \
-	Shift	&lt;Key&gt;F7: string(0x1b) string("[31~") \n \
-	Shift	&lt;Key&gt;F8: string(0x1b) string("[32~") \n \
-	Shift	&lt;Key&gt;F9: string(0x1b) string("[33~") \n \
-	Shift	&lt;Key&gt;F10: string(0x1b) string("[34~") \n \
-	Shift	&lt;Key&gt;F11: string(0x1b) string("[28~") \n \
-	Shift	&lt;Key&gt;F12: string(0x1b) string("[29~") \n \
-		&lt;Key&gt;Print: string(0x1b) string("[32~") \n\
-		&lt;Key&gt;Cancel: string(0x1b) string("[33~") \n\
-		&lt;Key&gt;Pause: string(0x1b) string("[34~") \n\
-		&lt;Key&gt;Insert: string(0x1b) string("[2~") \n\
-		&lt;Key&gt;Delete: string(0x1b) string("[3~") \n\
-		&lt;Key&gt;Home: string(0x1b) string("[1~") \n\
-		&lt;Key&gt;End: string(0x1b) string("[4~") \n\
-		&lt;Key&gt;Prior: string(0x1b) string("[5~") \n\
-		&lt;Key&gt;Next: string(0x1b) string("[6~") \n\
-		&lt;Key&gt;BackSpace: string(0x7f) \n\
-		&lt;Key&gt;Num_Lock: string(0x1b) string("OP") \n\
-		&lt;Key&gt;KP_Divide: string(0x1b) string("Ol") \n\
-		&lt;Key&gt;KP_Multiply: string(0x1b) string("Om") \n\
-		&lt;Key&gt;KP_Subtract: string(0x1b) string("OS") \n\
-		&lt;Key&gt;KP_Add: string(0x1b) string("OM") \n\
-		&lt;Key&gt;KP_Enter: string(0x1b) string("OM") \n\
-		&lt;Key&gt;KP_Decimal: string(0x1b) string("On") \n\
-		&lt;Key&gt;KP_0: string(0x1b) string("Op") \n\
-		&lt;Key&gt;KP_1: string(0x1b) string("Oq") \n\
-		&lt;Key&gt;KP_2: string(0x1b) string("Or") \n\
-		&lt;Key&gt;KP_3: string(0x1b) string("Os") \n\
-		&lt;Key&gt;KP_4: string(0x1b) string("Ot") \n\
-		&lt;Key&gt;KP_5: string(0x1b) string("Ou") \n\
-		&lt;Key&gt;KP_6: string(0x1b) string("Ov") \n\
-		&lt;Key&gt;KP_7: string(0x1b) string("Ow") \n\
-		&lt;Key&gt;KP_8: string(0x1b) string("Ox") \n\
-		&lt;Key&gt;KP_9: string(0x1b) string("Oy") \n
-
-	!	&lt;Key&gt;Up: string(0x1b) string("[A") \n\
-	!	&lt;Key&gt;Down: string(0x1b) string("[B") \n\
-	!	&lt;Key&gt;Right: string(0x1b) string("[C") \n\
-	!	&lt;Key&gt;Left: string(0x1b) string("[D") \n\
-
-	*visualBell:	true
-	*saveLines:    1000
-	*cursesemul:	true
-	*scrollKey: true
-	*scrollBar: true
-</code></PRE>
+<p>
+<!--{{atr2html--><p style="font-family: monospace; font-size: 10pt;">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">XTerm</font></strong>*<strong><font color="#000080">VT100</font></strong>.<font color="#008080">translations</font>:<font color="#800080">&nbsp;#override&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">Home:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("[</font><strong><font color="#008080">3</font></strong><font color="#800080">~")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">End:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("[</font><strong><font color="#008080">4</font></strong><font color="#800080">~")&nbsp;\n</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#008080">vt220</font>*<strong><font color="#000080">VT100</font></strong>.<font color="#008080">translations</font>:<font color="#800080">&nbsp;#override&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;~Shift&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">F1:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("OP")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;~Shift&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">F2:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("OQ")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;~Shift&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">F3:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("OR")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;~Shift&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">F4:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("OS")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;~Shift&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">F5:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("[</font><strong><font color="#008080">16</font></strong><font color="#800080">~")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;~Shift&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">F6:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("[</font><strong><font color="#008080">17</font></strong><font color="#800080">~")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;~Shift&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">F7:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("[</font><strong><font color="#008080">18</font></strong><font color="#800080">~")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;~Shift&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">F8:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("[</font><strong><font color="#008080">19</font></strong><font color="#800080">~")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;~Shift&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">F9:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("[</font><strong><font color="#008080">20</font></strong><font color="#800080">~")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;~Shift&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">F10:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("[</font><strong><font color="#008080">21</font></strong><font color="#800080">~")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;~Shift&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">F11:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("[</font><strong><font color="#008080">28</font></strong><font color="#800080">~")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;~Shift&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">F12:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("[</font><strong><font color="#008080">29</font></strong><font color="#800080">~")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shift&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">F1:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("[</font><strong><font color="#008080">23</font></strong><font color="#800080">~")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shift&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">F2:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("[</font><strong><font color="#008080">24</font></strong><font color="#800080">~")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shift&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">F3:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("[</font><strong><font color="#008080">25</font></strong><font color="#800080">~")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shift&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">F4:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("[</font><strong><font color="#008080">26</font></strong><font color="#800080">~")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shift&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">F5:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("[K~")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shift&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">F6:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("[</font><strong><font color="#008080">31</font></strong><font color="#800080">~")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shift&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">F7:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("[</font><strong><font color="#008080">31</font></strong><font color="#800080">~")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shift&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">F8:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("[</font><strong><font color="#008080">32</font></strong><font color="#800080">~")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shift&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">F9:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("[</font><strong><font color="#008080">33</font></strong><font color="#800080">~")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shift&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">F10:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("[</font><strong><font color="#008080">34</font></strong><font color="#800080">~")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shift&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">F11:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("[</font><strong><font color="#008080">28</font></strong><font color="#800080">~")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shift&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">F12:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("[</font><strong><font color="#008080">29</font></strong><font color="#800080">~")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">Print:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("[</font><strong><font color="#008080">32</font></strong><font color="#800080">~")&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">Cancel:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("[</font><strong><font color="#008080">33</font></strong><font color="#800080">~")&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">Pause:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("[</font><strong><font color="#008080">34</font></strong><font color="#800080">~")&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">Insert:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("[</font><strong><font color="#008080">2</font></strong><font color="#800080">~")&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">Delete:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("[</font><strong><font color="#008080">3</font></strong><font color="#800080">~")&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">Home:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("[</font><strong><font color="#008080">1</font></strong><font color="#800080">~")&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">End:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("[</font><strong><font color="#008080">4</font></strong><font color="#800080">~")&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">Prior:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("[</font><strong><font color="#008080">5</font></strong><font color="#800080">~")&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">Next:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("[</font><strong><font color="#008080">6</font></strong><font color="#800080">~")&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">BackSpace:&nbsp;string(</font><strong><font color="#008080">0x7f</font></strong><font color="#800080">)&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">Num_Lock:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("OP")&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">KP_Divide:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("Ol")&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">KP_Multiply:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("Om")&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">KP_Subtract:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("OS")&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">KP_Add:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("OM")&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">KP_Enter:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("OM")&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">KP_Decimal:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("On")&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">KP_0:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("Op")&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">KP_1:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("Oq")&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">KP_2:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("Or")&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">KP_3:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("Os")&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">KP_4:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("Ot")&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">KP_5:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("Ou")&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">KP_6:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("Ov")&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">KP_7:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("Ow")&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">KP_8:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("Ox")&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">KP_9:&nbsp;string(</font><strong><font color="#008080">0x1b</font></strong><font color="#800080">)&nbsp;string("Oy")&nbsp;\n</font><br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;Up:&nbsp;string(0x1b)&nbsp;string("[A")&nbsp;\n\<br>
+</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;Down:&nbsp;string(0x1b)&nbsp;string("[B")&nbsp;\n\<br>
+</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;Right:&nbsp;string(0x1b)&nbsp;string("[C")&nbsp;\n\<br>
+</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;Left:&nbsp;string(0x1b)&nbsp;string("[D")&nbsp;\n\<br>
+</font>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<font color="#008080">visualBell</font>:<font color="#800080">&nbsp;&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">true</font></strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<font color="#008080">saveLines</font>:<font color="#800080">&nbsp;&nbsp;&nbsp;&nbsp;</font><strong><font color="#008080">1000</font></strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<font color="#008080">cursesemul</font>:<font color="#800080">&nbsp;&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">true</font></strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<font color="#008080">scrollKey</font>:<font color="#800080">&nbsp;</font><strong><font color="#000080">true</font></strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<font color="#008080">scrollBar</font>:<font color="#800080">&nbsp;</font><strong><font color="#000080">true</font></strong><br>
+<!--atr2html}}--></p>
+<p>
 Note that real VT220 terminals use shifted function keys to mean something
-different: the user-programmable keys (i.e., DECUDK).  XFree86 xterm
+different: the user-programmable keys (i.e., DECUDK).  Modern xterm
 supports this, but the translations do not (they're using shift to select
 F13 to F20).
 <P>
 Here's another one, from
 Robert Ess &lt;ress@spd.dsccc.com&gt;:
-<PRE><code>
-	#!/bin/sh
-
-	#		vax
-	# 09-17-96	Bob Ess      - initial creation
-	# 09-26-96	Shig Katada  - Additional keybindings
-	#
-	#		Script file to incorporate keybindings and command line
-	#		options for connecting to a VAX node
-
-	# Usage statement
-	Usage(){
-		echo
-		echo " Usage  : vax -options"
-		echo
-		echo " Options: -80   for 80 column terminal"
-		echo "          -132  for 132 column terminal"
-		echo "          -fg colorname"
-		echo "          -bg colorname"
-		echo "          -fn fontname"
-		echo "          -fb bold fontname"
-		echo "          -host [altair] [devel] [leonis] [castor]"
-		echo ""
-		echo " Example: \"vax -80 -fg white -bg black -fn 9x15 -fb 9x15b -host castor\""
-		echo "          Starts a VAX session with an 80 column terminal"
-		echo "          with a black background, white foreground, a normal"
-		echo "          font of 9x15 and a bold font of 9x15b, and connects"
-		echo "          to the node 'castor'"
-		echo
-		echo "          If you need additional help, please call Workstation"
-		echo "          Services at x92396."
-		echo
-		exit 1
-	}
-
-
-	# Default to a black foreground with a white background.
-	# Use the 9x15 and 9x15bold fonts. Connect to castor by default.
-	#
-	FG=black
-	BG=white
-	HOST=castor
-	FONT=9x15
-	BFONT=9x15bold
-	COLS=80
-
-
-	# Parse the command line arguments
-	#
-	while [ $# != 0 ];
-	do
-		case $1 in
-			-80)	COLS=80
-				FONT=spc12x24c
-				BFONT=spc12x24b
-				shift
-				;;
-			-132)	COLS=132
-				FONT=9x15
-				BFONT=9x15b
-				shift
-				;;
-			-fg)	shift
-				FG=$1
-				shift;;
-			-bg)	shift
-				BG=$1
-				shift;;
-			-fn)	shift
-				FONT=$1
-				shift;;
-			-fb)	shift
-				BFONT=$1
-				shift;;
-			-host)	shift
-				HOST=$1
-				shift;;
-			-help)	Usage;;
-			*)	Usage;;
-		esac
-	done
-
-
-	xterm  -title "VAX" -sb -sl 1200 -geo ${COLS}x24 -fg ${FG} -bg ${BG} \
-		-cr red -fn ${FONT} -fb ${BFONT} -xrm \
-		'XTerm*VT100.translations:     #override \n\
-		&lt;Key&gt;Insert:            string(\001) \n\
-		Shift &lt;Key&gt;Up:          scroll-back(1,lines) \n\
-		Shift &lt;Key&gt;Down:        scroll-forw(1,lines) \n\
-		Shift &lt;Key&gt;Right:       string(0x1b) string("f") \n\
-		Shift &lt;Key&gt;Left:        string(0x1b) string("b") \n\
-		Shift &lt;Key&gt;Delete:      string(0x1b) string(0x08) \n\
-		Shift &lt;Key&gt;Tab:         string(0x1b) string("*") \n\
-		&lt;Key&gt;0x1000FF0D:        scroll-back(1,page) \n\
-		&lt;Key&gt;0x1000FF0E:        scroll-forw(1,page) \n\
-		&lt;Key&gt;0x1000FF09:        string(\010) \n\
-		&lt;Key&gt;0x1000FF0A:        string(\005) \n\
-		&lt;Key&gt;BackSpace:         string(0xff) \n\
-		&lt;Key&gt;Select:            select-start() \n\
-		&lt;Key&gt;0x1000FF02:        select-end(PRIMARY,CUT_BUFFER0) \n\
-		Meta &lt;Key&gt;0x1000FF02:   select-end(CLIPBOARD) \n\
-		&lt;Key&gt;0x1000FF04:        insert-selection(PRIMARY,CUT_BUFFER0) \n\
-		Meta &lt;Key&gt;0x1000FF04:   insert-selection(CLIPBOARD) \n\
-		&lt;Key&gt;F1:                string(0x1b) string("OP") \n\
-		&lt;Key&gt;F2:                string(0x1b) string("OQ") \n\
-		&lt;Key&gt;F3:                string(0x1b) string("OR") \n\
-		&lt;Key&gt;F4:                string(0x1b) string("OS") \n\
-		&lt;Key&gt;F5:                string(0x1b) string("OA") \n\
-		&lt;Key&gt;F11:               string(0x1b) string("[23~") \n\
-		&lt;Key&gt;F12:               string(0x1b) string("[24~") \n\
-		&lt;Key&gt;KP_0:              string(0x1b) string("Op") \n\
-		&lt;Key&gt;KP_1:              string(0x1b) string("Oq") \n\
-		&lt;Key&gt;KP_2:              string(0x1b) string("Or") \n\
-		&lt;Key&gt;KP_3:              string(0x1b) string("Os") \n\
-		&lt;Key&gt;KP_4:              string(0x1b) string("Ot") \n\
-		&lt;Key&gt;KP_5:              string(0x1b) string("Ou") \n\
-		&lt;Key&gt;KP_Divide:         string(0x1b) string("OP") \n\
-		&lt;Key&gt;KP_Multiply:       string(0x1b) string("[29~") \n\
-		&lt;Key&gt;KP_Enter:          string(0x1b) string("OM") \n\
-		&lt;Key&gt;KP_Subtract:       string(0x1b) string("Om") \n\
-		&lt;Key&gt;KP_Add:            string(0x1b) string("Ol") \n\
-		&lt;Key&gt;KP_Decimal:        string(0x1b) string("On") \n\
-		&lt;Btn1Down&gt;:             select-start() \n\
-		&lt;Btn1Motion&gt;:           select-extend() \n\
-		&lt;Btn1Up&gt;:               select-end(PRIMARY,CUT_BUFFER0) \n\
-		Button1&lt;Btn2Down&gt;:      select-end(CLIPBOARD) \n\
-		Button1&lt;Btn2Up&gt;:        ignore()' \
-		-e telnet $HOST &amp;
-</code></PRE>
+<p>
+<!--{{atr2html--><p style="font-family: monospace; font-size: 10pt;">
+<font color="#800000">#!/bin/sh</font><br>
+&nbsp;<br>
+<font color="#800000">#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vax</font><br>
+<font color="#800000">#&nbsp;09-17-96&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bob&nbsp;Ess&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;initial&nbsp;creation</font><br>
+<font color="#800000">#&nbsp;09-26-96&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shig&nbsp;Katada&nbsp;&nbsp;-&nbsp;Additional&nbsp;keybindings</font><br>
+<font color="#800000">#</font><br>
+<font color="#800000">#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Script&nbsp;file&nbsp;to&nbsp;incorporate&nbsp;keybindings&nbsp;and&nbsp;command&nbsp;line</font><br>
+<font color="#800000">#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;options&nbsp;for&nbsp;connecting&nbsp;to&nbsp;a&nbsp;VAX&nbsp;node</font><br>
+&nbsp;<br>
+<font color="#800000">#&nbsp;Usage&nbsp;statement</font><br>
+Usage()<strong><font color="#800000">{</font></strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">echo</font></strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">echo</font></strong>&nbsp;<font color="#800080">"&nbsp;Usage&nbsp;&nbsp;:&nbsp;vax&nbsp;-options"</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">echo</font></strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">echo</font></strong>&nbsp;<font color="#800080">"&nbsp;Options:&nbsp;-80&nbsp;&nbsp;&nbsp;for&nbsp;80&nbsp;column&nbsp;terminal"</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">echo</font></strong>&nbsp;<font color="#800080">"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-132&nbsp;&nbsp;for&nbsp;132&nbsp;column&nbsp;terminal"</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">echo</font></strong>&nbsp;<font color="#800080">"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-fg&nbsp;colorname"</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">echo</font></strong>&nbsp;<font color="#800080">"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-bg&nbsp;colorname"</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">echo</font></strong>&nbsp;<font color="#800080">"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-fn&nbsp;fontname"</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">echo</font></strong>&nbsp;<font color="#800080">"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-fb&nbsp;bold&nbsp;fontname"</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">echo</font></strong>&nbsp;<font color="#800080">"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-host&nbsp;[altair]&nbsp;[devel]&nbsp;[leonis]&nbsp;[castor]"</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">echo</font></strong>&nbsp;<font color="#800080">""</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">echo</font></strong>&nbsp;<font color="#800080">"&nbsp;Example:&nbsp;</font><strong><font color="#800000">\</font></strong><font color="#800080">"vax&nbsp;-80&nbsp;-fg&nbsp;white&nbsp;-bg&nbsp;black&nbsp;-fn&nbsp;9x15&nbsp;-fb&nbsp;9x15b&nbsp;-host&nbsp;castor</font><strong><font color="#800000">\</font></strong><font color="#800080">""</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">echo</font></strong>&nbsp;<font color="#800080">"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Starts&nbsp;a&nbsp;VAX&nbsp;session&nbsp;with&nbsp;an&nbsp;80&nbsp;column&nbsp;terminal"</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">echo</font></strong>&nbsp;<font color="#800080">"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;with&nbsp;a&nbsp;black&nbsp;background,&nbsp;white&nbsp;foreground,&nbsp;a&nbsp;normal"</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">echo</font></strong>&nbsp;<font color="#800080">"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;font&nbsp;of&nbsp;9x15&nbsp;and&nbsp;a&nbsp;bold&nbsp;font&nbsp;of&nbsp;9x15b,&nbsp;and&nbsp;connects"</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">echo</font></strong>&nbsp;<font color="#800080">"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to&nbsp;the&nbsp;node&nbsp;'castor'"</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">echo</font></strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">echo</font></strong>&nbsp;<font color="#800080">"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;you&nbsp;need&nbsp;additional&nbsp;help,&nbsp;please&nbsp;call&nbsp;Workstation"</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">echo</font></strong>&nbsp;<font color="#800080">"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Services&nbsp;at&nbsp;x92396."</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">echo</font></strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">exit</font></strong>&nbsp;<strong><font color="#008080">1</font></strong><br>
+<strong><font color="#800000">}</font></strong><br>
+&nbsp;<br>
+<font color="#800000">#&nbsp;Default&nbsp;to&nbsp;a&nbsp;black&nbsp;foreground&nbsp;with&nbsp;a&nbsp;white&nbsp;background.</font><br>
+<font color="#800000">#&nbsp;Use&nbsp;the&nbsp;9x15&nbsp;and&nbsp;9x15bold&nbsp;fonts.&nbsp;Connect&nbsp;to&nbsp;castor&nbsp;by&nbsp;default.</font><br>
+<font color="#800000">#</font><br>
+<font color="#008080">FG</font>=black<br>
+<font color="#008080">BG</font>=white<br>
+<font color="#008080">HOST</font>=castor<br>
+<font color="#008080">FONT</font>=<strong><font color="#008080">9</font></strong>x15<br>
+<font color="#008080">BFONT</font>=<strong><font color="#008080">9</font></strong>x15bold<br>
+<font color="#008080">COLS</font>=<strong><font color="#008080">80</font></strong><br>
+&nbsp;<br>
+<font color="#800000">#&nbsp;Parse&nbsp;the&nbsp;command&nbsp;line&nbsp;arguments</font><br>
+<font color="#800000">#</font><br>
+<strong><font color="#000080">while</font></strong>&nbsp;[&nbsp;<font color="#008080">$#</font>&nbsp;!=&nbsp;<strong><font color="#008080">0</font></strong>&nbsp;];<br>
+<strong><font color="#000080">do</font></strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">case</font></strong>&nbsp;<font color="#008080">$1</font>&nbsp;<strong><font color="#000080">in</font></strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#008080">-80</font></strong>)&nbsp;&nbsp;&nbsp;&nbsp;<font color="#008080">COLS</font>=<strong><font color="#008080">80</font></strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#008080">FONT</font>=spc12x24c<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#008080">BFONT</font>=spc12x24b<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">shift</font></strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#008080">-132</font></strong>)&nbsp;&nbsp;&nbsp;<font color="#008080">COLS</font>=<strong><font color="#008080">132</font></strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#008080">FONT</font>=<strong><font color="#008080">9</font></strong>x15<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#008080">BFONT</font>=<strong><font color="#008080">9</font></strong>x15b<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">shift</font></strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-fg)&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">shift</font></strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#008080">FG</font>=<font color="#008080">$1</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">shift</font></strong>;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-bg)&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">shift</font></strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#008080">BG</font>=<font color="#008080">$1</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">shift</font></strong>;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-fn)&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">shift</font></strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#008080">FONT</font>=<font color="#008080">$1</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">shift</font></strong>;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-fb)&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">shift</font></strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#008080">BFONT</font>=<font color="#008080">$1</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">shift</font></strong>;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-host)&nbsp;&nbsp;<strong><font color="#000080">shift</font></strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#008080">HOST</font>=<font color="#008080">$1</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">shift</font></strong>;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-help)&nbsp;&nbsp;Usage;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Usage;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">esac</font></strong><br>
+<strong><font color="#000080">done</font></strong><br>
+&nbsp;<br>
+xterm&nbsp;&nbsp;-title&nbsp;<font color="#800080">"VAX"</font>&nbsp;-sb&nbsp;-sl&nbsp;<strong><font color="#008080">1200</font></strong>&nbsp;-geo&nbsp;<font color="#008080">${COLS}</font>x24&nbsp;-fg&nbsp;<font color="#008080">${FG}</font>&nbsp;-bg&nbsp;<font color="#008080">${BG}</font>&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-cr&nbsp;red&nbsp;-fn&nbsp;<font color="#008080">${FONT}</font>&nbsp;-fb&nbsp;<font color="#008080">${BFONT}</font>&nbsp;-xrm&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080">'XTerm*VT100.translations:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#override&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;Insert:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(\001)&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shift&nbsp;&lt;Key&gt;Up:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scroll-back(1,lines)&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shift&nbsp;&lt;Key&gt;Down:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scroll-forw(1,lines)&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shift&nbsp;&lt;Key&gt;Right:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;string("f")&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shift&nbsp;&lt;Key&gt;Left:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;string("b")&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shift&nbsp;&lt;Key&gt;Delete:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;string(0x08)&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shift&nbsp;&lt;Key&gt;Tab:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;string("*")&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;0x1000FF0D:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scroll-back(1,page)&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;0x1000FF0E:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scroll-forw(1,page)&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;0x1000FF09:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(\010)&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;0x1000FF0A:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(\005)&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;BackSpace:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0xff)&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;Select:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;select-start()&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;0x1000FF02:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;select-end(PRIMARY,CUT_BUFFER0)&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Meta&nbsp;&lt;Key&gt;0x1000FF02:&nbsp;&nbsp;&nbsp;select-end(CLIPBOARD)&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;0x1000FF04:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;insert-selection(PRIMARY,CUT_BUFFER0)&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Meta&nbsp;&lt;Key&gt;0x1000FF04:&nbsp;&nbsp;&nbsp;insert-selection(CLIPBOARD)&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;F1:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;string("OP")&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;F2:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;string("OQ")&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;F3:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;string("OR")&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;F4:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;string("OS")&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;F5:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;string("OA")&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;F11:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;string("[23~")&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;F12:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;string("[24~")&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;KP_0:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;string("Op")&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;KP_1:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;string("Oq")&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;KP_2:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;string("Or")&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;KP_3:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;string("Os")&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;KP_4:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;string("Ot")&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;KP_5:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;string("Ou")&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;KP_Divide:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;string("OP")&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;KP_Multiply:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;string("[29~")&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;KP_Enter:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;string("OM")&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;KP_Subtract:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;string("Om")&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;KP_Add:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;string("Ol")&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;KP_Decimal:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;string("On")&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Btn1Down&gt;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;select-start()&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Btn1Motion&gt;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;select-extend()&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Btn1Up&gt;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;select-end(PRIMARY,CUT_BUFFER0)&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Button1&lt;Btn2Down&gt;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;select-end(CLIPBOARD)&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Button1&lt;Btn2Up&gt;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ignore()'</font>&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-e&nbsp;telnet&nbsp;<font color="#008080">$HOST</font>&nbsp;&amp;<br>
+<!--atr2html}}--></p>
+<p>
 Finally (for the moment) is a further modification of Robert Ess's script
 by <a href="http://www-personal.une.edu.au/~oahlefel/">Erik Ahlefeldt</a>,
 &lt;oahlefel@metz.une.edu.au&gt;.
@@ -706,150 +765,151 @@ a summary of the keyboard mapping:
 		Left                 Left
 </pre>
 and the script:
-<pre><code>
-	#!/bin/sh
-	#               vmsterm
-	#               from an original script by Bob Ess
-	#               key translations by Erik Ahlefeldt
-	#
-	#               Script file using Xterm and telnet to connect to a VMS host
-	#               and give a decent vt220 emulation.
-	#
-	# Usage statement
-	Usage(){
-		echo
-		echo " Usage  : vmsterm -options"
-		echo
-		echo " Options: -80   for 80 column terminal"
-		echo "          -132  for 132 column terminal"
-		echo "          -bg colorname"
-		echo "          -fg colorname"
-		echo "          -fn fontname"
-		echo "          -fb bold fontname"
-		echo "          -host [crusher.saltmine.com] [earth] [192.168.7.7]"
-		echo ""
-		echo " Example: \"vmsterm -80 -fg white -bg black -fn 9x15 -fb 9x15b -host earth\""
-		echo "          Starts a VMS session with an 80 column terminal"
-		echo "          with a black background, white foreground, a normal"
-		echo "          font of 9x15 and a bold font of 9x15b, and connects"
-		echo "          to the node 'earth'"
-		echo ""
-		echo " Example: \"vmsterm -host earth\""
-		echo "          Starts a VMS session with default terminal settings "
-		echo ""
-		echo " Example: \"vmsterm -help\""
-		echo "          Displays vmsterm options "
-		echo
-		exit 1
-	}
-
-	# Default to a black foreground with a white background.
-	# Use the 9x15 and 9x15bold fonts. Connect to 192.168.3.3 by default.
-	#
-	FG=black
-	BG=white
-	HOST=192.168.3.3
-	FONT=9x15
-	BFONT=9x15bold
-	COLS=80
-
-	# Parse the command line arguments
-	#
-	while [ $# != 0 ];
-	do
-		case $1 in
-			-80)    COLS=80
-				FONT=spc12x24c
-				BFONT=spc12x24b
-				shift
-				;;
-			-132)   COLS=132
-				FONT=9x15
-				BFONT=9x15b
-				shift
-				;;
-			-fg)    shift
-				FG=$1
-				shift;;
-			-bg)    shift
-				BG=$1
-				shift;;
-			-fn)    shift
-				FONT=$1
-				shift;;
-			-fb)    shift
-				BFONT=$1
-				shift;;
-			-host)  shift
-				HOST=$1
-				shift;;
-			-help)  Usage;;
-			*)      Usage;;
-		esac
-	done
-
-	xterm	-title "VMSTERM" -sb -sl 1000 -geo ${COLS}x24 -fg ${FG} -bg ${BG} \
-		-cr blue -fn ${FONT} -fb ${BFONT} -xrm \
-		'XTerm*VT100.translations: #override \n \
-		~Shift	&lt;Key&gt;F1:	string(0x1b)	string("OP") \n \
-		~Shift	&lt;Key&gt;F2:	string(0x1b)	string("OQ") \n \
-		~Shift	&lt;Key&gt;F3:	string(0x1b)	string("OR") \n \
-		~Shift	&lt;Key&gt;F4:	string(0x1b)	string("OS") \n \
-		~Shift	&lt;Key&gt;F5:	string("Break") \n \
-		~Shift	&lt;Key&gt;F6:	string(0x1b)	string("[17~") \n \
-		~Shift	&lt;Key&gt;F7:	string(0x1b)	string("[18~") \n \
-		~Shift	&lt;Key&gt;F8:	string(0x1b)	string("[19~") \n \
-		~Shift	&lt;Key&gt;F9:	string(0x1b)	string("[20~") \n \
-		~Shift	&lt;Key&gt;F10:	string(0x1b)	string("[21~") \n \
-		~Shift	&lt;Key&gt;F11:	string(0x1b)	string("[23~") \n \
-		~Shift	&lt;Key&gt;F12:	string(0x1b)	string("[24~") \n \
-		Shift   &lt;Key&gt;F1:	string(0x1b)	string("[23~") \n \
-		Shift   &lt;Key&gt;F2:	string(0x1b)	string("[24~") \n \
-		Shift   &lt;Key&gt;F3:	string(0x1b)	string("[25~") \n \
-		Shift   &lt;Key&gt;F4:	string(0x1b)	string("[26~") \n \
-		Shift   &lt;Key&gt;F5:	string(0x1b)	string("[28~") \n \
-		Shift   &lt;Key&gt;F6:	string(0x1b)	string("[29~") \n \
-		Shift   &lt;Key&gt;F7:	string(0x1b)	string("[31~") \n \
-		Shift   &lt;Key&gt;F8:	string(0x1b)	string("[32~") \n \
-		Shift   &lt;Key&gt;F9:	string(0x1b)	string("[33~") \n \
-		Shift   &lt;Key&gt;F10:	string(0x1b)	string("[34~") \n \
-		Shift   &lt;Key&gt;F11:	string(0x1b)	string("[28~") \n \
-		Shift   &lt;Key&gt;F12:	string(0x1b)	string("[29~") \n \
-			&lt;Key&gt;Print:	string(0x1b)	string("[28~") \n \
-			&lt;Key&gt;Cancel:	string(0x1b)	string("[29~") \n \
-			&lt;Key&gt;Pause:	string(0x1b)	string("Om") \n \
-			&lt;Key&gt;Insert:	string(0x1b)	string("[2~") \n \
-			&lt;Key&gt;Delete:	string(0x1b)	string("[3~") \n \
-			&lt;Key&gt;Home:	string(0x1b)	string("[1~") \n \
-			&lt;Key&gt;End:		string(0x1b)	string("[4~") \n \
-			&lt;Key&gt;Prior:	string(0x1b)	string("[5~") \n \
-			&lt;Key&gt;Next:	string(0x1b)	string("[6~") \n \
-			&lt;Key&gt;BackSpace:	string(0x7f)	\n \
-			&lt;Key&gt;Num_Lock:	string(0x1b)	string("OP") \n \
-			&lt;Key&gt;KP_Divide:	string(0x1b)	string("OQ") \n \
-			&lt;Key&gt;KP_Multiply: string(0x1b)	string("OR") \n \
-			&lt;Key&gt;KP_Subtract: string(0x1b)	string("OS") \n \
-			&lt;Key&gt;KP_Add:	string(0x1b)	string("Ol") \n \
-			&lt;Key&gt;KP_Enter:	string(0x1b)	string("OM") \n \
-			&lt;Key&gt;KP_Decimal: string(0x1b)	string("On") \n \
-			&lt;Key&gt;KP_0:	string(0x1b)	string("Op") \n \
-			&lt;Key&gt;KP_1:	string(0x1b)	string("Oq") \n \
-			&lt;Key&gt;KP_2:	string(0x1b)	string("Or") \n \
-			&lt;Key&gt;KP_3:	string(0x1b)	string("Os") \n \
-			&lt;Key&gt;KP_4:	string(0x1b)	string("Ot") \n \
-			&lt;Key&gt;KP_5:	string(0x1b)	string("Ou") \n \
-			&lt;Key&gt;KP_6:	string(0x1b)	string("Ov") \n \
-			&lt;Key&gt;KP_7:	string(0x1b)	string("Ow") \n \
-			&lt;Key&gt;KP_8:	string(0x1b)	string("Ox") \n \
-			&lt;Key&gt;KP_9:	string(0x1b)	string("Oy") \n \
-		~Shift	&lt;Key&gt;Up:		string(0x1b)	string("[A") \n \
-		Shift	&lt;Key&gt;Up:		scroll-back(1,lines) \n \
-		~Shift	&lt;Key&gt;Down:	string(0x1b)	string("[B") \n \
-		Shift	&lt;Key&gt;Down:	scroll-forw(1,lines) \n \
-			&lt;Key&gt;Right:	string(0x1b)	string("[C") \n \
-			&lt;Key&gt;Left:	string(0x1b)	string("[D")' \
-		-e telnet $HOST
-</code></pre>
+<p>
+<!--{{atr2html--><p style="font-family: monospace; font-size: 10pt;">
+<font color="#800000">#!/bin/sh</font><br>
+<font color="#800000">#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vmsterm</font><br>
+<font color="#800000">#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from&nbsp;an&nbsp;original&nbsp;script&nbsp;by&nbsp;Bob&nbsp;Ess</font><br>
+<font color="#800000">#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;key&nbsp;translations&nbsp;by&nbsp;Erik&nbsp;Ahlefeldt</font><br>
+<font color="#800000">#</font><br>
+<font color="#800000">#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Script&nbsp;file&nbsp;using&nbsp;Xterm&nbsp;and&nbsp;telnet&nbsp;to&nbsp;connect&nbsp;to&nbsp;a&nbsp;VMS&nbsp;host</font><br>
+<font color="#800000">#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;give&nbsp;a&nbsp;decent&nbsp;vt220&nbsp;emulation.</font><br>
+<font color="#800000">#</font><br>
+<font color="#800000">#&nbsp;Usage&nbsp;statement</font><br>
+Usage()<strong><font color="#800000">{</font></strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">echo</font></strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">echo</font></strong>&nbsp;<font color="#800080">"&nbsp;Usage&nbsp;&nbsp;:&nbsp;vmsterm&nbsp;-options"</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">echo</font></strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">echo</font></strong>&nbsp;<font color="#800080">"&nbsp;Options:&nbsp;-80&nbsp;&nbsp;&nbsp;for&nbsp;80&nbsp;column&nbsp;terminal"</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">echo</font></strong>&nbsp;<font color="#800080">"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-132&nbsp;&nbsp;for&nbsp;132&nbsp;column&nbsp;terminal"</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">echo</font></strong>&nbsp;<font color="#800080">"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-bg&nbsp;colorname"</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">echo</font></strong>&nbsp;<font color="#800080">"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-fg&nbsp;colorname"</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">echo</font></strong>&nbsp;<font color="#800080">"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-fn&nbsp;fontname"</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">echo</font></strong>&nbsp;<font color="#800080">"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-fb&nbsp;bold&nbsp;fontname"</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">echo</font></strong>&nbsp;<font color="#800080">"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-host&nbsp;[crusher.saltmine.com]&nbsp;[earth]&nbsp;[192.168.7.7]"</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">echo</font></strong>&nbsp;<font color="#800080">""</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">echo</font></strong>&nbsp;<font color="#800080">"&nbsp;Example:&nbsp;</font><strong><font color="#800000">\</font></strong><font color="#800080">"vmsterm&nbsp;-80&nbsp;-fg&nbsp;white&nbsp;-bg&nbsp;black&nbsp;-fn&nbsp;9x15&nbsp;-fb&nbsp;9x15b&nbsp;-host&nbsp;earth</font><strong><font color="#800000">\</font></strong><font color="#800080">""</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">echo</font></strong>&nbsp;<font color="#800080">"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Starts&nbsp;a&nbsp;VMS&nbsp;session&nbsp;with&nbsp;an&nbsp;80&nbsp;column&nbsp;terminal"</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">echo</font></strong>&nbsp;<font color="#800080">"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;with&nbsp;a&nbsp;black&nbsp;background,&nbsp;white&nbsp;foreground,&nbsp;a&nbsp;normal"</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">echo</font></strong>&nbsp;<font color="#800080">"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;font&nbsp;of&nbsp;9x15&nbsp;and&nbsp;a&nbsp;bold&nbsp;font&nbsp;of&nbsp;9x15b,&nbsp;and&nbsp;connects"</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">echo</font></strong>&nbsp;<font color="#800080">"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to&nbsp;the&nbsp;node&nbsp;'earth'"</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">echo</font></strong>&nbsp;<font color="#800080">""</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">echo</font></strong>&nbsp;<font color="#800080">"&nbsp;Example:&nbsp;</font><strong><font color="#800000">\</font></strong><font color="#800080">"vmsterm&nbsp;-host&nbsp;earth</font><strong><font color="#800000">\</font></strong><font color="#800080">""</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">echo</font></strong>&nbsp;<font color="#800080">"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Starts&nbsp;a&nbsp;VMS&nbsp;session&nbsp;with&nbsp;default&nbsp;terminal&nbsp;settings&nbsp;"</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">echo</font></strong>&nbsp;<font color="#800080">""</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">echo</font></strong>&nbsp;<font color="#800080">"&nbsp;Example:&nbsp;</font><strong><font color="#800000">\</font></strong><font color="#800080">"vmsterm&nbsp;-help</font><strong><font color="#800000">\</font></strong><font color="#800080">""</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">echo</font></strong>&nbsp;<font color="#800080">"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Displays&nbsp;vmsterm&nbsp;options&nbsp;"</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">echo</font></strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">exit</font></strong>&nbsp;<strong><font color="#008080">1</font></strong><br>
+<strong><font color="#800000">}</font></strong><br>
+&nbsp;<br>
+<font color="#800000">#&nbsp;Default&nbsp;to&nbsp;a&nbsp;black&nbsp;foreground&nbsp;with&nbsp;a&nbsp;white&nbsp;background.</font><br>
+<font color="#800000">#&nbsp;Use&nbsp;the&nbsp;9x15&nbsp;and&nbsp;9x15bold&nbsp;fonts.&nbsp;Connect&nbsp;to&nbsp;192.168.3.3&nbsp;by&nbsp;default.</font><br>
+<font color="#800000">#</font><br>
+<font color="#008080">FG</font>=black<br>
+<font color="#008080">BG</font>=white<br>
+<font color="#008080">HOST</font>=192.168.3.3<br>
+<font color="#008080">FONT</font>=<strong><font color="#008080">9</font></strong>x15<br>
+<font color="#008080">BFONT</font>=<strong><font color="#008080">9</font></strong>x15bold<br>
+<font color="#008080">COLS</font>=<strong><font color="#008080">80</font></strong><br>
+&nbsp;<br>
+<font color="#800000">#&nbsp;Parse&nbsp;the&nbsp;command&nbsp;line&nbsp;arguments</font><br>
+<font color="#800000">#</font><br>
+<strong><font color="#000080">while</font></strong>&nbsp;[&nbsp;<font color="#008080">$#</font>&nbsp;!=&nbsp;<strong><font color="#008080">0</font></strong>&nbsp;];<br>
+<strong><font color="#000080">do</font></strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">case</font></strong>&nbsp;<font color="#008080">$1</font>&nbsp;<strong><font color="#000080">in</font></strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#008080">-80</font></strong>)&nbsp;&nbsp;&nbsp;&nbsp;<font color="#008080">COLS</font>=<strong><font color="#008080">80</font></strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#008080">FONT</font>=spc12x24c<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#008080">BFONT</font>=spc12x24b<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">shift</font></strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#008080">-132</font></strong>)&nbsp;&nbsp;&nbsp;<font color="#008080">COLS</font>=<strong><font color="#008080">132</font></strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#008080">FONT</font>=<strong><font color="#008080">9</font></strong>x15<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#008080">BFONT</font>=<strong><font color="#008080">9</font></strong>x15b<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">shift</font></strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-fg)&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">shift</font></strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#008080">FG</font>=<font color="#008080">$1</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">shift</font></strong>;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-bg)&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">shift</font></strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#008080">BG</font>=<font color="#008080">$1</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">shift</font></strong>;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-fn)&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">shift</font></strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#008080">FONT</font>=<font color="#008080">$1</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">shift</font></strong>;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-fb)&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">shift</font></strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#008080">BFONT</font>=<font color="#008080">$1</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">shift</font></strong>;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-host)&nbsp;&nbsp;<strong><font color="#000080">shift</font></strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#008080">HOST</font>=<font color="#008080">$1</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">shift</font></strong>;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-help)&nbsp;&nbsp;Usage;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Usage;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">esac</font></strong><br>
+<strong><font color="#000080">done</font></strong><br>
+&nbsp;<br>
+xterm&nbsp;&nbsp;&nbsp;-title&nbsp;<font color="#800080">"VMSTERM"</font>&nbsp;-sb&nbsp;-sl&nbsp;<strong><font color="#008080">1000</font></strong>&nbsp;-geo&nbsp;<font color="#008080">${COLS}</font>x24&nbsp;-fg&nbsp;<font color="#008080">${FG}</font>&nbsp;-bg&nbsp;<font color="#008080">${BG}</font>&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-cr&nbsp;blue&nbsp;-fn&nbsp;<font color="#008080">${FONT}</font>&nbsp;-fb&nbsp;<font color="#008080">${BFONT}</font>&nbsp;-xrm&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800080">'XTerm*VT100.translations:&nbsp;#override&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;~Shift&nbsp;&nbsp;&lt;Key&gt;F1:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;&nbsp;string("OP")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;~Shift&nbsp;&nbsp;&lt;Key&gt;F2:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;&nbsp;string("OQ")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;~Shift&nbsp;&nbsp;&lt;Key&gt;F3:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;&nbsp;string("OR")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;~Shift&nbsp;&nbsp;&lt;Key&gt;F4:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;&nbsp;string("OS")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;~Shift&nbsp;&nbsp;&lt;Key&gt;F5:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string("Break")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;~Shift&nbsp;&nbsp;&lt;Key&gt;F6:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;&nbsp;string("[17~")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;~Shift&nbsp;&nbsp;&lt;Key&gt;F7:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;&nbsp;string("[18~")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;~Shift&nbsp;&nbsp;&lt;Key&gt;F8:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;&nbsp;string("[19~")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;~Shift&nbsp;&nbsp;&lt;Key&gt;F9:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;&nbsp;string("[20~")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;~Shift&nbsp;&nbsp;&lt;Key&gt;F10:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;&nbsp;string("[21~")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;~Shift&nbsp;&nbsp;&lt;Key&gt;F11:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;&nbsp;string("[23~")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;~Shift&nbsp;&nbsp;&lt;Key&gt;F12:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;&nbsp;string("[24~")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shift&nbsp;&nbsp;&nbsp;&lt;Key&gt;F1:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;&nbsp;string("[23~")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shift&nbsp;&nbsp;&nbsp;&lt;Key&gt;F2:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;&nbsp;string("[24~")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shift&nbsp;&nbsp;&nbsp;&lt;Key&gt;F3:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;&nbsp;string("[25~")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shift&nbsp;&nbsp;&nbsp;&lt;Key&gt;F4:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;&nbsp;string("[26~")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shift&nbsp;&nbsp;&nbsp;&lt;Key&gt;F5:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;&nbsp;string("[28~")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shift&nbsp;&nbsp;&nbsp;&lt;Key&gt;F6:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;&nbsp;string("[29~")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shift&nbsp;&nbsp;&nbsp;&lt;Key&gt;F7:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;&nbsp;string("[31~")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shift&nbsp;&nbsp;&nbsp;&lt;Key&gt;F8:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;&nbsp;string("[32~")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shift&nbsp;&nbsp;&nbsp;&lt;Key&gt;F9:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;&nbsp;string("[33~")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shift&nbsp;&nbsp;&nbsp;&lt;Key&gt;F10:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;&nbsp;string("[34~")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shift&nbsp;&nbsp;&nbsp;&lt;Key&gt;F11:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;&nbsp;string("[28~")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shift&nbsp;&nbsp;&nbsp;&lt;Key&gt;F12:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;&nbsp;string("[29~")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;Print:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;&nbsp;string("[28~")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;Cancel:&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;&nbsp;string("[29~")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;Pause:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;&nbsp;string("Om")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;Insert:&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;&nbsp;string("[2~")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;Delete:&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;&nbsp;string("[3~")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;Home:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;&nbsp;string("[1~")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;End:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;&nbsp;string("[4~")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;Prior:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;&nbsp;string("[5~")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;Next:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;&nbsp;string("[6~")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;BackSpace:&nbsp;string(0x7f)&nbsp;&nbsp;&nbsp;&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;Num_Lock:&nbsp;&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;&nbsp;string("OP")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;KP_Divide:&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;&nbsp;string("OQ")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;KP_Multiply:&nbsp;string(0x1b)&nbsp;&nbsp;string("OR")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;KP_Subtract:&nbsp;string(0x1b)&nbsp;&nbsp;string("OS")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;KP_Add:&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;&nbsp;string("Ol")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;KP_Enter:&nbsp;&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;&nbsp;string("OM")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;KP_Decimal:&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;string("On")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;KP_0:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;&nbsp;string("Op")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;KP_1:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;&nbsp;string("Oq")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;KP_2:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;&nbsp;string("Or")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;KP_3:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;&nbsp;string("Os")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;KP_4:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;&nbsp;string("Ot")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;KP_5:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;&nbsp;string("Ou")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;KP_6:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;&nbsp;string("Ov")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;KP_7:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;&nbsp;string("Ow")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;KP_8:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;&nbsp;string("Ox")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;KP_9:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;&nbsp;string("Oy")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;~Shift&nbsp;&nbsp;&lt;Key&gt;Up:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;&nbsp;string("[A")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shift&nbsp;&nbsp;&nbsp;&lt;Key&gt;Up:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scroll-back(1,lines)&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;~Shift&nbsp;&nbsp;&lt;Key&gt;Down:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;&nbsp;string("[B")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shift&nbsp;&nbsp;&nbsp;&lt;Key&gt;Down:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scroll-forw(1,lines)&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;Right:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;&nbsp;string("[C")&nbsp;\n&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;Left:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string(0x1b)&nbsp;&nbsp;&nbsp;&nbsp;string("[D")'</font>&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-e&nbsp;telnet&nbsp;<font color="#008080">$HOST</font><br>
+<!--atr2html}}--></p>
 
 <h3><A NAME="how2_title">How do I set the title?</A></h3>
 The control sequences for doing this
@@ -861,29 +921,31 @@ People post answers to this periodically on the newsgroups.
 Here is one that I have seen,
 from Roy Wright &lt;nobody@roystoy.dseg.ti.com&gt;.
 In your /etc/profile after:
-<PRE><code>
-	if [ "$SHELL" = "/bin/pdksh" -o "$SHELL" = "/bin/ksh" ]; then
-		PS1="! $ "
-	elif [ "$SHELL" = "/bin/zsh" ]; then
-		PS1="%m:%~%# "
-	elif [ "$SHELL" = "/bin/ash" ]; then
-		PS1="$ "
-	else
-		PS1='\u@\h:\w\$ '
-	fi
-</code></PRE>
-<P>
+<p>
+<!--{{atr2html--><p style="font-family: monospace; font-size: 10pt;">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">if</font></strong>&nbsp;[&nbsp;<font color="#800080">"</font><font color="#008080">$SHELL</font><font color="#800080">"</font>&nbsp;=&nbsp;<font color="#800080">"/bin/pdksh"</font>&nbsp;-o&nbsp;<font color="#800080">"</font><font color="#008080">$SHELL</font><font color="#800080">"</font>&nbsp;=&nbsp;<font color="#800080">"/bin/ksh"</font>&nbsp;];&nbsp;<strong><font color="#000080">then</font></strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#008080">PS1</font>=<font color="#800080">"!&nbsp;$&nbsp;"</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">elif</font></strong>&nbsp;[&nbsp;<font color="#800080">"</font><font color="#008080">$SHELL</font><font color="#800080">"</font>&nbsp;=&nbsp;<font color="#800080">"/bin/zsh"</font>&nbsp;];&nbsp;<strong><font color="#000080">then</font></strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#008080">PS1</font>=<font color="#800080">"%m:%~%#&nbsp;"</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">elif</font></strong>&nbsp;[&nbsp;<font color="#800080">"</font><font color="#008080">$SHELL</font><font color="#800080">"</font>&nbsp;=&nbsp;<font color="#800080">"/bin/ash"</font>&nbsp;];&nbsp;<strong><font color="#000080">then</font></strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#008080">PS1</font>=<font color="#800080">"$&nbsp;"</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">else</font></strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#008080">PS1</font>=<font color="#800080">'\u@\h:\w\$&nbsp;'</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">fi</font></strong><br>
+<!--atr2html}}--></p>
+<p>
 add:
-<PRE><code>
-	if [ "$TERM" = "xterm" ]; then
-		PS1="\033]2;\u@\h:\w\007bash$ "
-	fi
-</code></PRE>
-<P>
+<p>
+<!--{{atr2html--><p style="font-family: monospace; font-size: 10pt;">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">if</font></strong>&nbsp;[&nbsp;<font color="#800080">"</font><font color="#008080">$TERM</font><font color="#800080">"</font>&nbsp;=&nbsp;<font color="#800080">"xterm"</font>&nbsp;];&nbsp;<strong><font color="#000080">then</font></strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#008080">PS1</font>=<font color="#800080">"</font><strong><font color="#800000">\</font></strong><font color="#800080">033]2;</font><strong><font color="#800000">\</font></strong><font color="#800080">u@</font><strong><font color="#800000">\</font></strong><font color="#800080">h:</font><strong><font color="#800000">\</font></strong><font color="#800080">w</font><strong><font color="#800000">\</font></strong><font color="#800080">007bash$&nbsp;"</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">fi</font></strong><br>
+<!--atr2html}}--></p>
+<p>
 The terminator "\007" is a problem area.  Xterm historically uses this
 character, though it is non-ANSI.  The "correct" character should be
 a "\233" string terminator, or "\033\\", which is the 7-bit equivalent.
-XFree86 xterm recognizes either (the "\007" or string terminator);
+Modern xterm recognizes either (the "\007" or string terminator);
 waiting for the first of these.
 <P>
 You may have resource or environment problems that prevent you from
@@ -900,21 +962,23 @@ Restart X if you have made changes.
 <P>
 On a related note, some people want to know how to read the title
 from an xterm.
-This works for XFree86 xterm and dtterm, but not for other variations:
-<PRE><code>
-	#!/bin/ksh
-	# Echo the current X term title bar to standard output.
-	# Written by Icarus Sparry &lt;icarus@bath.ac.uk&gt; 11 Apr 1997
-	#
-	exec &lt;/dev/tty
-	old=$(stty -g)
-	stty raw -echo min 0  time ${1-10}
-	print "\033[21t\c" &gt; /dev/tty
-	IFS='' read -r a
-	stty $old
-	b=${a#???}
-	print -R "${b%??}"
-</code></PRE>
+This works for modern xterm and dtterm, but not for other variations:
+<p>
+<!--{{atr2html--><p style="font-family: monospace; font-size: 10pt;">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">#!/bin/ksh</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">#&nbsp;Echo&nbsp;the&nbsp;current&nbsp;X&nbsp;term&nbsp;title&nbsp;bar&nbsp;to&nbsp;standard&nbsp;output.</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">#&nbsp;Written&nbsp;by&nbsp;Icarus&nbsp;Sparry&nbsp;&lt;icarus@bath.ac.uk&gt;&nbsp;11&nbsp;Apr&nbsp;1997</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">#</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">exec</font></strong>&nbsp;&lt;/dev/tty<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#008080">old</font>=<strong><font color="#800000">$(</font></strong>stty&nbsp;-g<strong><font color="#800000">)</font></strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;stty&nbsp;raw&nbsp;-echo&nbsp;min&nbsp;<strong><font color="#008080">0</font></strong>&nbsp;&nbsp;<strong><font color="#000080">time</font></strong>&nbsp;<font color="#008080">${1</font><strong><font color="#800000">-</font></strong>10<font color="#008080">}</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">print</font></strong>&nbsp;<font color="#800080">"</font><strong><font color="#800000">\</font></strong><font color="#800080">033[21t</font><strong><font color="#800000">\</font></strong><font color="#800080">c"</font>&nbsp;&gt;&nbsp;/dev/tty<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#008080">IFS</font>=<font color="#800080">''</font>&nbsp;<strong><font color="#000080">read</font></strong>&nbsp;-r&nbsp;a<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;stty&nbsp;<font color="#008080">$old</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#008080">b</font>=<font color="#008080">${a</font><strong><font color="#800000">#</font></strong>???<font color="#008080">}</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">print</font></strong>&nbsp;-R&nbsp;<font color="#800080">"</font><font color="#008080">${b</font><strong><font color="#800000">%</font></strong>??<font color="#008080">}</font><font color="#800080">"</font><br>
+<!--atr2html}}--></p>
+<p>
 But it is possible to avoid escape sequences altogether (from
 Hemant Shah &lt;shah@typhoon.xnet.com&gt;):
 <PRE><code>
@@ -930,7 +994,7 @@ Standard xterm does not implement a blinking cursor.
 Some of the variations do:
 dtterm,
 GNOME Terminal,
-and XFree86 xterm
+and modern xterm
 (from mid 1999, <a href="xterm.log.html#xterm_107">patch 107</a>).
 
 <h2><A NAME="frequent_problems">Frequent problems</A></h2>
@@ -996,7 +1060,7 @@ fonts that otherwise look fine (such as courier) do not have glyphs
 defined for these positions.  So they display as blanks.
 Use <em>xfd</em> to display the font.
 <p>
-XFree86 xterm can form its own line-drawing characters
+Modern xterm can form its own line-drawing characters
 (see <a href="xterm.log.html#xterm_90">patch 90</a>, for example).
 It does not draw all of the graphic characters, only those that
 may be done with straight lines.  But those are the most used,
@@ -1027,11 +1091,18 @@ The scaled bitmap font feature gives poor results for the smaller fonts.
 In your X server configuration file, that can be fixed by disabling
 the feature, e.g.,
 by appending ":unscaled" to the path:
-<pre><code>
-	FontPath	"/usr/lib/X11/fonts/100dpi/:unscaled"
-	FontPath	"/usr/lib/X11/fonts/75dpi/:unscaled"
-	FontPath	"/usr/lib/X11/fonts/misc/:unscaled"
-</code></pre>
+<!--{{atr2html--><p style="font-family: monospace; font-size: 10pt;">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FontPath&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<font color="#800080">/usr/lib/X11/fonts/100dpi/:unscaled</font>"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FontPath&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<font color="#800080">/usr/lib/X11/fonts/75dpi/:unscaled</font>"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FontPath&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<font color="#800080">/usr/lib/X11/fonts/misc/:unscaled</font>"<br>
+<!--atr2html}}--></p>
+<p>
+You can suppress xterm's overstriking for bold fonts
+using the <code>alwaysBoldMode</code>
+and related resources.
+However, rendering ugly bold fonts is a "feature" of the font server.
+In particular, the TrueType interface provides less ability to the
+client for determining if a particular font supports a bold form.
 
 <h3><A NAME="little_dot">I see little dots on the screen</A></h3>
 Well, I do.
@@ -1046,7 +1117,7 @@ one pixel offset.  That can make an bold character extend into the
 area that another character occupies. When erasing a bold character from
 the screen, xterm does not erase the extra pixel.
 
-This is corrected in XFree86 xterm,
+This is corrected in modern xterm,
 subject to the available fonts
 (from late 1998, <a href="xterm.log.html#xterm_85">patch 85</a>).
 For each font, it asks the font server for a corresponding bold font.
@@ -1069,7 +1140,7 @@ Here is a
 I use for testing this configuration.
 
 <h3><A NAME="utf8_fonts">I see boxes instead of characters in uxterm</A></h3>
-xterm may show boxes instead of characters if the font that you have
+Xterm may show boxes instead of characters if the font that you have
 selected does not contain those characters.
 Normally you can fix most of that using the UTF-8 feature, with <code>uxterm</code>.
 However, your X resource settings may be the source of the problem.
@@ -1079,29 +1150,29 @@ e.g., the "*" character.
 When you give a wildcard, the X resource matches any number of levels in
 the widget hierarchy.
 <p>
-xterm has more than one widget matching "font" at different levels of the
+Xterm has more than one widget matching "font" at different levels of the
 hierarchy.
 There are the popup menus, and there are the fonts used for <code>uxterm</code>.
 The latter is where an overbroad pattern can cause xterm to use a different
 font than you expect.
 <p>
 Suppose your resource setting includes this pattern
-<pre>
-*VT100*font: fixed
-</pre>
+<!--{{atr2html--><p style="font-family: monospace; font-size: 10pt;">
+*<strong><font color="#000080">VT100</font></strong>*<font color="#008080">font</font>:<font color="#800080">&nbsp;fixed</font><br>
+<!--atr2html}}--></p>
 It could be interpreted as this:
-<pre>
-*VT100.font: fixed
-*VT100.utf8Fonts.font: fixed
-</pre>
-xterm uses the <code>utf8Fonts</code> subresources to provide
+<!--{{atr2html--><p style="font-family: monospace; font-size: 10pt;">
+*<strong><font color="#000080">VT100</font></strong>.<font color="#008080">font</font>:<font color="#800080">&nbsp;fixed</font><br>
+*<strong><font color="#000080">VT100</font></strong>.<font color="#008080">utf8Fonts</font>.<font color="#008080">font</font>:<font color="#800080">&nbsp;fixed</font><br>
+<!--atr2html}}--></p>
+Xterm uses the <code>utf8Fonts</code> subresources to provide
 runtime-switchable fonts between IS0-8859-1 (Latin-1) and ISO-10646 (Unicode).
 Modifying the Unicode font to "fixed" will make most of the characters
 unavailable (i.e., shown as boxes).
 If instead your resource looks like
-<pre>
-*VT100.font: fixed
-</pre>
+<!--{{atr2html--><p style="font-family: monospace; font-size: 10pt;">
+*<strong><font color="#000080">VT100</font></strong>.<font color="#008080">font</font>:<font color="#800080">&nbsp;fixed</font><br>
+<!--atr2html}}--></p>
 it would be unambiguous, and not modify the <code>utf8Fonts</code> value.
 
 <h3><A NAME="slow_menus">The first popup menu is very slow</A></h3>
@@ -1113,7 +1184,7 @@ This is a longstanding bug in the X libraries.
 There is a workaround using a resource setting for xterm.
 
 <h4>Details</h4>
-xterm uses the Athena (Xaw) widgets to display popup menus.
+Xterm uses the Athena (Xaw) widgets to display popup menus.
 In the normal case, those are initialized one-by-one as they are first used.
 If you have configured xterm to use its toolbar configuration,
 they are all initialized on startup.
@@ -1181,7 +1252,7 @@ However, xterm is going to use only the characters shown in the popup menus.
 It is unlikely that you need Chinese fonts for that.
 
 <h4>Solution</h4>
-xterm's <code>menuLocale</code> resource can be set to an explicit
+Xterm's <code>menuLocale</code> resource can be set to an explicit
 value, e.g., "C" to override the current locale as seen by this
 initialization debacle.
 
@@ -1191,7 +1262,7 @@ still further.
 
 <h3><A NAME="no_color">My terminal doesn't recognize color</A></h3>
 First, ensure that you have set up xterm to render color.
-The XFree86 xterm renders color only if you have set resources
+Modern xterm renders color only if you have set resources
 to do this; the default behavior is monochrome to maintain compatibility
 with older applications.
 The manual page describes these resources.
@@ -1271,46 +1342,48 @@ Use the translations in
 </code></pre>
 as a guide.
 The relevant section of the app-default file looks like
-<pre><code>
-	*VT100.translations:    #override \
-		@Num_Lock&lt;Key&gt;KP_0: string(0)\n\
-		@Num_Lock&lt;Key&gt;KP_1: string(1)\n\
-		@Num_Lock&lt;Key&gt;KP_2: string(2)\n\
-		@Num_Lock&lt;Key&gt;KP_3: string(3)\n\
-		@Num_Lock&lt;Key&gt;KP_4: string(4)\n\
-		@Num_Lock&lt;Key&gt;KP_5: string(5)\n\
-		@Num_Lock&lt;Key&gt;KP_6: string(6)\n\
-		@Num_Lock&lt;Key&gt;KP_7: string(7)\n\
-		@Num_Lock&lt;Key&gt;KP_8: string(8)\n\
-		@Num_Lock&lt;Key&gt;KP_9: string(9)\n\
-		@Num_Lock&lt;Key&gt;KP_Add: string(+)\n\
-		@Num_Lock&lt;Key&gt;KP_Decimal: string(.)\n\
-		@Num_Lock&lt;Key&gt;KP_Divide: string(/)\n\
-		@Num_Lock&lt;Key&gt;KP_Enter: string(\015)\n\
-		@Num_Lock&lt;Key&gt;KP_Equal: string(=)\n\
-		@Num_Lock&lt;Key&gt;KP_Multiply: string(*)\n\
-		@Num_Lock&lt;Key&gt;KP_Subtract: string(-)\n\
-		&lt;Key&gt;Prior:scroll-back(1,page)\n\
-		&lt;Key&gt;Next:scroll-forw(1,page)\n\
-		&lt;Key&gt;F16: start-extend() select-end(PRIMARY, CUT_BUFFER0, CLIPBOARD) \n\
-		&lt;Key&gt;F18: insert-selection(PRIMARY, CLIPBOARD) \n\
-		&lt;Key&gt;F27: scroll-back(100,page) \n\
-		&lt;Key&gt;R13: scroll-forw(100,page) \n\
-		&lt;Key&gt;Home: scroll-back(100,page) \n\
-		&lt;Key&gt;End: scroll-forw(100,page) \n
-</code></pre>
+<!--{{atr2html--><p style="font-family: monospace; font-size: 10pt;">
+*<strong><font color="#000080">VT100</font></strong>.<font color="#008080">translations</font>:<font color="#800080">&nbsp;&nbsp;&nbsp;&nbsp;#override&nbsp;\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Num_Lock</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">KP_0:&nbsp;string(</font><strong><font color="#008080">0</font></strong><font color="#800080">)\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Num_Lock</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">KP_1:&nbsp;string(</font><strong><font color="#008080">1</font></strong><font color="#800080">)\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Num_Lock</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">KP_2:&nbsp;string(</font><strong><font color="#008080">2</font></strong><font color="#800080">)\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Num_Lock</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">KP_3:&nbsp;string(</font><strong><font color="#008080">3</font></strong><font color="#800080">)\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Num_Lock</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">KP_4:&nbsp;string(</font><strong><font color="#008080">4</font></strong><font color="#800080">)\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Num_Lock</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">KP_5:&nbsp;string(</font><strong><font color="#008080">5</font></strong><font color="#800080">)\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Num_Lock</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">KP_6:&nbsp;string(</font><strong><font color="#008080">6</font></strong><font color="#800080">)\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Num_Lock</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">KP_7:&nbsp;string(</font><strong><font color="#008080">7</font></strong><font color="#800080">)\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Num_Lock</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">KP_8:&nbsp;string(</font><strong><font color="#008080">8</font></strong><font color="#800080">)\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Num_Lock</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">KP_9:&nbsp;string(</font><strong><font color="#008080">9</font></strong><font color="#800080">)\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Num_Lock</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">KP_Add:&nbsp;string(+)\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Num_Lock</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">KP_Decimal:&nbsp;string(.)\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Num_Lock</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">KP_Divide:&nbsp;string(/)\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Num_Lock</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">KP_Enter:&nbsp;string(\015)\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Num_Lock</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">KP_Equal:&nbsp;string(=)\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Num_Lock</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">KP_Multiply:&nbsp;string(*)\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Num_Lock</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">KP_Subtract:&nbsp;string(-)\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">Prior:scroll-back(</font><strong><font color="#008080">1</font></strong><font color="#800080">,page)\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">Next:scroll-forw(</font><strong><font color="#008080">1</font></strong><font color="#800080">,page)\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">F16:&nbsp;start-extend()&nbsp;select-end(PRIMARY,&nbsp;CUT_BUFFER0,&nbsp;CLIPBOARD)&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">F18:&nbsp;insert-selection(PRIMARY,&nbsp;CLIPBOARD)&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">F27:&nbsp;scroll-back(</font><strong><font color="#008080">100</font></strong><font color="#800080">,page)&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">R13:&nbsp;scroll-forw(</font><strong><font color="#008080">100</font></strong><font color="#800080">,page)&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">Home:&nbsp;scroll-back(</font><strong><font color="#008080">100</font></strong><font color="#800080">,page)&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">End:&nbsp;scroll-forw(</font><strong><font color="#008080">100</font></strong><font color="#800080">,page)&nbsp;\n</font><br>
+<!--atr2html}}--></p>
+<p>
 For example, a more-specific pattern for the resource name lets you override:
-<pre><code>
-	XTerm*VT100.translations:       #override \n\
-		~Shift&lt;Key&gt;Home:  string(\033[1~)\n\
-		~Shift&lt;Key&gt;End:   string(\033[4~)\n\
-		~Shift&lt;Key&gt;Prior: string(\033[5~)\n\
-		~Shift&lt;Key&gt;Next:  string(\033[6~)\n\
-		Shift&lt;Key&gt;Prior:  scroll-back(1,page) \n\
-		Shift&lt;Key&gt;Next:   scroll-forw(1,page) \n\
-		Shift&lt;Key&gt;Home:   scroll-back(100,page) \n\
-		Shift&lt;Key&gt;End:    scroll-forw(100,page) \n
-</code></pre>
+<!--{{atr2html--><p style="font-family: monospace; font-size: 10pt;">
+<strong><font color="#000080">XTerm</font></strong>*<strong><font color="#000080">VT100</font></strong>.<font color="#008080">translations</font>:<font color="#800080">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#override&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;~Shift</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">Home:&nbsp;&nbsp;string(\033[</font><strong><font color="#008080">1</font></strong><font color="#800080">~)\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;~Shift</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">End:&nbsp;&nbsp;&nbsp;string(\033[</font><strong><font color="#008080">4</font></strong><font color="#800080">~)\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;~Shift</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">Prior:&nbsp;string(\033[</font><strong><font color="#008080">5</font></strong><font color="#800080">~)\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;~Shift</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">Next:&nbsp;&nbsp;string(\033[</font><strong><font color="#008080">6</font></strong><font color="#800080">~)\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shift</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">Prior:&nbsp;&nbsp;scroll-back(</font><strong><font color="#008080">1</font></strong><font color="#800080">,page)&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shift</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">Next:&nbsp;&nbsp;&nbsp;scroll-forw(</font><strong><font color="#008080">1</font></strong><font color="#800080">,page)&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shift</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">Home:&nbsp;&nbsp;&nbsp;scroll-back(</font><strong><font color="#008080">100</font></strong><font color="#800080">,page)&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shift</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">End:&nbsp;&nbsp;&nbsp;&nbsp;scroll-forw(</font><strong><font color="#008080">100</font></strong><font color="#800080">,page)&nbsp;\n</font><br>
+<!--atr2html}}--></p>
+<p>
 makes the home/end and pageup/pagedown keys usable by your editor,
 while leaving their shifted equivalents available for the scrollbar.
 
@@ -1319,7 +1392,7 @@ This is a long story,
 unless you are referring to X Consortium <A HREF="#bug_xterm_r6">xterm</A>.
 That program is simply broken in this respect.
 <p>
-At the beginning, when the home/end keys were fixed for XFree86 xterm
+At the beginning, when the home/end keys were fixed for modern xterm
 (in early 1996), there was some discussion regarding what the escape
 sequences should be for those keys (for the 6-key editing keypad).
 Those were chosen as "PC-style" codes (like SCO "ansi"), i.e.,
@@ -1363,9 +1436,10 @@ the escape sequences given for home/end keys are
 the VT220-style, rather than the default PC-style.
 Too accustomed to switching modes on the fly, I overlooked a line in
 my .Xdefaults file:
-<pre><code>
-		*sunKeyboard: true
-</code></pre>
+<!--{{atr2html--><p style="font-family: monospace; font-size: 10pt;">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<font color="#008080">sunKeyboard</font>:<font color="#800080">&nbsp;</font><strong><font color="#000080">true</font></strong><br>
+<!--atr2html}}--></p>
+<p>
 Downstream packagers (when they noticed this)
 accommodated the bug by modifying the VT100 translations
 resource which is not a good technical solution since it interferes with
@@ -1405,27 +1479,62 @@ And of course, Debian changes
 the terminfo <code>kbs</code> from <code>^H</code> to <code>^?</code>.
 As noted, the terminfo I wrote for XFree86 3.3.x has an error.
 Setting 
-<pre><code>
-		*sunKeyboard: true
-</code></pre>
+<!--{{atr2html--><p style="font-family: monospace; font-size: 10pt;">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<font color="#008080">sunKeyboard</font>:<font color="#800080">&nbsp;</font><strong><font color="#000080">true</font></strong><br>
+<!--atr2html}}--></p>
+<p>
 in the app-defaults file fixes the problem with xterm-88, which was that I
 documented in the terminfo the behavior <em>with</em> that resource set.
 Similarly, setting
-<pre><code>
-		*backarrowKey: false
-</code></pre>
+<!--{{atr2html--><p style="font-family: monospace; font-size: 10pt;">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<font color="#008080">backarrowKey</font>:<font color="#800080">&nbsp;</font><strong><font color="#000080">false</font></strong><br>
+<!--atr2html}}--></p>
+<p>
 is one way to address Debian's change to <code>kbs</code>.
 
 <li>Debian unstable is xterm-149.
 Other than omitting the color resources from
 the app-defaults file, I see that it sets
-	*backarrowKeyIsErase: true
+<!--{{atr2html--><p style="font-family: monospace; font-size: 10pt;">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<font color="#008080">backarrowKeyIsErase</font>:<font color="#800080">&nbsp;</font><strong><font color="#000080">true</font></strong><br>
+<!--atr2html}}--></p>
+<p>
 which would not affect the home/end keys.
 (The color resources are redundant, so that is not a problem either).
 </ul>
 <a href="http://invisible-island.net/xterm/XTerm-debian-88c">Here is a resource file</a>
 which I tested with xterm-88c, xterm-149 and xterm-158,
-using $TERM set to xterm-debian.
+using $TERM set to xterm-debian:
+<!--{{atr2html--><p style="font-family: monospace; font-size: 10pt;">
+<font color="#800000">!&nbsp;$Id: xterm.faq.html,v 1.158 2010/11/10 10:28:18 tom Exp $<br>
+</font><font color="#800000">!&nbsp;Settings&nbsp;to&nbsp;make&nbsp;xterm-88c&nbsp;work&nbsp;as&nbsp;expected&nbsp;for&nbsp;Debian.<br>
+</font><font color="#800000">!<br>
+</font><font color="#800000">!&nbsp;Patch&nbsp;#88&nbsp;was&nbsp;the&nbsp;basis&nbsp;for&nbsp;XFree86&nbsp;3.3.1&nbsp;xterm.&nbsp;&nbsp;There&nbsp;were&nbsp;a&nbsp;few&nbsp;additions<br>
+</font><font color="#800000">!&nbsp;through&nbsp;patch&nbsp;88c,&nbsp;to&nbsp;incorporate&nbsp;the&nbsp;ptyInitialErase&nbsp;resource.&nbsp;&nbsp;Debian&nbsp;uses<br>
+</font><font color="#800000">!&nbsp;the&nbsp;VT220-style&nbsp;keyboard,&nbsp;which&nbsp;at&nbsp;#88&nbsp;was&nbsp;the&nbsp;xterm-xfree86&nbsp;terminfo&nbsp;entry,<br>
+</font><font color="#800000">!&nbsp;with&nbsp;one&nbsp;change:&nbsp;kbs&nbsp;changed&nbsp;from&nbsp;^H&nbsp;to&nbsp;^?.<br>
+</font><font color="#800000">!<br>
+</font><font color="#800000">!&nbsp;After&nbsp;patch&nbsp;88,&nbsp;I&nbsp;started&nbsp;work&nbsp;on&nbsp;keyboard&nbsp;changes.&nbsp;&nbsp;The&nbsp;result&nbsp;was&nbsp;that&nbsp;the<br>
+</font><font color="#800000">!&nbsp;xterm-xfree86&nbsp;terminfo&nbsp;entry&nbsp;was&nbsp;set&nbsp;to&nbsp;the&nbsp;PC-style&nbsp;keyboard,&nbsp;and&nbsp;I&nbsp;added<br>
+</font><font color="#800000">!&nbsp;xterm-vt220,&nbsp;which&nbsp;corresponded&nbsp;mostly&nbsp;to&nbsp;the&nbsp;older&nbsp;(patch-88)&nbsp;version&nbsp;of&nbsp;the<br>
+</font><font color="#800000">!&nbsp;xterm-xfree86&nbsp;terminfo&nbsp;entry.<br>
+</font>&nbsp;<br>
+<font color="#800000">!&nbsp;The&nbsp;terminfo&nbsp;with&nbsp;patch&nbsp;#88&nbsp;assumed&nbsp;sunKeyboard&nbsp;was&nbsp;set&nbsp;(actually&nbsp;a&nbsp;bug,&nbsp;but<br>
+</font><font color="#800000">!&nbsp;also&nbsp;assumed&nbsp;in&nbsp;Debian).<br>
+</font><font color="#800000">!<br>
+</font><font color="#800000">!&nbsp;A&nbsp;different&nbsp;problem&nbsp;(addressed&nbsp;after&nbsp;patch&nbsp;#88)&nbsp;is&nbsp;that&nbsp;if&nbsp;you&nbsp;wanted&nbsp;to&nbsp;use<br>
+</font><font color="#800000">!&nbsp;a&nbsp;VT100/VT220-style&nbsp;numeric&nbsp;keypad's&nbsp;escape&nbsp;sequences,&nbsp;you&nbsp;had&nbsp;to&nbsp;have<br>
+</font><font color="#800000">!&nbsp;NumLock&nbsp;set.&nbsp;&nbsp;Otherwise,&nbsp;in&nbsp;keypad&nbsp;application&nbsp;mode,&nbsp;the&nbsp;keys&nbsp;would&nbsp;transmit<br>
+</font><font color="#800000">!&nbsp;only&nbsp;the&nbsp;PC-style&nbsp;escape&nbsp;sequences&nbsp;corresponding&nbsp;to&nbsp;the&nbsp;key&nbsp;labels,&nbsp;e.g.,&nbsp;the<br>
+</font><font color="#800000">!&nbsp;page-up&nbsp;string&nbsp;rather&nbsp;than&nbsp;the&nbsp;escape&nbsp;sequence&nbsp;for&nbsp;keypad-9.<br>
+</font><strong><font color="#000080">XTerm</font></strong>*<font color="#008080">sunKeyboard</font>:<font color="#800080">&nbsp;</font><strong><font color="#000080">true</font></strong><br>
+&nbsp;<br>
+<font color="#800000">!&nbsp;These&nbsp;settings&nbsp;overlap&nbsp;to&nbsp;some&nbsp;extent&nbsp;(backarrowKeys&nbsp;says&nbsp;to&nbsp;send&nbsp;a&nbsp;127&nbsp;for<br>
+</font><font color="#800000">!&nbsp;the&nbsp;"backspace"&nbsp;key,&nbsp;and&nbsp;ptyInitialErase&nbsp;says&nbsp;to&nbsp;use&nbsp;the&nbsp;pty's&nbsp;initial&nbsp;sense<br>
+</font><font color="#800000">!&nbsp;of&nbsp;the&nbsp;erase&nbsp;character,&nbsp;which&nbsp;is&nbsp;reported&nbsp;to&nbsp;be&nbsp;the&nbsp;same&nbsp;on&nbsp;Linux).<br>
+</font><strong><font color="#000080">XTerm</font></strong>*<font color="#008080">backarrowKey</font>:<font color="#800080">&nbsp;</font><strong><font color="#000080">false</font></strong><br>
+<strong><font color="#000080">XTerm</font></strong>*<font color="#008080">ptyInitialErase</font>:<font color="#800080">&nbsp;</font><strong><font color="#000080">true</font></strong><br>
+<!--atr2html}}--></p>
 
 <h3><A NAME="xterm_arrows">Why can't I use the cursor keys in (whatever) shell?</A></h3>
 VTxxx (VT100 and up) terminals may send different escape sequences for
@@ -1476,7 +1585,7 @@ the shift key while clicking with the mouse.
 <h3><A NAME="xterm_tabs">Why can't I select tabs in xterm?</A></h3>
 This issue was noted early on, <a href="#known_bugs">here</a> in 1997.
 <p>
-xterm is copying from the screen, which stores only printable characters.
+Xterm is copying from the screen, which stores only printable characters.
 That includes spaces and line-drawing characters.
 But tabs are special; they are used for more than one purpose.
 <p>
@@ -1673,7 +1782,7 @@ In that case, grep's output will not look right.
 <h3><A NAME="xterm_terminfo">What $TERM should I use?</A></h3>
 <p>
 The <code>xterm-color</code> value for $TERM
-is a bad choice for XFree86 xterm because it is
+is a bad choice for modern xterm because it is
 commonly used for a terminfo entry which happens to not support <code>bce</code>.
 Complicating matters, FreeBSD (after dithering for a few years on the matter)
 introduced a bastardized version which implies the opposite sense of <code>bce</code>,
@@ -1688,7 +1797,7 @@ the most recent version is simply named
 <code>xterm-new</code> (also distributed with ncurses).
 <p>
 The term "<code>bce</code>" stands for "back color erase".
-Terminals such as XFree86 xterm
+Terminals such as modern xterm
 and rxvt implement back color erase, others such as dtterm do not.
 (Roughly half of the emulators that I know about implement bce).
 When an application clears the screen, a terminal that implements back
@@ -1705,7 +1814,7 @@ The "xterm-color" description distributed with ncurses does not list
 <code>bce</code>, because it was applied originally to a terminal type
 which does
 not implement back color erase.
-It will "work" for XFree86 xterm,
+It will "work" for modern xterm,
 though less efficient.  Some other applications such as the slang library
 have hardcoded support for terminals that implement back color erase.
 Given the "xterm-color" description, those will be efficient &ndash; and
@@ -1794,12 +1903,13 @@ This is configurable...
 For example (from Bjorn Helgaas &lt;helgaas@dhc.net&gt;)
 this procedure adds these capabilities to the "xterm"
 terminfo definition on HP-UX 10.20:
-<pre><code>
-	cp /usr/lib/terminfo/x/xterm /usr/lib/terminfo/x/xterm.orig
-	untic xterm &gt; /tmp/xterm.src
-	echo " smcup=\E7\E[?47h, rmcup=\E[2J\E[?47l\E8," &gt;&gt; /tmp/xterm.src
-	tic /tmp/xterm.src
-</code></pre>
+<!--{{atr2html--><p style="font-family: monospace; font-size: 10pt;">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cp&nbsp;/usr/lib/terminfo/x/xterm&nbsp;/usr/lib/terminfo/x/xterm.orig<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;untic&nbsp;xterm&nbsp;&amp;gt;&nbsp;/tmp/xterm.src<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">echo</font></strong>&nbsp;<font color="#800080">"&nbsp;smcup=</font><strong><font color="#800000">\</font></strong><font color="#800080">E7</font><strong><font color="#800000">\</font></strong><font color="#800080">E[?47h,&nbsp;rmcup=</font><strong><font color="#800000">\</font></strong><font color="#800080">E[2J</font><strong><font color="#800000">\</font></strong><font color="#800080">E[?47l</font><strong><font color="#800000">\</font></strong><font color="#800080">E8,"</font>&nbsp;&amp;gt;&amp;gt;&nbsp;/tmp/xterm.src<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tic&nbsp;/tmp/xterm.src<br>
+<!--atr2html}}--></p>
+<p>
 In this example, the terminfo strings are a series of operations:
 <dl>
 <dt><code>smcup</code>
@@ -1867,7 +1977,7 @@ which in turn runs another full-screen application (or when reinitializing
 the screen after the shell process), it will save the
 cursor position again, so the position which is restored when finally
 exiting your program is the last one saved, not the first.
-XFree86 xterm
+Modern xterm
 (from late 1998, <a href="xterm.log.html#xterm_90">patch 90</a>)
 changes the behavior of the cursor save/restore
 operations so they apply only to the current screen.
@@ -1896,7 +2006,7 @@ The longstanding control sequence for reading the window title is something
 that can be abused in special conditions.
 For novice (unknowledgable) users, this can be a problem.
 <p>
-xterm provides resource-settings and menu entries to allow this and related
+Xterm provides resource-settings and menu entries to allow this and related
 features to be enabled or disabled.
 See for example <code>allowWindowOps</code>
 The default resource settings in xterm can be overridden by a packager.
@@ -1949,11 +2059,11 @@ erase character during initialization, so that xterm would in effect use the
 same erase character as the console.  The current scheme (X11R6) uses keyboard
 mapping tables that are independent of the environment.
 <P>
-XFree86 xterm provides a resource toggle <em>backarrowKey</em>
+Modern xterm provides a resource toggle <em>backarrowKey</em>
 (and an escape sequence from VT320)
 that changes this key between the two styles (backspace or delete).
 <p>
-With XFree86 xterm
+With modern xterm
 <a href="xterm.log.html#xterm_95">patch 95</a>
 (also in the stable version as "88c"),
 you may have an xterm which can
@@ -2028,10 +2138,10 @@ keypad '9').
 Alternatively, you can set resources.
 This works reasonably well for environments where you have
 different versions of xterm, e.g.,
-<pre><code>
-	XTerm*VT100.translations: #override \n\
-		&lt;Key&gt;Delete: string(0x7f)
-</code></pre>
+<!--{{atr2html--><p style="font-family: monospace; font-size: 10pt;">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">XTerm</font></strong>*<strong><font color="#000080">VT100</font></strong>.<font color="#008080">translations</font>:<font color="#800080">&nbsp;#override&nbsp;\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;lt;Key&amp;gt;Delete:&nbsp;string(</font><strong><font color="#008080">0x7f</font></strong><font color="#800080">)</font><br>
+<!--atr2html}}--></p>
 I do not do that either, because it is not flexible.
 Not all programs use the same sense of
 <code>stty erase</code>;
@@ -2042,7 +2152,7 @@ You cannot do that with resources.
 (Or not really &ndash; xterm has a <code>keymap()</code> action which could
 support this if you provided a rather complex resource settings, but
 the X library support for that is broken in X11R6).
-Instead, I have added to XFree86 a set of resources (and popup menu entries)
+Instead, I have added to xterm a set of resources (and popup menu entries)
 to allow simple switching between the different styles of keyboard,
 in particular for the backspace/delete issues.
 See the manual page for
@@ -2131,52 +2241,52 @@ you should do this using xterm's X resources.
 <h3><A NAME="xterm_8bits">Why can't I input 8-bit characters?</A></h3>
 You must have the <code>eightBitInput</code> resource set to do this.
 
-<h3><A NAME="my_xdefaults">My .Xdefaults for XTERM</A></h3>
-<PRE><code>
-	XTerm*internalBorder:  10
-	XTerm*highlightSelection:  true
-	XTerm*VT100.colorBDMode:  on
-	XTerm*VT100.colorBD:  blue
-	XTerm*VT100.colorULMode:  on
-	XTerm*VT100.colorUL:  magenta
-	XTerm*VT100.eightBitInput:  true
-	XTerm*VT100.eightBitOutput:  true
-	XTerm*scrollBar:  true
-	XTerm*VT100.titeInhibit:  true
-
-	XTerm*VT100.colorMode:  on
-	XTerm*VT100.dynamicColors:  on
-
-	! Uncomment this to use color for underline attribute
-	XTerm*VT100.colorULMode:  on
-	XTerm*VT100.underLine:  off
-
-	! Uncomment this to use color for the bold attribute
-	XTerm*VT100.colorBDMode: on
-
-	XTerm*VT100.color0: black
-	XTerm*VT100.color1: red3
-	XTerm*VT100.color2: green3
-	XTerm*VT100.color3: yellow3
-	XTerm*VT100.color4: blue3
-	XTerm*VT100.color5: magenta3
-	XTerm*VT100.color6: cyan3
-	XTerm*VT100.color7: gray90
-	XTerm*VT100.color8: gray30
-	XTerm*VT100.color9: red
-	XTerm*VT100.color10: green
-	XTerm*VT100.color11: yellow
-	XTerm*VT100.color12: blue
-	XTerm*VT100.color13: magenta
-	XTerm*VT100.color14: cyan
-	XTerm*VT100.color15: white
-	XTerm*VT100.colorUL: yellow
-	XTerm*VT100.colorBD: white
-
-	XTerm*VT100.cursorColor: lime green
-</code>
-</PRE>
-XFree86 xterm comes with two copies of the resource file,
+<h3><A NAME="my_xdefaults">Sample .Xdefaults Color-Settings for XTerm</A></h3>
+<!--{{atr2html--><p style="font-family: monospace; font-size: 10pt;">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">XTerm</font></strong>*<font color="#008080">internalBorder</font>:<font color="#800080">&nbsp;&nbsp;</font><strong><font color="#008080">10</font></strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">XTerm</font></strong>*<font color="#008080">highlightSelection</font>:<font color="#800080">&nbsp;&nbsp;</font><strong><font color="#000080">true</font></strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">XTerm</font></strong>*<strong><font color="#000080">VT100</font></strong>.<font color="#008080">colorBDMode</font>:<font color="#800080">&nbsp;&nbsp;on</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">XTerm</font></strong>*<strong><font color="#000080">VT100</font></strong>.<font color="#008080">colorBD</font>:<font color="#800080">&nbsp;&nbsp;blue</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">XTerm</font></strong>*<strong><font color="#000080">VT100</font></strong>.<font color="#008080">colorULMode</font>:<font color="#800080">&nbsp;&nbsp;on</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">XTerm</font></strong>*<strong><font color="#000080">VT100</font></strong>.<font color="#008080">colorUL</font>:<font color="#800080">&nbsp;&nbsp;magenta</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">XTerm</font></strong>*<strong><font color="#000080">VT100</font></strong>.<font color="#008080">eightBitInput</font>:<font color="#800080">&nbsp;&nbsp;</font><strong><font color="#000080">true</font></strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">XTerm</font></strong>*<strong><font color="#000080">VT100</font></strong>.<font color="#008080">eightBitOutput</font>:<font color="#800080">&nbsp;&nbsp;</font><strong><font color="#000080">true</font></strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">XTerm</font></strong>*<font color="#008080">scrollBar</font>:<font color="#800080">&nbsp;&nbsp;</font><strong><font color="#000080">true</font></strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">XTerm</font></strong>*<strong><font color="#000080">VT100</font></strong>.<font color="#008080">titeInhibit</font>:<font color="#800080">&nbsp;&nbsp;</font><strong><font color="#000080">true</font></strong><br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">XTerm</font></strong>*<strong><font color="#000080">VT100</font></strong>.<font color="#008080">colorMode</font>:<font color="#800080">&nbsp;&nbsp;on</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">XTerm</font></strong>*<strong><font color="#000080">VT100</font></strong>.<font color="#008080">dynamicColors</font>:<font color="#800080">&nbsp;&nbsp;on</font><br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">!&nbsp;Uncomment&nbsp;this&nbsp;to&nbsp;use&nbsp;color&nbsp;for&nbsp;underline&nbsp;attribute<br>
+</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">XTerm</font></strong>*<strong><font color="#000080">VT100</font></strong>.<font color="#008080">colorULMode</font>:<font color="#800080">&nbsp;&nbsp;on</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">XTerm</font></strong>*<strong><font color="#000080">VT100</font></strong>.<font color="#008080">underLine</font>:<font color="#800080">&nbsp;&nbsp;off</font><br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#800000">!&nbsp;Uncomment&nbsp;this&nbsp;to&nbsp;use&nbsp;color&nbsp;for&nbsp;the&nbsp;bold&nbsp;attribute<br>
+</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">XTerm</font></strong>*<strong><font color="#000080">VT100</font></strong>.<font color="#008080">colorBDMode</font>:<font color="#800080">&nbsp;on</font><br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">XTerm</font></strong>*<strong><font color="#000080">VT100</font></strong>.<font color="#008080">color0</font>:<font color="#800080">&nbsp;black</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">XTerm</font></strong>*<strong><font color="#000080">VT100</font></strong>.<font color="#008080">color1</font>:<font color="#800080">&nbsp;red3</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">XTerm</font></strong>*<strong><font color="#000080">VT100</font></strong>.<font color="#008080">color2</font>:<font color="#800080">&nbsp;green3</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">XTerm</font></strong>*<strong><font color="#000080">VT100</font></strong>.<font color="#008080">color3</font>:<font color="#800080">&nbsp;yellow3</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">XTerm</font></strong>*<strong><font color="#000080">VT100</font></strong>.<font color="#008080">color4</font>:<font color="#800080">&nbsp;blue3</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">XTerm</font></strong>*<strong><font color="#000080">VT100</font></strong>.<font color="#008080">color5</font>:<font color="#800080">&nbsp;magenta3</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">XTerm</font></strong>*<strong><font color="#000080">VT100</font></strong>.<font color="#008080">color6</font>:<font color="#800080">&nbsp;cyan3</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">XTerm</font></strong>*<strong><font color="#000080">VT100</font></strong>.<font color="#008080">color7</font>:<font color="#800080">&nbsp;gray90</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">XTerm</font></strong>*<strong><font color="#000080">VT100</font></strong>.<font color="#008080">color8</font>:<font color="#800080">&nbsp;gray30</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">XTerm</font></strong>*<strong><font color="#000080">VT100</font></strong>.<font color="#008080">color9</font>:<font color="#800080">&nbsp;red</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">XTerm</font></strong>*<strong><font color="#000080">VT100</font></strong>.<font color="#008080">color10</font>:<font color="#800080">&nbsp;green</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">XTerm</font></strong>*<strong><font color="#000080">VT100</font></strong>.<font color="#008080">color11</font>:<font color="#800080">&nbsp;yellow</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">XTerm</font></strong>*<strong><font color="#000080">VT100</font></strong>.<font color="#008080">color12</font>:<font color="#800080">&nbsp;blue</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">XTerm</font></strong>*<strong><font color="#000080">VT100</font></strong>.<font color="#008080">color13</font>:<font color="#800080">&nbsp;magenta</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">XTerm</font></strong>*<strong><font color="#000080">VT100</font></strong>.<font color="#008080">color14</font>:<font color="#800080">&nbsp;cyan</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">XTerm</font></strong>*<strong><font color="#000080">VT100</font></strong>.<font color="#008080">color15</font>:<font color="#800080">&nbsp;white</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">XTerm</font></strong>*<strong><font color="#000080">VT100</font></strong>.<font color="#008080">colorUL</font>:<font color="#800080">&nbsp;yellow</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">XTerm</font></strong>*<strong><font color="#000080">VT100</font></strong>.<font color="#008080">colorBD</font>:<font color="#800080">&nbsp;white</font><br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">XTerm</font></strong>*<strong><font color="#000080">VT100</font></strong>.<font color="#008080">cursorColor</font>:<font color="#800080">&nbsp;lime&nbsp;green</font><br>
+<!--atr2html}}--></p>
+<p>
+Xterm comes with two copies of each resource file,
 one with color only (<code>XTerm-col.ad</code>,
 which is installed as <code>XTerm-color</code>),
 and the regular one (<code>XTerm.ad</code>,
@@ -2185,9 +2295,9 @@ To use the <code>XTerm-color </code>file in conjunction
 with a separate <code>XTerm</code> app-defaults
 file which does not contain color,
 add the following line to your <code>.Xdefaults</code> file:
-<PRE><code>
-	*customization: -color
-</code></PRE>
+<!--{{atr2html--><p style="font-family: monospace; font-size: 10pt;">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<font color="#008080">customization</font>:<font color="#800080">&nbsp;-color</font><br>
+<!--atr2html}}--></p>
 
 <h3><A NAME="tiny_menus">Why are the menus tiny?</A></h3>
 Everything seems to work, except that the
@@ -2200,19 +2310,19 @@ You have specified the geometry for xterm too high in the hierarchy, and that
 24x80 (or whatever the -geometry parameter happens to be) is applying to the
 menus in pixels.
 This resource makes the geometry apply to the menus as well as the VT100 widget:
-<PRE><code>
-	XTerm*geometry: 80x24
-</code></PRE>
+<!--{{atr2html--><p style="font-family: monospace; font-size: 10pt;">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">XTerm</font></strong>*<font color="#008080">geometry</font>:<font color="#800080">&nbsp;80x24</font><br>
+<!--atr2html}}--></p>
 while this applies only to the VT100 widget
 (which is probably what you intended):
-<PRE><code>
-	XTerm.VT100.geometry: 80x24
-</code></PRE>
+<!--{{atr2html--><p style="font-family: monospace; font-size: 10pt;">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">XTerm</font></strong>.<strong><font color="#000080">VT100</font></strong>.<font color="#008080">geometry</font>:<font color="#800080">&nbsp;80x24</font><br>
+<!--atr2html}}--></p>
 or better yet (to allow for the toolbar option, which uses a level of
 widget hierarchy):
-<PRE><code>
-	XTerm*VT100.geometry: 80x24
-</code></PRE>
+<!--{{atr2html--><p style="font-family: monospace; font-size: 10pt;">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">XTerm</font></strong>*<strong><font color="#000080">VT100</font></strong>.<font color="#008080">geometry</font>:<font color="#800080">&nbsp;80x24</font><br>
+<!--atr2html}}--></p>
 
 <h3><A NAME="warning_msg">What is this warning message?</A></h3>
 <DL>
@@ -2237,22 +2347,23 @@ tables, and xterm is warning you.
 <p>
 If the message bothers you (e.g., if you aren't starting xterm from
 a window manager menu), you can suppress it by setting a resource:
-<pre><code>
-		XTerm*openIm:false
-</code></pre>
+<!--{{atr2html--><p style="font-family: monospace; font-size: 10pt;">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">XTerm</font></strong>*<font color="#008080">openIm</font>:<strong><font color="#000080">false</font></strong><br>
+<!--atr2html}}--></p>
 
 <dt>Warning: Actions not found: ignore, "xxx"
 <dd>The action "xxx" (for example "scroll-back") is specified in a resource
 file whose translations match widgets that do not support them.
 For example, this
-<pre><code>
-		XTerm*translations:     #override\n\
-			&lt;Leave&gt;, ~Ctrl ~Meta &lt;Btn2Up&gt;: ignore()\n\
-			~Shift &lt;Key&gt;KP_8: scroll-back(1,line)\n\
-			~Shift &lt;Key&gt;KP_2: scroll-forw(1,line)\n\
-			Shift &lt;Key&gt;KP_8: scroll-back(1,halfpage)\n\
-			Shift &lt;Key&gt;KP_2: scroll-forw(1,halfpage)
-</code></pre>
+<!--{{atr2html--><p style="font-family: monospace; font-size: 10pt;">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">XTerm</font></strong>*<font color="#008080">translations</font>:<font color="#800080">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#override\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Leave&gt;</font></strong><font color="#800080">,&nbsp;~Ctrl&nbsp;~Meta&nbsp;</font><strong><font color="#000080">&lt;Btn2Up&gt;</font></strong><font color="#800080">:&nbsp;ignore()\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;~Shift&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">KP_8:&nbsp;scroll-back(</font><strong><font color="#008080">1</font></strong><font color="#800080">,line)\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;~Shift&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">KP_2:&nbsp;scroll-forw(</font><strong><font color="#008080">1</font></strong><font color="#800080">,line)\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shift&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">KP_8:&nbsp;scroll-back(</font><strong><font color="#008080">1</font></strong><font color="#800080">,halfpage)\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shift&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">KP_2:&nbsp;scroll-forw(</font><strong><font color="#008080">1</font></strong><font color="#800080">,halfpage)</font><br>
+<!--atr2html}}--></p>
+<p>
 will produce warnings such as
 <pre><code>
 		Warning: Actions not found: ignore, scroll-back, scroll-forw
@@ -2260,18 +2371,18 @@ will produce warnings such as
 		Warning: Actions not found: ignore, scroll-back, scroll-forw
 </code></pre>
 This is a correct form, assigning the actions to the "VT100" widget.
-<pre><code>
-		XTerm*VT100.translations:     #override\n\
-			&lt;Leave&gt;, ~Ctrl ~Meta &lt;Btn2Up&gt;: ignore()\n\
-			~Shift &lt;Key&gt;KP_8: scroll-back(1,line)\n\
-			~Shift &lt;Key&gt;KP_2: scroll-forw(1,line)\n\
-			Shift &lt;Key&gt;KP_8: scroll-back(1,halfpage)\n\
-			Shift &lt;Key&gt;KP_2: scroll-forw(1,halfpage)
-</code></pre>
+<!--{{atr2html--><p style="font-family: monospace; font-size: 10pt;">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">XTerm</font></strong>*<strong><font color="#000080">VT100</font></strong>.<font color="#008080">translations</font>:<font color="#800080">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#override\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><strong><font color="#000080">&lt;Leave&gt;</font></strong><font color="#800080">,&nbsp;~Ctrl&nbsp;~Meta&nbsp;</font><strong><font color="#000080">&lt;Btn2Up&gt;</font></strong><font color="#800080">:&nbsp;ignore()\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;~Shift&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">KP_8:&nbsp;scroll-back(</font><strong><font color="#008080">1</font></strong><font color="#800080">,line)\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;~Shift&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">KP_2:&nbsp;scroll-forw(</font><strong><font color="#008080">1</font></strong><font color="#800080">,line)\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shift&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">KP_8:&nbsp;scroll-back(</font><strong><font color="#008080">1</font></strong><font color="#800080">,halfpage)\n\<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shift&nbsp;</font><strong><font color="#000080">&lt;Key&gt;</font></strong><font color="#800080">KP_2:&nbsp;scroll-forw(</font><strong><font color="#008080">1</font></strong><font color="#800080">,halfpage)</font><br>
+<!--atr2html}}--></p>
 
 <dt><a name="alloc_color">Warning: Cannot allocate colormap entry for "xxx"</a>
 <dd>This comes from the X library.
-XFree86 xterm uses the default color map.
+Modern xterm uses the default color map.
 What this means is that if your X server has insufficient space to
 store color information for more than one color map, other applications
 which could use other color maps may conflict with xterm.
@@ -2294,11 +2405,11 @@ the colors are first needed.  If a color is never needed
 that reduces the number of slots in the color map that are needed.
 Even with this improvement, xterm must still allocate 4 colors during
 initialization to determine how to display the cursor.
-If none of those colors can be allocated, XFree86 xterm reverts to monochrome.
+If none of those colors can be allocated, xterm reverts to monochrome.
 </DL>
 
 <h3><A NAME="known_bugs">Known Bugs in XTERM</A></h3><P>
-These are the known bugs (or limitations) in the XFree86 xterm.
+These are the known bugs (or limitations) in modern xterm.
 They are also present in the other versions based on the X Consortium
 sources (color_xterm, ansi_xterm, kterm).
 <P>
@@ -2320,7 +2431,7 @@ characters, on which tab/space conversion has already been performed.
 
 <h4><A NAME="bug_xterm_r6">X11R6.3 XTERM</A></h4>
 The X Consortium version of xterm (and versions based on it) has
-additional bugs not in XFree86 xterm:
+additional bugs not in modern xterm:
 <UL>
 <LI>the program must be run with fixed (nonproportional) fonts.
 <LI>the home and end keys do not generate usable escape sequences, due to
@@ -2419,7 +2530,7 @@ This applies to versions of <EM>Eterm</EM> through 0.9.
 <h4><A NAME="bug_gnometerm">GNOME TERMINAL</A>
 <A HREF="http://www.gnome.org/">link</A></h4>
 GNOME Terminal is developed separately from both xterm and rxvt,
-and is based on the zvt (zterm) widget.
+and was originally based on the zvt (zterm) widget.
 Like
 <a href="#bug_kvt">kvt</a>),
 it appears to have been developed imitating other terminal emulators
@@ -2430,7 +2541,7 @@ program fares badly with
 <A HREF="../vttest/vttest.html">vttest</A>.
 Beginning with late 1999, reports indicate that it
 does not properly parse ANSI control
-sequences:  the vim editor is using XFree86 xterm's vt220-style
+sequences:  the vim editor is using xterm's vt220-style
 "Send Device Attributes" (Secondary DA) control sequence to obtain the
 terminal emulator's version.
 That is, it sends
@@ -2447,14 +2558,37 @@ interpreted by the emulator.
 <p>
 But it suffices for vi.
 <p>
-A more recent GNOME Terminal (version 1.4.0.4, late 2001)
-did not implement a complete vt102: it was missing several features
+A more recent GNOME Terminal uses the VTE widget.
+I observed version 1.4.0.4 in late 2001, which mentioned it in the credits
+(although VTE 0.1's ChangeLog mentions no date before February 2002).
+It does not implement a complete vt102: it was missing several features
 which can be demonstrated in
 <A HREF="../vttest/vttest.html">vttest</A>).
 Most of the bugs in the Device Attributes
 responses remain, but it works a little better with vim.
 However, there are problems with the alternate screen that show up with vim.
 Again, these can be demonstrated with vttest (menu 11.6.3 in the 20011130 snapshot).
+<p>Rather than evolving from zvt,
+VTE is largely a new work.
+It does credit zvt in one place.
+However, its source code uses xterm's source code as a resource,
+accounting for odd (often incomplete) chunks.
+Reviewing 0.9.0 (September 2002):
+<ul>
+<li>the termcap file.
+The last comment in the file is copied from xterm's source.
+The content of course is generated from ncurses with a small number of
+changes.
+<li>the parser <code>src/vte.c</code> &mdash;a 14,125 line file.
+For example, the chunks related to DEC VT220 keyboard queries
+and DEC private modes contain comments copied from xterm's source code.
+</ul>
+<p>Later versions of VTE incorporate more features (and comments,
+symbol names, etc), from xterm's source.
+In some instances,
+the copied features were disabled by Red Hat's package for xterm.
+<a href="https://bugzilla.redhat.com/show_bug.cgi?id=122815">Here</a>
+is a related bug report, for key bindings.
 <p>
 The documentation for GNOME terminal asserts:
 <blockquote>
@@ -2517,6 +2651,11 @@ In places however (naming conventions and comments),
 there is some verbatim copying.
 The same comment is true of "character set conversion".
 None of that is reflected in VTE's changelog.
+<p>
+As an aside, the credits in GNOME Terminal's "About" box also are inaccurate.
+For several years (according to its change-log),
+most of the work on VTE (the principal part of the program) was done
+by Nalin Dahyabhai.
 <p>
 xterm on the other hand, can be told with the <code>tcapFunctionKeys</code>
 resource setting to use a more complete subset, based on the ncurses
@@ -2764,9 +2903,52 @@ The toolkit-style configurability
 accounts for about 300kb, which does add up if you happen to be
 running 50 xterm processes (i.e., about 10Mb).
 <p>
+This comment was topical in December 2001:
+<blockquote>
 Compared with something like GNOME Terminal, which takes 2-3 times,
 or KDE konsole, which takes 15-20 times as much memory to run,
 xterm and rxvt memory requirements are indistinguishable to the normal user.
+</blockquote>
+In June 2010, the numbers have changed somewhat.
+Here is a table showing the total application and library sizes needed
+for each of the terminal emulators on my development machine.
+All sizes are in kb (1024 bytes).
+<table border="1" summary="Comparing XTerm's size">
+<tr>
+<th>program</th>
+<th>base size</th>
+<th>total size</th>
+<th>libraries</th>
+</tr>
+<tr><td>aterm</td><td>127</td><td>10763</td><td>45</td></tr>
+<tr><td>color_xterm</td><td>142</td><td>3647</td><td>13</td></tr>
+<tr><td>Eterm</td><td>1</td><td>5126</td><td>19</td></tr>
+<tr><td>fbiterm</td><td>6</td><td>2424</td><td>8</td></tr>
+<tr><td>gnome-terminal</td><td>292</td><td>14587</td><td>51</td></tr>
+<tr><td>hpterm</td><td>146</td><td>14386</td><td>31</td></tr>
+<tr><td>konsole</td><td>2</td><td>39815</td><td>71</td></tr>
+<tr><td>kterm</td><td>226</td><td>4194</td><td>17</td></tr>
+<tr><td>mlterm</td><td>316</td><td>6606</td><td>27</td></tr>
+<tr><td>mrxvt</td><td>298</td><td>4515</td><td>19</td></tr>
+<tr><td>multi-aterm</td><td>144</td><td>2821</td><td>7</td></tr>
+<tr><td>pterm</td><td>405</td><td>12817</td><td>42</td></tr>
+<tr><td>rxvt 2.6.4</td><td>108</td><td>2725</td><td>6</td></tr>
+<tr><td>rxvt 2.7.10</td><td>152</td><td>2829</td><td>7</td></tr>
+<tr><td>rxvt-unicode</td><td>1259</td><td>13641</td><td>49</td></tr>
+<tr><td>terminal.app</td><td>211</td><td>15274</td><td>29</td></tr>
+<tr><td>wterm</td><td>110</td><td>2922</td><td>11</td></tr>
+<tr><td>xfce4-terminal</td><td>148</td><td>14059</td><td>48</td></tr>
+<tr><td>xgterm</td><td>953</td><td>4602</td><td>14</td></tr>
+<tr><td>xhpterm</td><td>130</td><td>2748</td><td>6</td></tr>
+<tr><td>xiterm</td><td>12</td><td>3762</td><td>16</td></tr>
+<tr><td>xterm (everything)</td><td>346</td><td>5484</td><td>24</td></tr>
+<tr><td>xterm (minimal)</td><td>186</td><td>4123</td><td>15</td></tr>
+<tr><td>xterm-r5</td><td>135</td><td>4164</td><td>11</td></tr>
+<tr><td>xterm-r6</td><td>140</td><td>4169</td><td>11</td></tr>
+</table>
+<p>
+Counting the libraries is appropriate, since some programs such as xiterm
+and the VTE-based programs are implemented in libraries.
 <p>
 These comments apply to versions of <EM>rxvt</EM> through 2.21:
 <UL>
@@ -2856,19 +3038,20 @@ your system, you are better off building the libraries yourself.
 Xterm can be built with either X11R5 or X11R6 libraries; however X11R6
 requires much more data to be installed before xterm will run.
 Xterm uses the <code>Xaw</code> library for popup menus.
-<LI>imake and <EM>xmkmf</EM>.
+<LI>imake and <code>xmkmf</code>.
 These utilities produce a Makefile from the Imakefile.
 They are not essential, but useful, particularly on systems with
 unusual configurations.
 </UL>
-If you have a working <EM>xmkmf</EM> script (or correctly configured imake utility),
+If you have a working <code>xmkmf</code> script (or correctly configured imake utility),
 all you need to do is type
 <PRE><code>
 	xmkmf
 	make
 </code></PRE>
-I have written a simple <EM>configure</EM> script for xterm which uses imake
-(or <EM>xmkmf</EM>) to generate a Makefile from the Makefile.in.
+I have written a <EM>configure</EM> script for xterm which can use <code>imake</code>
+(or <code>xmkmf</code>) to generate a Makefile from the Makefile.in.
+Or it can do without <code>imake</code> entirely.
 I have restructured xterm to eliminate most hardcoded
 <code>#ifdef</code>'s, replacing them with definitions that can be derived
 with the configuration script.
