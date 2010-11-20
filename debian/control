@@ -107,7 +107,7 @@ Depends:
  xbitmaps,
  ${shlibs:Depends},
  ${misc:Depends},
-Recommends: x11-utils | xutils
+Recommends: x11-utils
 Suggests: xfonts-cyrillic
 Provides: x-terminal-emulator
 Description: X terminal emulator
