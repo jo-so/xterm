@@ -98,9 +98,6 @@ Build-Depends:
 #   xorg-docs-core                  provides X(7) which minstall.sh tries to
 #                                   detect
 #   debhelper (>= 5)                debian/compat = 5
-#   dpkg-dev (>= 1.10.14)           (1.10.11) comment support in debian/control;
-#                                   (1.10.14) architecture-specific binary
-#                                   package dependencies
 #   quilt                           patch management system
 #   lynx-cur | lynx                 generates plain-text version of Debian X FAQ
 
