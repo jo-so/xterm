@@ -15,7 +15,7 @@ Build-Depends:
  libutempter-dev,
  debhelper (>= 5),
  quilt,
- lynx,
+ lynx-cur | lynx,
  xorg-docs-core,
 
 # Reasons for Build-Depends:
@@ -102,7 +102,7 @@ Build-Depends:
 #                                   (1.10.14) architecture-specific binary
 #                                   package dependencies
 #   quilt                           patch management system
-#   lynx                            generates plain-text version of Debian X FAQ
+#   lynx-cur | lynx                 generates plain-text version of Debian X FAQ
 
 Package: xterm
 Architecture: any
