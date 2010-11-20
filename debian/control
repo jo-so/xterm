@@ -99,7 +99,7 @@ Build-Depends:
 #                                   detect
 #   debhelper (>= 5)                debian/compat = 5
 #   quilt                           patch management system
-#   lynx-cur | lynx                 generates plain-text version of Debian X FAQ
+#   lynx-cur | lynx                 generates plain-text version of xterm faq
 
 Package: xterm
 Architecture: any
