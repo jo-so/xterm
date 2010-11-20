@@ -72,7 +72,7 @@ $(STAMP_DIR)/configure: $(STAMP_DIR)/patch
 
 .PHONY: build
 build: $(STAMP_DIR)/build
-$(STAMP_DIR)/build: $(STAMP_DIR)/configure debian/local/xterm.faq.gz
+$(STAMP_DIR)/build: $(STAMP_DIR)/configure debian/local/xterm.faq
 	dh_testdir
 	cd build && $(MAKE)
 	touch $@
@@ -83,7 +83,7 @@ clean: xsfclean
 	dh_testroot
 	rm -rf $(STAMP_DIR)
 	rm -rf build
-	dh_clean debian/local/xterm.faq.gz
+	dh_clean debian/local/xterm.faq
 
 .PHONY: install
 install: build
@@ -108,11 +108,8 @@ install: build
 	dh_install --sourcedir=debian/tmp --list-missing
 
 # Generate plain text XTerm FAQ from HTML.
-debian/local/xterm.faq.gz: debian/local/xterm.faq.html
+debian/local/xterm.faq: debian/local/xterm.faq.html
 	$(HTML2TEXT) $< >debian/local/xterm.faq
-	# dh_compress doesn't recognize this file extension, so we must
-	# compress it manually.
-	gzip -9f debian/local/xterm.faq
 
 .PHONY: binary
 binary: binary-arch
