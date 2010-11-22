@@ -1,4 +1,4 @@
-xterm (266-2) UNRELEASED; urgency=low
+xterm (267-1) UNRELEASED; urgency=low
 
   [ Sven Joachim ]
   * Prefer lynx-cur over lynx in Build-Depends.
@@ -11,8 +11,11 @@ xterm (266-2) UNRELEASED; urgency=low
 
   [ Julien Cristau ]
   * Update copy of XTerm FAQ to revision 1.158 (dated 2010/11/10)
+  * New upstream release
+    + add copy-selection action (request by Timo Juhani Lindfors,
+      closes: #588785
 
- -- Sven Joachim <svenjoac@gmx.de>  Sat, 20 Nov 2010 13:14:37 +0100
+ -- Julien Cristau <jcristau@debian.org>  Mon, 22 Nov 2010 19:06:50 +0100
 
 xterm (266-1) unstable; urgency=low
 
