@@ -1,4 +1,4 @@
-xterm (267-1) UNRELEASED; urgency=low
+xterm (268-1) UNRELEASED; urgency=low
 
   [ Sven Joachim ]
   * Prefer lynx-cur over lynx in Build-Depends.
@@ -11,9 +11,13 @@ xterm (267-1) UNRELEASED; urgency=low
 
   [ Julien Cristau ]
   * Update copy of XTerm FAQ to revision 1.158 (dated 2010/11/10)
-  * New upstream release
+  * New upstream release (267)
     + add copy-selection action (request by Timo Juhani Lindfors,
       closes: #588785
+  * New upstream release (268)
+    + fix an inconsistency of the "Enable Reverse Video" checkbox in the VT
+      Options menu.  This also removes a special case added in patch #217
+      which limited the effect of the reverseVideo resource (closes: #603808)
 
  -- Julien Cristau <jcristau@debian.org>  Mon, 22 Nov 2010 19:06:50 +0100
 
