@@ -20,11 +20,11 @@
  * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF   *
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.            *
  *****************************************************************************
-  $XTermId: xterm.faq.html,v 1.158 2010/11/10 10:28:18 tom Exp $
+  $XTermId: xterm.faq.html,v 1.167 2010/11/25 14:10:03 tom Exp $
   -->
 <HTML>
 <HEAD>
-<TITLE>XTERM &ndash; Frequently Asked Questions (FAQ)</TITLE>
+<TITLE>XTERM - Frequently Asked Questions (FAQ)</TITLE>
 <LINK REV=MADE HREF="mailto:dickey@invisible-island.net">
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 </HEAD>
@@ -42,6 +42,7 @@ is the latest version of this file.
 <LI><A HREF="#what_platforms">What platforms does it run on?</A>
 <LI><A HREF="#latest_version">What is the latest version?</A>
 <LI><A HREF="#other_versions">What versions are available?</A>
+<LI><A HREF="#compare_versions">Comparing versions, by counting controls</A>
 <LI><A HREF="#how_do_i">How do I ...</A>
 <LI><A HREF="#frequent_problems">Frequent problems</A>
 <LI><A HREF="#known_bugs">Known Bugs in XTERM</A>
@@ -284,30 +285,154 @@ include
 (I am aware of a few others, such as
 <STRONG>xcterm</STRONG>, but have not seen
 a working version of these).
+
+<h2><A name="compare_versions">Comparing versions, by counting controls</a></h2>
 <p>
-There were for some time two versions of XFree86 xterm.  Starting with my
-<a href="xterm.log.html#xterm_88">patch 88</a>,
-there were the stable (beta) and unstable (alpha) versions, which currently
-are XFree86 3.3.6 and XFree86 4.x, respectively.
-I made only critical changes to the stable version since
-patch 88;
-ongoing development (including all non-critical fixes)
-was focused on the "unstable".
+Several of these programs are claimed (either by their developers,
+or their users) to emulate "most" of xterm.
+To me, "most" would be something quantifiable, e.g., 80 percent.
+To satisfy my curiousity, I wrote a script to extract the control
+sequence information from <a href="#ctlseqs_ms">ctlseqs.txt</a>.
+This counts each control sequence, as well as the variations such as
+setting bold, color, inverse video.
+Then I (laboriously) inspected these terminal implementations:
+<ul>
+<li>xterm patch #266 ("xterm-new")
+<li>X11R6.3 xterm (xterm-r6)
+<li>DEC vt220
+<li>DEC vt102
+<li>rxvt 2.7.10
+<li>rxvt-unicode 9.09 (urxvt) 
+<li>konsole 2.5.3
+<li>VTE 0.25.91 (vte), used in GNOME-Terminal and kindred.
+</ul>
 <p>
-XFree86 4.0 should have incorporated my
-<a href="xterm.log.html#xterm_131">patch 131</a>,
-but it was overlooked at the last moment
-(though it was listed in the ChangeLog, the patch itself was not applied).
-Unfortunately, the patch 130 version which was released
-renders colors incorrectly on most platforms, in particular FreeBSD.
-Ironically, the change in
-<a href="xterm.log.html#xterm_129">patch 129</a>
-which introduced this bug
-was designed to work around a bug which I have seen only running with FreeBSD.
-To compound the irony,
-there was some resistance at the time
-(2000/4/5) by that organization to incorporating the fix
-because it might be confused with the 4.0 release version.
+As of mid-November 2010, these are the latest implementations.
+I included data for the vt220 and vt102 to be able to contrast the
+various terminal <em>emulators</em> against those as well as xterm.
+
+There are:
+<ul>
+<li>498 control sequences listed in the corresponding file
+for xterm patch #266.
+<li>192 of those are "primary", e.g., disregarding
+parameters such as those distinguishing bold from color.
+<li>37 of the primary control sequences have secondary sequences.
+</ul>
+For each control, there are three possibilities:
+<ol>
+<li>"yes" &mdash; the terminal implements it, matching xterm.
+If xterm implements it, and it is a feature of vt220 or vt102,
+then in turn xterm's behavior must match vt220 or vt102.
+<li>"partial" &mdash; the terminal implements it, but its behavior does not match the
+reference noted above.
+<li>"no" &mdash; the terminal does not implement the control.
+</ol>
+<p>
+The control sequences document lists a few controls which xterm
+does not (completely) implement, e.g.,
+<ul>
+<li>key-repeat
+<li>enabling LEDs other than scroll-lock
+</ul>
+None of the other terminal emulators implements those either.
+<br>
+<table border="1" summary="Comparing against the control sequences document">
+<caption>Comparing against the control sequences document</caption>
+<colgroup><col width="15%"><col width="15%"><col width="15%"><col width="35%"></colgroup>
+<tr>
+<th>yes</th>
+<th>partial</th>
+<th>no</th>
+<th>program</th>
+</tr>
+<tr><td>488</td><td>4</td><td>6</td><td>xterm-new</td></tr>
+<tr><td>154</td><td>6</td><td>338</td><td>xterm-r6</td></tr>
+<tr><td>188</td><td>5</td><td>305</td><td>vt220</td></tr>
+<tr><td>104</td><td>0</td><td>394</td><td>vt102</td></tr>
+<tr><td>204</td><td>3</td><td>291</td><td>rxvt</td></tr>
+<tr><td>219</td><td>3</td><td>276</td><td>urxvt</td></tr>
+<tr><td>191</td><td>2</td><td>305</td><td>putty</td></tr>
+<tr><td>170</td><td>3</td><td>325</td><td>konsole</td></tr>
+<tr><td>184</td><td>6</td><td>308</td><td>vte</td></tr>
+</table>
+<p>
+Modern xterm implements 188 primary controls.
+In this table, konsole ranks last because it does not support vt52 emulation.
+Aside from that, the various emulators implement much the same features
+from xterm.
+None implements as many as half of xterm's controls.
+<table border="1" summary="Comparing against xterm">
+<caption>Comparing against xterm</caption>
+<colgroup><col width="15%"><col width="15%"><col width="15%"><col width="35%"></colgroup>
+<tr>
+<th>yes</th>
+<th>partial</th>
+<th>no</th>
+<th>program</th>
+</tr>
+<tr><td>488</td><td>0</td><td>0</td><td>xterm-new</td></tr>
+<tr><td>154</td><td>6</td><td>328</td><td>xterm-r6</td></tr>
+<tr><td>182</td><td>2</td><td>304</td><td>vt220</td></tr>
+<tr><td>98</td><td>0</td><td>390</td><td>vt102</td></tr>
+<tr><td>204</td><td>3</td><td>281</td><td>rxvt</td></tr>
+<tr><td>219</td><td>3</td><td>266</td><td>urxvt</td></tr>
+<tr><td>189</td><td>2</td><td>297</td><td>putty</td></tr>
+<tr><td>170</td><td>3</td><td>315</td><td>konsole</td></tr>
+<tr><td>184</td><td>6</td><td>298</td><td>vte</td></tr>
+</table>
+<p>
+DEC VT220 implements 96 primary controls.
+Modern xterm (as documented), implements most of the VT220.
+VTE implements fewer than half.
+The others are a little better.
+None of the others could be used as a real VT220.
+<table border="1" summary="Comparing against vt220">
+<caption>Comparing against vt220</caption>
+<colgroup><col width="15%"><col width="15%"><col width="15%"><col width="35%"></colgroup>
+<tr>
+<th>yes</th>
+<th>partial</th>
+<th>no</th>
+<th>program</th>
+</tr>
+<tr><td>182</td><td>0</td><td>6</td><td>xterm-new</td></tr>
+<tr><td>78</td><td>6</td><td>104</td><td>xterm-r6</td></tr>
+<tr><td>188</td><td>0</td><td>0</td><td>vt220</td></tr>
+<tr><td>104</td><td>0</td><td>84</td><td>vt102</td></tr>
+<tr><td>101</td><td>3</td><td>84</td><td>rxvt</td></tr>
+<tr><td>106</td><td>3</td><td>79</td><td>urxvt</td></tr>
+<tr><td>107</td><td>2</td><td>79</td><td>putty</td></tr>
+<tr><td>100</td><td>3</td><td>85</td><td>konsole</td></tr>
+<tr><td>88</td><td>6</td><td>94</td><td>vte</td></tr>
+</table>
+<p>
+DEC VT102 (the actual flavor used for "vt100" in most cases),
+implements 68 primary controls.
+Again, VTE fares worst, and the others a little better.
+<table border="1" summary="Comparing against vt102">
+<caption>Comparing against vt102</caption>
+<colgroup><col width="15%"><col width="15%"><col width="15%"><col width="35%"></colgroup>
+<tr>
+<th>yes</th>
+<th>partial</th>
+<th>no</th>
+<th>program</th>
+</tr>
+<tr><td>98</td><td>0</td><td>6</td><td>xterm-new</td></tr>
+<tr><td>70</td><td>6</td><td>28</td><td>xterm-r6</td></tr>
+<tr><td>104</td><td>0</td><td>0</td><td>vt220</td></tr>
+<tr><td>104</td><td>0</td><td>0</td><td>vt102</td></tr>
+<tr><td>79</td><td>2</td><td>23</td><td>rxvt</td></tr>
+<tr><td>81</td><td>2</td><td>21</td><td>urxvt</td></tr>
+<tr><td>86</td><td>2</td><td>16</td><td>putty</td></tr>
+<tr><td>85</td><td>3</td><td>16</td><td>konsole</td></tr>
+<tr><td>60</td><td>1</td><td>43</td><td>vte</td></tr>
+</table>
+<p>
+In summary, none of the other terminal emulators emulates "most" of xterm.
+Instead, they implement the most commonly-used control sequences,
+and there are differences between them.
 
 <h2><A NAME="how_do_i">How do I ...</A></h2>
 Not really problems, but frequently asked questions (the point of this,
@@ -444,7 +569,7 @@ Here is one from Bruce Momjian &lt;root@candle.pha.pa.us&gt;
 for a VT220:
 <!--{{atr2html--><p style="font-family: monospace; font-size: 10pt;">
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xterm&nbsp;<font color="#008080">$XTERMFLAGS</font>&nbsp;+rw&nbsp;+sb&nbsp;+ls&nbsp;<font color="#008080">$@</font>&nbsp;-tm&nbsp;<font color="#800080">'erase&nbsp;^?&nbsp;intr&nbsp;^c'</font>&nbsp;\<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-name&nbsp;vt220&nbsp;-title&nbsp;vt220&nbsp;-tn&nbsp;xterm-220&nbsp;<font color="#800080">"$@"</font>&nbsp;&amp;amp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-name&nbsp;vt220&nbsp;-title&nbsp;vt220&nbsp;-tn&nbsp;xterm-220&nbsp;<font color="#800080">"$@"</font>&nbsp;&amp;<br>
 <!--atr2html}}--></p>
 with the corresponding resources:
 <p>
@@ -987,7 +1112,7 @@ Hemant Shah &lt;shah@typhoon.xnet.com&gt;):
 	current_title=$(xprop -id $WINDOWID | grep WM_NAME | cut -d= -f2)
 </code></PRE>
 Here's another source of information:
-<a href="http://cns.georgetown.edu/~ric/howto/Xterm-Title/">Xterm-Title HowTo</a>
+<a href="http://web.archive.org/web/*/http%3A//cns.georgetown.edu/~ric/howto/Xterm-Title/">Xterm-Title HowTo</a>
 
 <h3><A NAME="how2_blink">How do I make the cursor blink?</A></h3>
 Standard xterm does not implement a blinking cursor.
@@ -1506,7 +1631,7 @@ which would not affect the home/end keys.
 which I tested with xterm-88c, xterm-149 and xterm-158,
 using $TERM set to xterm-debian:
 <!--{{atr2html--><p style="font-family: monospace; font-size: 10pt;">
-<font color="#800000">!&nbsp;$Id: xterm.faq.html,v 1.158 2010/11/10 10:28:18 tom Exp $<br>
+<font color="#800000">!&nbsp;$Id: xterm.faq.html,v 1.167 2010/11/25 14:10:03 tom Exp $<br>
 </font><font color="#800000">!&nbsp;Settings&nbsp;to&nbsp;make&nbsp;xterm-88c&nbsp;work&nbsp;as&nbsp;expected&nbsp;for&nbsp;Debian.<br>
 </font><font color="#800000">!<br>
 </font><font color="#800000">!&nbsp;Patch&nbsp;#88&nbsp;was&nbsp;the&nbsp;basis&nbsp;for&nbsp;XFree86&nbsp;3.3.1&nbsp;xterm.&nbsp;&nbsp;There&nbsp;were&nbsp;a&nbsp;few&nbsp;additions<br>
@@ -1905,8 +2030,8 @@ this procedure adds these capabilities to the "xterm"
 terminfo definition on HP-UX 10.20:
 <!--{{atr2html--><p style="font-family: monospace; font-size: 10pt;">
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cp&nbsp;/usr/lib/terminfo/x/xterm&nbsp;/usr/lib/terminfo/x/xterm.orig<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;untic&nbsp;xterm&nbsp;&amp;gt;&nbsp;/tmp/xterm.src<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">echo</font></strong>&nbsp;<font color="#800080">"&nbsp;smcup=</font><strong><font color="#800000">\</font></strong><font color="#800080">E7</font><strong><font color="#800000">\</font></strong><font color="#800080">E[?47h,&nbsp;rmcup=</font><strong><font color="#800000">\</font></strong><font color="#800080">E[2J</font><strong><font color="#800000">\</font></strong><font color="#800080">E[?47l</font><strong><font color="#800000">\</font></strong><font color="#800080">E8,"</font>&nbsp;&amp;gt;&amp;gt;&nbsp;/tmp/xterm.src<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;untic&nbsp;xterm&nbsp;&gt;&nbsp;/tmp/xterm.src<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">echo</font></strong>&nbsp;<font color="#800080">"&nbsp;smcup=</font><strong><font color="#800000">\</font></strong><font color="#800080">E7</font><strong><font color="#800000">\</font></strong><font color="#800080">E[?47h,&nbsp;rmcup=</font><strong><font color="#800000">\</font></strong><font color="#800080">E[2J</font><strong><font color="#800000">\</font></strong><font color="#800080">E[?47l</font><strong><font color="#800000">\</font></strong><font color="#800080">E8,"</font>&nbsp;&gt;&gt;&nbsp;/tmp/xterm.src<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tic&nbsp;/tmp/xterm.src<br>
 <!--atr2html}}--></p>
 <p>
@@ -2140,7 +2265,7 @@ This works reasonably well for environments where you have
 different versions of xterm, e.g.,
 <!--{{atr2html--><p style="font-family: monospace; font-size: 10pt;">
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><font color="#000080">XTerm</font></strong>*<strong><font color="#000080">VT100</font></strong>.<font color="#008080">translations</font>:<font color="#800080">&nbsp;#override&nbsp;\n\<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;lt;Key&amp;gt;Delete:&nbsp;string(</font><strong><font color="#008080">0x7f</font></strong><font color="#800080">)</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Key&gt;Delete:&nbsp;string(</font><strong><font color="#008080">0x7f</font></strong><font color="#800080">)</font><br>
 <!--atr2html}}--></p>
 I do not do that either, because it is not flexible.
 Not all programs use the same sense of
@@ -2857,7 +2982,7 @@ X server to hang.
 (I was able to do this with both Lesstif and Motif libraries).
 Given that, I decided to restructure the menus entirely, making a toolbar
 which could support at compile-time either widget set.
-<LI><a href="http://www.fh-wilhelmshaven.de/~akcaagaa/index_mxterm.html">mxterm</a>
+<LI><a href="http://web.archive.org/web/*/http%3A//www.fh-wilhelmshaven.de/~akcaagaa/index_mxterm.html">mxterm</a>
 This is a different reworking of the Motif widget patch,
 using a 1993 version (ignoring the more recent 1994 patches noted above).
 However, it appears to have the same technical defect that I noted above.
@@ -3012,13 +3137,13 @@ with a few ifdef's changed.
 <p>
 That is, it was.
 The name was later appropriated by a different
-<a href="http://oss.software.ibm.com/linux/projects/iterm/">program</a>,
+<a href="http://web.archive.org/web/*/http%3A//oss.software.ibm.com/linux/projects/iterm/">program</a>,
 which also uses the name <code>iterm</code>.
 Like gnome-terminal,
 iterm aims to be an xterm-emulator
 rather than a VT102- or VT220-emulator.
 <p>
-An earlier <a href="http://www.openi18n.org">attempt</a> by the same author
+An earlier <a href="http://web.archive.org/web/*/http%3A//www.openi18n.org">attempt</a> by the same author
 (the "CSI-xterm")
 incorporates some of the changes I made for XFree86 xterm
 via cut and paste

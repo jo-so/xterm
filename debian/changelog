@@ -10,7 +10,7 @@ xterm (268-1) UNRELEASED; urgency=low
     care of that.
 
   [ Julien Cristau ]
-  * Update copy of XTerm FAQ to revision 1.158 (dated 2010/11/10)
+  * Update copy of XTerm FAQ to revision 1.167 (dated 2010/11/25)
   * New upstream release (267)
     + add copy-selection action (request by Timo Juhani Lindfors,
       closes: #588785
