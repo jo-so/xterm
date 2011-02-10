@@ -1,4 +1,4 @@
-xterm (268-1) UNRELEASED; urgency=low
+xterm (268-1) unstable; urgency=low
 
   [ Sven Joachim ]
   * Prefer lynx-cur over lynx in Build-Depends.
@@ -19,7 +19,7 @@ xterm (268-1) UNRELEASED; urgency=low
       Options menu.  This also removes a special case added in patch #217
       which limited the effect of the reverseVideo resource (closes: #603808)
 
- -- Julien Cristau <jcristau@debian.org>  Mon, 22 Nov 2010 19:06:50 +0100
+ -- Julien Cristau <jcristau@debian.org>  Thu, 10 Feb 2011 18:48:37 +0100
 
 xterm (266-1) unstable; urgency=low
 
