@@ -25,7 +25,7 @@ Index: xterm/termcap
 ===================================================================
 --- xterm.orig/termcap
 +++ xterm/termcap
-@@ -71,6 +71,14 @@
+@@ -71,6 +71,14 @@ xb|xterm-basic|modern xterm common:\
  	:so=\E[7m:sr=\EM:st=\EH:te=\E[?1049l:ti=\E[?1049h:\
  	:ue=\E[24m:up=\E[A:us=\E[4m:ve=\E[?12l\E[?25h:vi=\E[?25l:vs=\E[?12;25h:
  
@@ -40,7 +40,7 @@ Index: xterm/termcap
  # The xterm-new description has all of the features, but is not completely
  # compatible with vt220.  If you are using a Sun or PC keyboard, set the
  # sunKeyboard resource to true:
-@@ -233,5 +241,6 @@
+@@ -233,5 +241,6 @@ x0|xterm-xfree86|xterm terminal emulator
  # is widely used for a variety of incompatible terminal emulations including
  # color_xterm and rxvt.
  v0|xterm|X11 terminal emulator:\
@@ -52,7 +52,7 @@ Index: xterm/terminfo
 ===================================================================
 --- xterm.orig/terminfo
 +++ xterm/terminfo
-@@ -955,6 +955,13 @@
+@@ -955,6 +955,13 @@ xterm-basic|modern xterm terminal emulat
  	u8=\E[?1;2c,
  	u9=\E[c,
  	vpa=\E[%i%p1%dd,
@@ -66,7 +66,7 @@ Index: xterm/terminfo
  #
  # The xterm-new description has all of the features, but is not completely
  # compatible with vt220.  If you are using a Sun or PC keyboard, set the
-@@ -1393,7 +1400,7 @@
+@@ -1393,7 +1400,7 @@ xterm-16color|xterm with 16 colors,
  	setaf=\E[%?%p1%{8}%<%t%p1%{30}%+%e%p1%{82}%+%;%dm,
  	setb=%p1%{8}%/%{6}%*%{4}%+\E[%d%p1%{8}%m%Pa%?%ga%{1}%=%t4%e%ga%{3}%=%t6%e%ga%{4}%=%t1%e%ga%{6}%=%t3%e%ga%d%;m,
  	setf=%p1%{8}%/%{6}%*%{3}%+\E[%d%p1%{8}%m%Pa%?%ga%{1}%=%t4%e%ga%{3}%=%t6%e%ga%{4}%=%t1%e%ga%{6}%=%t3%e%ga%d%;m,
@@ -75,7 +75,7 @@ Index: xterm/terminfo
  #
  # This uses RGB values 0..1000
  #
-@@ -1408,7 +1415,7 @@
+@@ -1408,7 +1415,7 @@ xterm-256color|xterm with 256 colors,
  	setaf=\E[%?%p1%{8}%<%t3%p1%d%e%p1%{16}%<%t9%p1%{8}%-%d%e38;5;%p1%d%;m,
  	setb@,
  	setf@,
@@ -84,7 +84,7 @@ Index: xterm/terminfo
  xterm-88color|xterm with 88 colors,
  	colors#88,
  	pairs#7744,
-@@ -1935,5 +1942,6 @@
+@@ -1935,5 +1942,6 @@ xterm-r5|xterm R5 version,
  # is widely used for a variety of incompatible terminal emulations including
  # color_xterm and rxvt.
  xterm|X11 terminal emulator,
@@ -96,7 +96,7 @@ Index: xterm/XTerm.ad
 ===================================================================
 --- xterm.orig/XTerm.ad
 +++ xterm/XTerm.ad
-@@ -154,6 +154,10 @@
+@@ -155,6 +155,10 @@
  *tek4014*font3: 6x13
  *tek4014*fontSmall: 6x10
  

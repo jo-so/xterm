@@ -2,7 +2,7 @@ Index: xterm/xterm.man
 ===================================================================
 --- xterm.orig/xterm.man
 +++ xterm/xterm.man
-@@ -2165,8 +2165,9 @@
+@@ -2173,8 +2173,9 @@ This is a comma-separated list of names,
  from \fIdtterm\fP the operation number).
  The default value is
  .RS
