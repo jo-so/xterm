@@ -1,4 +1,4 @@
-xterm (270-1) UNRELEASED; urgency=low
+xterm (270-1) unstable; urgency=low
 
   * New upstream release:
     - Add printModeOnXError and printFileOnXError resources, which allow
@@ -7,7 +7,7 @@ xterm (270-1) UNRELEASED; urgency=low
     - Fix translations vs. fullscreen initializations to handle a corner
       case (Closes: #612978).
 
- -- Cyril Brulebois <kibi@debian.org>  Thu, 02 Jun 2011 23:57:21 +0200
+ -- Cyril Brulebois <kibi@debian.org>  Fri, 03 Jun 2011 00:05:53 +0200
 
 xterm (269-1) unstable; urgency=low
 
