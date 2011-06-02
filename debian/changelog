@@ -1,3 +1,14 @@
+xterm (270-1) UNRELEASED; urgency=low
+
+  * New upstream release:
+    - Add printModeOnXError and printFileOnXError resources, which allow
+      the user to specify that xterm will write the contents of its screen
+      to a file if it is exiting due to an X error (Closes: #280457).
+    - Fix translations vs. fullscreen initializations to handle a corner
+      case (Closes: #612978).
+
+ -- Cyril Brulebois <kibi@debian.org>  Thu, 02 Jun 2011 23:57:21 +0200
+
 xterm (269-1) unstable; urgency=low
 
   * New upstream release:
