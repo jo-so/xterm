@@ -1,4 +1,4 @@
-xterm (271-1) UNRELEASED; urgency=low
+xterm (271-1) unstable; urgency=low
 
   * New upstream release
     - amend change for Debian #110226 so that "-h" or "-v" options cause an
@@ -7,7 +7,7 @@ xterm (271-1) UNRELEASED; urgency=low
     - handle special-case of KeyPress translated to popup-menu action
       (LP: #756273)
 
- -- Julien Cristau <jcristau@debian.org>  Sat, 23 Jul 2011 13:35:06 +0200
+ -- Julien Cristau <jcristau@debian.org>  Sat, 23 Jul 2011 13:55:37 +0200
 
 xterm (270-1) unstable; urgency=low
 
