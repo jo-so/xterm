@@ -17,6 +17,7 @@ Build-Depends:
  quilt,
  lynx-cur | lynx,
  xorg-docs-core,
+ desktop-file-utils,
 
 # Reasons for Build-Depends:
 #
@@ -100,6 +101,7 @@ Build-Depends:
 #   debhelper (>= 5)                debian/compat = 5
 #   quilt                           patch management system
 #   lynx-cur | lynx                 generates plain-text version of xterm faq
+#   desktop-file-utils              for installing xterm.desktop
 
 Package: xterm
 Architecture: any
