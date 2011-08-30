@@ -80,7 +80,6 @@ $(STAMP_DIR)/build: $(STAMP_DIR)/configure debian/local/xterm.faq
 .PHONY: clean
 clean: xsfclean
 	dh_testdir
-	dh_testroot
 	rm -rf $(STAMP_DIR)
 	rm -rf build
 	dh_clean debian/local/xterm.faq

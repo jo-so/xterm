@@ -9,6 +9,7 @@ xterm (273-1) UNRELEASED; urgency=low
       the manpage (LP: #806969)
     + fix regression in command-line parsing introduced in patch #271 changes
       for Debian #629358 (closes: #637910)
+  * Don't use dh_testroot in clean.
 
  -- Julien Cristau <jcristau@debian.org>  Sun, 28 Aug 2011 18:00:26 +0200
 
