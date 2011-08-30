@@ -10,6 +10,9 @@ xterm (273-1) UNRELEASED; urgency=low
     + fix regression in command-line parsing introduced in patch #271 changes
       for Debian #629358 (closes: #637910)
   * Don't use dh_testroot in clean.
+  * Update 900_debian_xterm.diff to only edit the new xterm+kbs fragment in
+    both terminfo and termcap instead of adding an xterm-debian variant to
+    change the backspace key behaviour.
 
  -- Julien Cristau <jcristau@debian.org>  Sun, 28 Aug 2011 18:00:26 +0200
 
