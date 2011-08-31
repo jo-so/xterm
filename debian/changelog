@@ -14,7 +14,10 @@ xterm (273-1) UNRELEASED; urgency=low
     both terminfo and termcap instead of adding an xterm-debian variant to
     change the backspace key behaviour.
 
- -- Julien Cristau <jcristau@debian.org>  Sun, 28 Aug 2011 18:00:26 +0200
+  [ Sven Joachim ]
+  * Add xterm-debian as an alias for xterm in 900_debian_xterm.diff.
+
+  -- Julien Cristau <jcristau@debian.org>  Sun, 28 Aug 2011 18:00:26 +0200
 
 xterm (271-1) unstable; urgency=low
 
