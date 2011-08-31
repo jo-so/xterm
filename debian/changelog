@@ -15,7 +15,10 @@ xterm (273-1) UNRELEASED; urgency=low
     change the backspace key behaviour.
 
   [ Sven Joachim ]
-  * Add xterm-debian as an alias for xterm in 900_debian_xterm.diff.
+  * Update 900_debian_xterm.diff:
+    - Add xterm-debian terminfo entry as an alias for xterm.
+    - Disable rmm and smm features in xterm terminfo entry to match the
+      behavior in ncurses-base (see #574396).
 
   -- Julien Cristau <jcristau@debian.org>  Sun, 28 Aug 2011 18:00:26 +0200
 

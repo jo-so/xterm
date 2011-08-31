@@ -35,12 +35,14 @@ Index: xterm/terminfo
 ===================================================================
 --- xterm.orig/terminfo
 +++ xterm/terminfo
-@@ -1963,11 +1963,11 @@ xterm-r5|xterm R5 version,
+@@ -1963,11 +1963,13 @@ xterm-r5|xterm R5 version,
  # This is the only entry which you should have to customize, since "xterm"
  # is widely used for a variety of incompatible terminal emulations including
  # color_xterm and rxvt.
 -xterm|X11 terminal emulator,
 +xterm|xterm-debian|X11 terminal emulator,
++	rmm@,
++	smm@,
  	use=xterm-new,
  #	use=xterm-r6,
  
