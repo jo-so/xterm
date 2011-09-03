@@ -25,9 +25,12 @@ Index: xterm/termcap
 ===================================================================
 --- xterm.orig/termcap
 +++ xterm/termcap
-@@ -240,4 +240,4 @@ v0|xterm|X11 terminal emulator:\
+@@ -239,5 +239,7 @@ v0|xterm|X11 terminal emulator:\
+ 
  # This fragment is for people who cannot agree on what the backspace key
  # should send.
++# Modified to more strictly conform to the DEC VT220 behavior; this is
++# mandated by Section 9.8 of the Debian Policy Manual.
  xterm+kbs|fragment for backspace key:\
 -	:kb=^H:
 +	:kb=^?:
@@ -35,7 +38,7 @@ Index: xterm/terminfo
 ===================================================================
 --- xterm.orig/terminfo
 +++ xterm/terminfo
-@@ -1963,11 +1963,13 @@ xterm-r5|xterm R5 version,
+@@ -1963,11 +1963,15 @@ xterm-r5|xterm R5 version,
  # This is the only entry which you should have to customize, since "xterm"
  # is widely used for a variety of incompatible terminal emulations including
  # color_xterm and rxvt.
@@ -48,6 +51,8 @@ Index: xterm/terminfo
  
  # This fragment is for people who cannot agree on what the backspace key
  # should send.
++# Modified to more strictly conform to the DEC VT220 behavior; this is
++# mandated by Section 9.8 of the Debian Policy Manual.
  xterm+kbs|fragment for backspace key,
 -	kbs=^H,
 +	kbs=\177,

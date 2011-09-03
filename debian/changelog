@@ -20,7 +20,7 @@ xterm (273-1) UNRELEASED; urgency=low
     - Disable rmm and smm features in xterm terminfo entry to match the
       behavior in ncurses-base (see #574396).
 
-  -- Julien Cristau <jcristau@debian.org>  Sun, 28 Aug 2011 18:00:26 +0200
+ -- Julien Cristau <jcristau@debian.org>  Sun, 28 Aug 2011 18:00:26 +0200
 
 xterm (271-1) unstable; urgency=low
 
