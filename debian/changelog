@@ -13,6 +13,7 @@ xterm (276-1) UNRELEASED; urgency=low
   * Update 900_debian_xterm.diff to only edit the new xterm+kbs fragment in
     both terminfo and termcap instead of adding an xterm-debian variant to
     change the backspace key behaviour.
+  * Update copy of XTerm FAQ to revision 1.168 (dated 2011/09/12).
 
   [ Sven Joachim ]
   * Update 900_debian_xterm.diff:
