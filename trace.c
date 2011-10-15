@@ -1,10 +1,10 @@
-/* $XTermId: trace.c,v 1.130 2011/09/04 13:50:11 tom Exp $ */
+/* $XTermId: trace.c,v 1.132 2011/10/07 09:40:46 tom Exp $ */
 
 /*
  * Copyright 1997-2010,2011 by Thomas E. Dickey
- * 
+ *
  *                         All Rights Reserved
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the
  * "Software"), to deal in the Software without restriction, including
@@ -28,7 +28,6 @@
  * holders shall not be used in advertising or otherwise to promote the
  * sale, use or other dealings in this Software without prior written
  * authorization.
- * 
  */
 
 /*
@@ -107,9 +106,11 @@ Trace(const char *fmt,...)
 	    fprintf(trace_fp, "%s\n", xtermVersion());
 	    TraceIds(NULL, 0);
 	}
+	if (!trace_fp) {
+	    fprintf(stderr, "Cannot open \"%s\"\n", name);
+	    exit(EXIT_FAILURE);
+	}
     }
-    if (!trace_fp)
-	abort();
 
     va_start(ap, fmt);
     vfprintf(trace_fp, fmt, ap);
