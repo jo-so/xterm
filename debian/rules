@@ -37,7 +37,7 @@ DESKTOP_FLAGS = --vendor debian \
 		--dir=$(DEBTREEDIR)/usr/share/applications
 
 # disable some unsafe operations
-CFLAGS += \
+CPPFLAGS = \
 	-DDEF_ALLOW_FONT=False \
 	-DDEF_ALLOW_TCAP=False \
 	-DDEF_DISALLOWED_WINDOW=\\\"1,2,3,4,5,6,7,8,9,11,13,14,18,19,20,21,GetSelection,SetSelection,SetWinLines,SetXprop\\\"
@@ -66,8 +66,9 @@ $(STAMP_DIR)/configure: $(STAMP_DIR)/patch
 		$(confflags) \
 		DESKTOP_FLAGS="$(DESKTOP_FLAGS)" \
 		CFLAGS="$(CFLAGS)" \
+		CPPFLAGS="$(CPPFLAGS)" \
 		LUIT=/usr/bin/luit
-	touch $@
+	>$@
 
 
 .PHONY: build
@@ -75,7 +76,7 @@ build: $(STAMP_DIR)/build
 $(STAMP_DIR)/build: $(STAMP_DIR)/configure debian/local/xterm.faq
 	dh_testdir
 	cd build && $(MAKE)
-	touch $@
+	>$@
 
 .PHONY: clean
 clean: xsfclean
