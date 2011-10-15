@@ -1,4 +1,4 @@
-xterm (276-1) UNRELEASED; urgency=low
+xterm (276-1) unstable; urgency=low
 
   [ Timo Aaltonen ]
   * Install .desktop files again. (Closes: #486317, LP: #129041)
@@ -21,7 +21,7 @@ xterm (276-1) UNRELEASED; urgency=low
     - Disable rmm and smm features in xterm terminfo entry to match the
       behavior in ncurses-base (see #574396).
 
- -- Julien Cristau <jcristau@debian.org>  Sat, 15 Oct 2011 19:36:10 +0200
+ -- Julien Cristau <jcristau@debian.org>  Sat, 15 Oct 2011 19:38:42 +0200
 
 xterm (271-1) unstable; urgency=low
 
