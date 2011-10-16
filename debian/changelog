@@ -3,6 +3,7 @@ xterm (276-2) UNRELEASED; urgency=low
   * Pass -DFOO in CPPFLAGS, not CFLAGS.
   * Update copyright year in debian/copyright.
   * Bump Standards-Version to 3.9.2, no changes needed.
+  * Remove David Nusinow from Uploaders.
 
  -- Julien Cristau <jcristau@debian.org>  Sat, 15 Oct 2011 20:54:36 +0200
 

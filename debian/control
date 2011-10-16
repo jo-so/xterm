@@ -2,7 +2,7 @@ Source: xterm
 Section: x11
 Priority: optional
 Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
-Uploaders: David Nusinow <dnusinow@debian.org>, Cyril Brulebois <kibi@debian.org>
+Uploaders: Cyril Brulebois <kibi@debian.org>
 Standards-Version: 3.9.2
 Vcs-Browser: http://git.debian.org/?p=pkg-xorg/app/xterm.git
 Vcs-Git: git://git.debian.org/git/pkg-xorg/app/xterm
