@@ -1,9 +1,15 @@
 xterm (276-2) UNRELEASED; urgency=low
 
+  [ Julien Cristau ]
   * Pass -DFOO in CPPFLAGS, not CFLAGS.
   * Update copyright year in debian/copyright.
   * Bump Standards-Version to 3.9.2, no changes needed.
   * Remove David Nusinow from Uploaders.
+
+  [ Sven Joachim ]
+  * Update 900_debian_xterm.diff:
+    - Disable rmm and smm features in xterm-new rather than xterm, so
+      that they do not become enabled in e.g. xterm-256color.
 
  -- Julien Cristau <jcristau@debian.org>  Sat, 15 Oct 2011 20:54:36 +0200
 

@@ -38,14 +38,21 @@ Index: xterm/terminfo
 ===================================================================
 --- xterm.orig/terminfo
 +++ xterm/terminfo
-@@ -1963,11 +1963,15 @@ xterm-r5|xterm R5 version,
+@@ -139,6 +139,8 @@ xterm-new|modern xterm terminal emulator
+ 	use=xterm+pcfkeys,
+ 	use=xterm+tmux,
+ 	use=xterm-basic,
++	rmm@,
++	smm@,
+ #
+ # Encode modifiers using parameters (see "Xterm Control Sequences" ctlseqs.ms).
+ # Note that this is unrelated to PCTERM.
+@@ -1963,11 +1965,13 @@ xterm-r5|xterm R5 version,
  # This is the only entry which you should have to customize, since "xterm"
  # is widely used for a variety of incompatible terminal emulations including
  # color_xterm and rxvt.
 -xterm|X11 terminal emulator,
 +xterm|xterm-debian|X11 terminal emulator,
-+	rmm@,
-+	smm@,
  	use=xterm-new,
  #	use=xterm-r6,
  
