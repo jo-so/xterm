@@ -5,6 +5,8 @@ xterm (276-2) UNRELEASED; urgency=low
   * Update copyright year in debian/copyright.
   * Bump Standards-Version to 3.9.2, no changes needed.
   * Remove David Nusinow from Uploaders.
+  * Enable hardened build flags through dpkg-buildflags (closes: #653488).
+    Based on patch by Moritz Muehlenhoff, thanks!
 
   [ Sven Joachim ]
   * Update 900_debian_xterm.diff:

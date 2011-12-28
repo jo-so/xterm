@@ -20,12 +20,12 @@ else
 	confflags += --build $(DEB_BUILD_GNU_TYPE) --host $(DEB_HOST_GNU_TYPE)
 endif
 
-CFLAGS = -g -Wall
-ifneq (,$(filter noopt,$(DEB_BUILD_OPTIONS)))
-	CFLAGS += -O0
-else
-	CFLAGS += -O2
-endif
+CFLAGS = $(shell dpkg-buildflags --get CFLAGS)
+CFLAGS += -Wall
+
+LDFLAGS = $(shell dpkg-buildflags --get LDFLAGS)
+CPPFLAGS = $(shell dpkg-buildflags --get CPPFLAGS)
+
 ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
 	NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
 	MAKEFLAGS += -j$(NUMJOBS)
@@ -37,7 +37,7 @@ DESKTOP_FLAGS = --vendor debian \
 		--dir=$(DEBTREEDIR)/usr/share/applications
 
 # disable some unsafe operations
-CPPFLAGS = \
+CPPFLAGS += \
 	-DDEF_ALLOW_FONT=False \
 	-DDEF_ALLOW_TCAP=False \
 	-DDEF_DISALLOWED_WINDOW=\\\"1,2,3,4,5,6,7,8,9,11,13,14,18,19,20,21,GetSelection,SetSelection,SetWinLines,SetXprop\\\"
@@ -67,6 +67,7 @@ $(STAMP_DIR)/configure: $(STAMP_DIR)/patch
 		DESKTOP_FLAGS="$(DESKTOP_FLAGS)" \
 		CFLAGS="$(CFLAGS)" \
 		CPPFLAGS="$(CPPFLAGS)" \
+		LDFLAGS="$(LDFLAGS)" \
 		LUIT=/usr/bin/luit
 	>$@
 
