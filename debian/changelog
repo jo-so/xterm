@@ -1,4 +1,6 @@
-xterm (276-2) UNRELEASED; urgency=low
+xterm (276-2) unstable; urgency=low
+
+  * Team upload.
 
   [ Julien Cristau ]
   * Pass -DFOO in CPPFLAGS, not CFLAGS.
@@ -13,7 +15,7 @@ xterm (276-2) UNRELEASED; urgency=low
     - Disable rmm and smm features in xterm-new rather than xterm, so
       that they do not become enabled in e.g. xterm-256color.
 
- -- Julien Cristau <jcristau@debian.org>  Sat, 15 Oct 2011 20:54:36 +0200
+ -- Julien Cristau <jcristau@debian.org>  Sat, 31 Dec 2011 19:00:02 +0100
 
 xterm (276-1) unstable; urgency=low
 
