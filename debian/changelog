@@ -1,3 +1,24 @@
+xterm (277-1) UNRELEASED; urgency=low
+
+  * New upstream release
+    - move call to grantpt before asking utempter to add a record, to work
+      with kFreeBSD which does not update the terminal's ownership until this
+      point (closes: #652907)
+    - document limitation of XIM interface in manpage (see #230787)
+    - add four new actions for making the selection or data directly copied
+      from the screen: exec-formatted, exec-selectable, insert-formatted,
+      insert-selectable (closes: #637001)
+    - add eightBitMeta resource to control the features which modify or
+      interpret the eighth bit of a key when the meta modifier key is pressed
+      (prompted by #326200)
+    - improve discussion of eightBitInput in the manpage (prompted by #326200)
+    - add a workaround for XAllocColor(), which does not actually allocate "a
+      read-only colormap entry corresponding to the closest RGB value
+      supported by the hardware", but rather a rough approximation (closes:
+      #650291)
+
+ -- Julien Cristau <jcristau@debian.org>  Sun, 08 Jan 2012 13:33:32 +0100
+
 xterm (276-2) unstable; urgency=low
 
   * Team upload.
