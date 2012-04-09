@@ -1,4 +1,4 @@
-xterm (277-1) UNRELEASED; urgency=low
+xterm (278-1) UNRELEASED; urgency=low
 
   * New upstream release
     - move call to grantpt before asking utempter to add a record, to work
