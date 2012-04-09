@@ -1,4 +1,4 @@
-xterm (278-1) UNRELEASED; urgency=low
+xterm (278-1) unstable; urgency=low
 
   * New upstream release
     - move call to grantpt before asking utempter to add a record, to work
@@ -18,7 +18,7 @@ xterm (278-1) UNRELEASED; urgency=low
       #650291)
   * Update copy of XTerm FAQ to revision 1.180 (dated 2012/02/06).
 
- -- Julien Cristau <jcristau@debian.org>  Sun, 08 Jan 2012 13:33:32 +0100
+ -- Julien Cristau <jcristau@debian.org>  Mon, 09 Apr 2012 21:45:01 +0200
 
 xterm (276-2) unstable; urgency=low
 
