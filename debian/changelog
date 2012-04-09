@@ -16,6 +16,7 @@ xterm (278-1) UNRELEASED; urgency=low
       read-only colormap entry corresponding to the closest RGB value
       supported by the hardware", but rather a rough approximation (closes:
       #650291)
+  * Update copy of XTerm FAQ to revision 1.180 (dated 2012/02/06).
 
  -- Julien Cristau <jcristau@debian.org>  Sun, 08 Jan 2012 13:33:32 +0100
 
