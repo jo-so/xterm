@@ -1,0 +1,12 @@
+Fix crash in Tektronix mode (#685458).
+--- a/input.c
++++ b/input.c
+@@ -832,7 +832,7 @@ Input(XtermWidget xw,
+     {
+ #if OPT_I18N_SUPPORT && OPT_INPUT_METHOD
+ 	TInput *input = lookupTInput(xw, (Widget) xw);
+-	if (input->xic) {
++	if (input && input->xic) {
+ 	    Status status_return;
+ #if OPT_WIDE_CHARS
+ 	    if (screen->utf8_mode) {
