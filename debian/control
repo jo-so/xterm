@@ -105,6 +105,7 @@ Build-Depends:
 
 Package: xterm
 Architecture: any
+Multi-Arch: foreign
 Depends:
  xbitmaps,
  ${shlibs:Depends},

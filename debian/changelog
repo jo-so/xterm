@@ -1,3 +1,9 @@
+xterm (278-3) UNRELEASED; urgency=low
+
+  * control: Mark the package as Multi-Arch: foreign.
+
+ -- Timo Aaltonen <tjaalton@ubuntu.com>  Fri, 28 Sep 2012 13:11:17 +0300
+
 xterm (278-2) unstable; urgency=low
 
   * Fix crash in Tektronix mode (Closes: #685458).
