@@ -1,8 +1,8 @@
-xterm (278-4) UNRELEASED; urgency=low
+xterm (278-4) unstable; urgency=low
 
   * Update copy of XTerm FAQ to revision 1.199 (dated 2012/11/11).
 
- -- Julien Cristau <jcristau@debian.org>  Tue, 27 Nov 2012 20:16:12 +0100
+ -- Julien Cristau <jcristau@debian.org>  Tue, 27 Nov 2012 20:17:49 +0100
 
 xterm (278-3) unstable; urgency=low
 
