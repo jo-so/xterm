@@ -1,4 +1,4 @@
-xterm (287-1) UNRELEASED; urgency=low
+xterm (287-1) experimental; urgency=low
 
   * New upstream release (closes: #694375)
     - add alternateScroll resource and corresponding control sequences which
@@ -13,12 +13,13 @@ xterm (287-1) UNRELEASED; urgency=low
       #691642)
   * Drop upstream patches.
   * Refresh remaining patches.
-  * Explicitly set --with-desktop-category avoid desktop-file-install failure.
+  * Explicitly set --with-desktop-category to avoid desktop-file-install
+    failure.
   * Enable backarrowKeyIsErase in configure instead of 900_debian_xterm.diff.
   * Install png/svg icons.
   * Change xterm.man's NAME section to keep whatis(1) happy.
 
- -- Julien Cristau <jcristau@debian.org>  Tue, 27 Nov 2012 20:22:09 +0100
+ -- Julien Cristau <jcristau@debian.org>  Tue, 27 Nov 2012 22:27:28 +0100
 
 xterm (278-4) unstable; urgency=low
 
