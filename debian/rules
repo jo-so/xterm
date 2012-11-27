@@ -62,6 +62,7 @@ $(STAMP_DIR)/configure: $(STAMP_DIR)/patch
 		--enable-narrowproto \
 		--enable-exec-xterm \
 		--enable-dabbrev \
+		--enable-backarrow-is-erase \
 		--with-utempter \
 		--with-desktop-category='System;TerminalEmulator;' \
 		$(confflags) \
