@@ -2,6 +2,7 @@ xterm (287-1) UNRELEASED; urgency=low
 
   * New upstream release.
   * Drop upstream patches.
+  * Refresh remaining patches.
 
  -- Julien Cristau <jcristau@debian.org>  Tue, 27 Nov 2012 20:22:09 +0100
 
