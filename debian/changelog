@@ -16,6 +16,7 @@ xterm (287-1) UNRELEASED; urgency=low
   * Explicitly set --with-desktop-category avoid desktop-file-install failure.
   * Enable backarrowKeyIsErase in configure instead of 900_debian_xterm.diff.
   * Install png/svg icons.
+  * Change xterm.man's NAME section to keep whatis(1) happy.
 
  -- Julien Cristau <jcristau@debian.org>  Tue, 27 Nov 2012 20:22:09 +0100
 
