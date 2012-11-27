@@ -63,6 +63,7 @@ $(STAMP_DIR)/configure: $(STAMP_DIR)/patch
 		--enable-exec-xterm \
 		--enable-dabbrev \
 		--with-utempter \
+		--with-desktop-category='System;TerminalEmulator;' \
 		$(confflags) \
 		DESKTOP_FLAGS="$(DESKTOP_FLAGS)" \
 		CFLAGS="$(CFLAGS)" \
