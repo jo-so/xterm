@@ -1,6 +1,17 @@
 xterm (278-3) UNRELEASED; urgency=low
 
+  [ Timo Aaltonen ]
   * control: Mark the package as Multi-Arch: foreign.
+
+  [ Julien Cristau ]
+  * Apply a few patches recommended by upstream in #694375 (thanks!)
+    - amend patch from 278-2 to catch more cases
+    - amend fix for Debian #650291 in patch #277 changes to account for
+      different data returned by vnc4server (closes: #670638)
+    - correct macro definition used for testing modes used in ANSI/DEC
+      request-mode controls introduced in patch #262
+    - add a null-pointer check in OkPasswd macro to fix a problem in resize
+      with Fedora 17 and a serial console (report/patch by Daniel Drake).
 
  -- Timo Aaltonen <tjaalton@ubuntu.com>  Fri, 28 Sep 2012 13:11:17 +0300
 
