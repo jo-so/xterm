@@ -1,3 +1,10 @@
+xterm (287-1) UNRELEASED; urgency=low
+
+  * New upstream release.
+  * Drop upstream patches.
+
+ -- Julien Cristau <jcristau@debian.org>  Tue, 27 Nov 2012 20:22:09 +0100
+
 xterm (278-4) unstable; urgency=low
 
   * Update copy of XTerm FAQ to revision 1.199 (dated 2012/11/11).
