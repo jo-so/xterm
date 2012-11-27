@@ -53,6 +53,8 @@ $(STAMP_DIR)/configure: $(STAMP_DIR)/patch
 		--exec-prefix=/usr \
 		--mandir=/usr/share/man \
 		--with-app-defaults=/etc/X11/app-defaults \
+		--with-icondir=/usr/share/icons \
+		--with-icon-theme=yes \
 		--with-tty-group=tty \
 		--enable-logging \
 		--enable-wide-chars \
