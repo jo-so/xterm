@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <!--
  *****************************************************************************
- * Copyright 1997-2011,2012 by Thomas E. Dickey                              *
+ * Copyright 1997-2012,2013 by Thomas E. Dickey                              *
  * All Rights Reserved.                                                      *
  *                                                                           *
  * Permission to use, copy, modify, and distribute this software and its     *
@@ -20,7 +20,7 @@
  * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF   *
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.            *
  *****************************************************************************
-  $XTermId: xterm.faq.html,v 1.199 2012/11/11 14:46:46 tom Exp $
+  $XTermId: xterm.faq.html,v 1.221 2013/01/26 15:21:27 tom Exp $
   -->
 
 <html>
@@ -41,7 +41,7 @@
   <a href=
   "http://invisible-island.net/">http://invisible-island.net/</a><a href="http://invisible-island.net/xterm/">xterm/</a><br>
 
-  Copyright &copy; 1997-2011,2012 by Thomas E. Dickey
+  Copyright &copy; 1997-2012,2013 by Thomas E. Dickey
   <hr>
   <a href=
   "http://invisible-island.net/xterm/xterm.faq.html">Here</a> is
@@ -131,13 +131,21 @@
   the specific program as well as other programs that imitate
   it.</p>
 
+  <p>As a stylistic convention, the capitalized form is
+  "<em>XTerm</em>", which corresponds to the X resource class name.
+  Similarly, <em>uxterm</em> becomes "<em>UXTerm</em>".</p>
+
   <h2 id="who_did_it-id"><a name="who_did_it" id="who_did_it">Who
   wrote <strong>XTerm</strong>?</a></h2>
 
   <p>I've been working on xterm since early 1996 (see my <a href=
-  "xterm.log.html">changelog</a> for details).</p>
+  "http://invisible-island.net/xterm/xterm.log.html">changelog</a>
+  for details).</p>
 
   <p>But the program is much older than that.</p>
+
+  <h3 id="pre_history-id"><a name="prehistory" id="prehistory">A
+  Prehistory Perspective</a></h3>
 
   <p>A lot of people, cited at the bottom of the manual page wrote
   the original xterm program, maintained by the X Consortium (later
@@ -224,6 +232,92 @@
     still at the Smithsonian Astrophysical Observatory.</p>
   </blockquote>
 
+  <h3 id="my_history-id"><a name="my_history" id="my_history">My
+  Involvement</a></h3>
+
+  <p>My involvement with <strong>xterm</strong> through XFree86
+  began at the <a href="xterm.html#history">end of 1995</a>. This
+  website has been "here" since 2001/6/5, replacing my ClarkNet
+  page. I started the ClarkNet page 1996/12/31, as a followup to
+  the <a href=
+  "http://invisible-island.net/ncurses/ncurses-license.html#patch_961224">
+  release of ncurses 4.0</a>) which featured xterm as one of the 16
+  programs I was involved with. From the outset, the page provided
+  a link to a snapshot of the current source. Copies of patches
+  which I sent to XFree86 were available on the ftp area.</p>
+
+  <p>XFree86 had its sources in CVS, but (like others in that era),
+  were not directly visible to random developers. That came later.
+  I started by downloading the sources (30Mb of compressed
+  tar-files on a 56Kb phone connection took about 6 hours) and
+  updating them with patches from the XFree86 mailing list.</p>
+
+  <p>Like the other programs that I worked on with others (<a href=
+  "http://invisible-island.net/vile/vile.html">vile</a>, <a href=
+  "http://invisible-island.net/tin/tin.html">tin</a>, <a href=
+  "http://invisible-island.net/lynx/lynx.html">lynx</a>), I set up
+  an RCS archive to track my changes locally before sending patches
+  to the development list. As the XFree86 developers issued new
+  patches, I would re-synchronize my archive. Later, XFree86
+  provided CVS (initially readonly). I was granted commit
+  privileges on this <a href=
+  "http://invisible-island.net/ansification/ansify-xfs-cve.html#xfree86_work">
+  in November 2000</a>.</p>
+
+  <p>Throughout this period, my work on <strong>xterm</strong> was
+  released as part of XFree86. It was rare for a separate package
+  to be provided. That was due to the potential conflict between
+  the install procedures. Users of the downloads from my web/ftp
+  site were predominantly individual developers.</p>
+
+  <p>There were exceptions. Christian Weisgerber proposed a package
+  for FreeBSD ports later in 1999 (<a href=
+  "http://www.mavetju.org/mail/view_message.php?list=freebsd-ports&amp;id=578273">ports/15545:
+  new port: x11/xterm</a>, followup in <a href=
+  "http://marc.info/?t=102422536300028&amp;r=l&amp;=2">March
+  2000</a>). However, that was an exception. None of the Linux
+  distributions provided a separate package before 2003 (when Mike
+  Harris created a package of <a href=
+  "http://invisible-island.net/xterm/xterm.log.html#xterm_177">patch
+  #177</a> for Red Hat). Again that is more of an exception than a
+  rule:</p>
+
+  <ul>
+    <li>SuSE's package began October 23, 2004 with <a href=
+    "http://invisible-island.net/xterm/xterm.log.html#xterm_196">patch
+    #196</a>.</li>
+
+    <li>Mandriva's package began October 22, 2005 with <a href=
+    "http://invisible-island.net/xterm/xterm.log.html#xterm_205">patch
+    #205</a>.</li>
+
+    <li>The Debian package for xterm began in January 6, 2006 with
+    <a href=
+    "http://invisible-island.net/xterm/xterm.log.html#xterm_204">patch
+    #204</a>.</li>
+  </ul>
+
+  <p>Given that context (sources distributed via XFree86 CVS,
+  releases via XFree86), the statement made by an Xorg hacker
+  <a href=
+  "http://lists.freedesktop.org/archives/xorg/2005-January/005847.html">
+  early in 2005</a> asserting that "It has not been maintained by
+  anyone within the XFree86 or X.org trees for many years" was at
+  best misleading.</p>
+
+  <p>After the "<a href="#xterm-xorg">fork</a>"&nbsp;(sic) of Xorg
+  in 2004, I continued to commit changes for xterm in <a href=
+  "http://cvsweb.xfree86.org/cvsweb/xc/programs/xterm/">XFree86
+  CVS</a> until <a href=
+  "http://invisible-island.net/xterm/xterm.log.html#xterm_216">patch
+  #216</a> in mid-2006. I stopped at that point because it was not
+  possible to incorporate changes into xterm which were not sent to
+  me first. I still send patch announcements to both the XFree86
+  and Xorg mailing lists, of course.</p>
+
+  <h3 id="forward_history-id"><a name="forward_history" id=
+  "forward_history">Focus of this FAQ</a></h3>
+
   <p>This FAQ is oriented toward the version of xterm originally
   distributed with XFree86 (more commonly known as modern, or "new
   xterm", with a corresponding terminal description "xterm-new"),
@@ -286,7 +380,8 @@
     implement in shell scripts than <code>ESC&nbsp;\</code>.</li>
   </ul>
 
-  <p>I revised that area <a href="xterm.log.html#xterm_24">starting
+  <p>I revised that area <a href=
+  "http://invisible-island.net/xterm/xterm.log.html#xterm_24">starting
   in 1996</a>,</p>
 
   <ul>
@@ -404,6 +499,8 @@
     <li><a href="#bug_roxterm">roxterm</a></li>
 
     <li><a href="#bug_rxvt">rxvt</a></li>
+
+    <li><a href="#bug_st">st</a></li>
 
     <li><a href="#bug_xfce_term">xfce-term</a></li>
 
@@ -2119,15 +2216,17 @@ current_title=$(xprop -id $WINDOWID | grep WM_NAME | cut -d= -f2)
   </blockquote>
 
   <p>Here's another source of information: <a href=
-  "http://web.archive.org/web/*/http%3A//cns.georgetown.edu/~ric/howto/Xterm-Title/">
-  Xterm-Title HowTo</a></p>
+  "http://tldp.org/HOWTO/Xterm-Title.html">Xterm-Title
+  HowTo</a></p>
 
   <h3 id="how2_blink-id"><a name="how2_blink" id="how2_blink">How
   do I make the cursor blink?</a></h3>
 
   <p>Standard xterm does not implement a blinking cursor. Some of
   the variations do: dtterm, GNOME Terminal, and modern xterm (from
-  mid 1999, <a href="xterm.log.html#xterm_107">patch 107</a>).</p>
+  mid 1999, <a href=
+  "http://invisible-island.net/xterm/xterm.log.html#xterm_107">patch
+  107</a>).</p>
 
   <h2 id="frequent_problems-id"><a name="frequent_problems" id=
   "frequent_problems">Frequent problems</a></h2>
@@ -2212,7 +2311,7 @@ current_title=$(xprop -id $WINDOWID | grep WM_NAME | cut -d= -f2)
     </li>
 
     <li>
-      <a href="problems_colors">Colors and other graphic
+      <a href="#problems_colors">Colors and other graphic
       rendition</a>
 
       <ul>
@@ -2514,10 +2613,12 @@ current_title=$(xprop -id $WINDOWID | grep WM_NAME | cut -d= -f2)
   the font.</p>
 
   <p>Modern xterm can form its own line-drawing characters (see
-  <a href="xterm.log.html#xterm_90">patch 90</a>, for example). It
-  does not draw all of the graphic characters, only those that may
-  be done with straight lines. But those are the most used, making
-  most of the fixed-pitch fonts useful for xterm.</p>
+  <a href=
+  "http://invisible-island.net/xterm/xterm.log.html#xterm_90">patch
+  90</a>, for example). It does not draw all of the graphic
+  characters, only those that may be done with straight lines. But
+  those are the most used, making most of the fixed-pitch fonts
+  useful for xterm.</p>
 
   <p>You may also have a problem with the terminfo description. As
   distributed, the X11R6 terminfo for xterm does not have the
@@ -2577,10 +2678,11 @@ current_title=$(xprop -id $WINDOWID | grep WM_NAME | cut -d= -f2)
   erasing a bold character from the screen, xterm does not erase
   the extra pixel. This is corrected in modern xterm, subject to
   the available fonts (from late 1998, <a href=
-  "xterm.log.html#xterm_85">patch 85</a>). For each font, it asks
-  the font server for a corresponding bold font. Your font server
-  may not have the bold font (or it may incorrectly report that it
-  does). But it usually works.</p>
+  "http://invisible-island.net/xterm/xterm.log.html#xterm_85">patch
+  85</a>). For each font, it asks the font server for a
+  corresponding bold font. Your font server may not have the bold
+  font (or it may incorrectly report that it does). But it usually
+  works.</p>
 
   <h4 id="no_russian-id"><a name="no_russian" id="no_russian">My
   terminal doesn't display Cyrillic characters</a></h4>
@@ -2589,9 +2691,10 @@ current_title=$(xprop -id $WINDOWID | grep WM_NAME | cut -d= -f2)
   128-159. For a VT220 (or any terminal that follows ISO 6429),
   those are treated as control characters. Still, some people want
   to use KOI8-R, etc. I modified xterm in <a href=
-  "xterm.log.html#xterm_175">patch 175</a> to add an option
-  (<code>-k8</code>) and corresponding resource settings to allow
-  them to customize their environment. Here is a <a href=
+  "http://invisible-island.net/xterm/xterm.log.html#xterm_175">patch
+  175</a> to add an option (<code>-k8</code>) and corresponding
+  resource settings to allow them to customize their environment.
+  Here is a <a href=
   "ftp://invisible-island.net/xterm/koi8-term">sample script</a>
   and <a href="ftp://invisible-island.net/xterm/KOI8Term">resource
   file</a> which I use for testing this configuration.</p>
@@ -2756,7 +2859,8 @@ current_title=$(xprop -id $WINDOWID | grep WM_NAME | cut -d= -f2)
   (and an escape sequence from VT320) that changes this key between
   the two styles (backspace or delete).</p>
 
-  <p>With modern xterm <a href="xterm.log.html#xterm_95">patch
+  <p>With modern xterm <a href=
+  "http://invisible-island.net/xterm/xterm.log.html#xterm_95">patch
   95</a> (also in the stable version as "88c"), you may have an
   xterm which can automatically initialize the backarrow key to
   backspace or delete depending on the pseudo terminal's sense, or
@@ -2805,10 +2909,12 @@ current_title=$(xprop -id $WINDOWID | grep WM_NAME | cut -d= -f2)
   character. So low-level applications which check stty will not
   work. I found that unsetting $TERMCAP before running would work,
   but this was not a good solution. Someone pointed out (see
-  <a href="xterm.log.html#xterm_129">patch 129</a>), that the
-  problem really was because termcap <code>kD</code> should delete
-  the character at the current position. So it cannot be the same
-  as <code>stty erase</code>.</p>
+  <a href=
+  "http://invisible-island.net/xterm/xterm.log.html#xterm_129">patch
+  129</a>), that the problem really was because termcap
+  <code>kD</code> should delete the character at the current
+  position. So it cannot be the same as <code>stty
+  erase</code>.</p>
 
   <p>As a matter of fact, <code>stty erase</code> has to be a
   single character, so &lt;escape&gt;[3~ would not work anyway.</p>
@@ -3102,7 +3208,8 @@ current_title=$(xprop -id $WINDOWID | grep WM_NAME | cut -d= -f2)
   easy reconfiguration to make a VT220 emulator), I added
   popup-menu items to switch between the modes. With minor
   refinements, this was the approach for about two years,
-  culminating with the <a href="xterm.log.html#xterm_88">"stable"
+  culminating with the <a href=
+  "http://invisible-island.net/xterm/xterm.log.html#xterm_88">"stable"
   patch #88</a>, which is essentially the version distributed with
   XFree86 3.3.x.</p>
 
@@ -3320,8 +3427,8 @@ current_title=$(xprop -id $WINDOWID | grep WM_NAME | cut -d= -f2)
   <a href="../ncurses/ncurses.faq.html#bash_meta_mode">Alt-keys do
   not work in bash</a>.
 
-  <h3 id="problems_colors-id"><a href="problems_colors">Colors and
-  other graphic rendition</a></h3>
+  <h3 id="problems_colors-id"><a name="problems_colors" id=
+  "problems_colors">Colors and other graphic rendition</a></h3>
 
   <h4 id="no_color-id"><a name="no_color" id="no_color">My terminal
   doesn't recognize color</a></h4>
@@ -3435,7 +3542,8 @@ current_title=$(xprop -id $WINDOWID | grep WM_NAME | cut -d= -f2)
   "vim_16colors">My colors changed in vim</a></h4>
 
   <p>Some <code>vim</code> users may notice their colors change
-  after updating to <a href="xterm.log.html#xterm_238">patch
+  after updating to <a href=
+  "http://invisible-island.net/xterm/xterm.log.html#xterm_238">patch
   238</a>. Before, some text would display in a dark color using a
   bold font. Now, it displays in a bright color and normal
   font.</p>
@@ -3448,10 +3556,11 @@ current_title=$(xprop -id $WINDOWID | grep WM_NAME | cut -d= -f2)
   termcap does not match.</p>
 
   <p>Vim also asks how many colors the terminal supports. Since
-  <a href="xterm.log.html#xterm_148">patch 148</a>, xterm has
-  responded with the number of distinct colors that it can display.
-  By default, that is 16 (8 ANSI colors with bright counterparts
-  for displaying PC-style "bold" text).</p>
+  <a href=
+  "http://invisible-island.net/xterm/xterm.log.html#xterm_148">patch
+  148</a>, xterm has responded with the number of distinct colors
+  that it can display. By default, that is 16 (8 ANSI colors with
+  bright counterparts for displaying PC-style "bold" text).</p>
 
   <p>The interpretation of this depends on the application:
   termcaps do not tell how to display more than 8 colors. But vim
@@ -3914,12 +4023,13 @@ current_title=$(xprop -id $WINDOWID | grep WM_NAME | cut -d= -f2)
   <p>The 1049 code is a refinement of 1047 and 1048, clearing the
   alternate screen before switching to it rather than after
   switching back to the normal screen. Since <a href=
-  "xterm.log.html#xterm_90">patch #90 in 1998</a> xterm allows you
-  (with a popup menu entry designed to exploit this behavior) to
-  switch the display back to the alternate screen to select text
-  from it, to paste into the normal screen. You can also set or
-  clear the <code>titeInhibit</code> resource using another popup
-  menu entry (<code>Enable Alternate Screen Switching</code>).</p>
+  "http://invisible-island.net/xterm/xterm.log.html#xterm_90">patch
+  #90 in 1998</a> xterm allows you (with a popup menu entry
+  designed to exploit this behavior) to switch the display back to
+  the alternate screen to select text from it, to paste into the
+  normal screen. You can also set or clear the
+  <code>titeInhibit</code> resource using another popup menu entry
+  (<code>Enable Alternate Screen Switching</code>).</p>
 
   <p>Most other terminal emulators implement only half of the
   feature. They recognize the control sequence, but do not provide
@@ -3950,10 +4060,10 @@ current_title=$(xprop -id $WINDOWID | grep WM_NAME | cut -d= -f2)
   save the cursor position again, so the position which is restored
   when finally exiting your program is the last one saved, not the
   first. Modern xterm (from late 1998, <a href=
-  "xterm.log.html#xterm_90">patch 90</a>) changes the behavior of
-  the cursor save/restore operations so they apply only to the
-  current screen. That makes it less likely to misplace your
-  cursor.</p>
+  "http://invisible-island.net/xterm/xterm.log.html#xterm_90">patch
+  90</a>) changes the behavior of the cursor save/restore
+  operations so they apply only to the current screen. That makes
+  it less likely to misplace your cursor.</p>
 
   <h4 id="narrowproto-id"><a name="narrowproto" id=
   "narrowproto">Why doesn't the scrollbar work?</a></h4>
@@ -4035,7 +4145,7 @@ current_title=$(xprop -id $WINDOWID | grep WM_NAME | cut -d= -f2)
 
   <ul>
     <li><a href=
-    "https://bugs.launchpad.net/ubuntu/+source/compiz/+bug/199285">Ubuntu
+    "https://bugs.launchpad.net/ubuntu/+source/xterm/+bug/199285">Ubuntu
     #199285 - xterm crashes when compiz is on</a></li>
 
     <li><a href=
@@ -4043,8 +4153,8 @@ current_title=$(xprop -id $WINDOWID | grep WM_NAME | cut -d= -f2)
     #467399 - compiz fails to take control of windows</a></li>
 
     <li><a href=
-    "https://bugs.launchpad.net/ubuntu/+source/compiz/+bug/378668">Ubuntu
-    #378668 - Cursor in terminal behaves badly with special
+    "https://bugs.launchpad.net/ubuntu/+source/xfce4-terminal/+bug/378668">
+    Ubuntu #378668 - Cursor in terminal behaves badly with special
     characters present</a></li>
 
     <li><a href=
@@ -4074,7 +4184,7 @@ current_title=$(xprop -id $WINDOWID | grep WM_NAME | cut -d= -f2)
     #701160 - /usr/bin/xterm is not functional in natty</a></li>
 
     <li><a href=
-    "https://bugs.launchpad.net/ubuntu/+source/compiz/+bug/700477">Ubuntu
+    "https://bugs.launchpad.net/ubuntu/+source/xterm/+bug/700477">Ubuntu
     #700477 - Font corruption in xterm under Lucid</a></li>
 
     <li><a href=
@@ -4087,12 +4197,12 @@ current_title=$(xprop -id $WINDOWID | grep WM_NAME | cut -d= -f2)
     #711894 - iconic option does not work with compiz</a></li>
 
     <li><a href=
-    "https://bugs.launchpad.net/ubuntu/+source/compiz/+bug/778439">Ubuntu
+    "https://bugs.launchpad.net/ubuntu/+source/xterm/+bug/778439">Ubuntu
     #778439 - Typing "exit" in xterm kills X session</a></li>
 
     <li><a href=
-    "https://bugs.launchpad.net/ubuntu/+source/compiz/+bug/831336">Ubuntu
-    #831336 - running 'xterm' crashes X server</a></li>
+    "https://bugs.launchpad.net/ubuntu/+source/xorg-server/+bug/831336">
+    Ubuntu #831336 - running 'xterm' crashes X server</a></li>
 
     <li><a href=
     "https://bugs.launchpad.net/ubuntu/+source/compiz/+bug/841103">Ubuntu
@@ -4361,14 +4471,15 @@ current_title=$(xprop -id $WINDOWID | grep WM_NAME | cut -d= -f2)
       unreadable.</p>
 
       <p>This problem is alleviated with <a href=
-      "xterm.log.html#xterm_129">patch 129</a>, which modified
-      xterm to delay the most color allocation until the colors are
-      first needed. If a color is never needed (xterm allocates 20
-      colors in this manner), that reduces the number of slots in
-      the color map that are needed. Even with this improvement,
-      xterm must still allocate 4 colors during initialization to
-      determine how to display the cursor. If none of those colors
-      can be allocated, xterm reverts to monochrome.</p>
+      "http://invisible-island.net/xterm/xterm.log.html#xterm_129">patch
+      129</a>, which modified xterm to delay the most color
+      allocation until the colors are first needed. If a color is
+      never needed (xterm allocates 20 colors in this manner), that
+      reduces the number of slots in the color map that are needed.
+      Even with this improvement, xterm must still allocate 4
+      colors during initialization to determine how to display the
+      cursor. If none of those colors can be allocated, xterm
+      reverts to monochrome.</p>
     </dd>
   </dl>
 
@@ -4425,7 +4536,7 @@ current_title=$(xprop -id $WINDOWID | grep WM_NAME | cut -d= -f2)
     use events.</li>
   </ul>(These bugs are also present in the X11R5 version).
 
-  <p>Update 2004/04/08:<br>
+  <p id="xterm-xorg">Update 2004/04/08:<br>
   Complicating this discussion is the "X.Org" xterm (from 2004).
   That is the XFree86 xterm from XFree86 CVS with all visible
   "xfree86" strings changed to "X.Org" or "xorg", depending on the
@@ -4441,7 +4552,7 @@ current_title=$(xprop -id $WINDOWID | grep WM_NAME | cut -d= -f2)
 
   <h3 id="bug_color_xterm-id"><a name="bug_color_xterm" id=
   "bug_color_xterm">COLOR_XTERM</a> <a href=
-  "ftp://www.x.org/contrib/applications/color_xterm-beta1.tar.gz">download</a></h3>
+  "ftp://ftp.x.org/contrib/applications/color_xterm-beta1.tar.gz">download</a></h3>
 
   <p>This is based on the X Consortium X11R5 source, with the same
   bugs.</p>
@@ -4461,7 +4572,7 @@ current_title=$(xprop -id $WINDOWID | grep WM_NAME | cut -d= -f2)
 
   <h3 id="bug_ansi_xterm-id"><a name="bug_ansi_xterm" id=
   "bug_ansi_xterm">ANSI_XTERM</a> <a href=
-  "ftp://www.x.org/contrib/applications/xterm-R6-sb_right-ansi-3d.tar.gz">
+  "ftp://ftp.x.org/contrib/applications/xterm-R6-sb_right-ansi-3d.tar.gz">
   download</a></h3>
 
   <p>This is based on the X Consortium source, with the same
@@ -4503,7 +4614,7 @@ current_title=$(xprop -id $WINDOWID | grep WM_NAME | cut -d= -f2)
 
   <h3 id="bug_emu-id"><a name="bug_emu" id="bug_emu">EMU 1.3</a>
   <a href=
-  "ftp://www.x.org/contrib/applications/emu-1.31.tar.gz">download</a></h3>
+  "ftp://ftp.x.org/contrib/applications/emu-1.31.tar.gz">download</a></h3>
 
   <p>This is not based on the X Consortium source. The authors
   state that it implements VT220 emulation. It is in need of
@@ -4764,7 +4875,7 @@ current_title=$(xprop -id $WINDOWID | grep WM_NAME | cut -d= -f2)
 
   <h3 id="bug_hanterm-id"><a name="bug_hanterm" id=
   "bug_hanterm">HANTERM</a> <a href=
-  "http://www.bg.debian.org/Packages/frozen/x11/hanterm.html">download</a></h3>
+  "http://www.debian.org/Packages/frozen/x11/hanterm.html">download</a></h3>
 
   <p>HanTerm stands for "Hangul term" (Korean). This is based on
   the XFree86 source.</p>
@@ -4839,7 +4950,7 @@ current_title=$(xprop -id $WINDOWID | grep WM_NAME | cut -d= -f2)
 
   <h3 id="bug_kterm-id"><a name="bug_kterm" id=
   "bug_kterm">KTERM</a> <a href=
-  "ftp://www.x.org/contrib/applications/kterm-6.2.0.tar.gz">download</a></h3>
+  "ftp://ftp.x.org/contrib/applications/kterm-6.2.0.tar.gz">download</a></h3>
 
   <p>KTerm stands for "Kanji term" (Japanese). This is based on the
   X Consortium source, with the same bugs (though the list of
@@ -5320,6 +5431,23 @@ current_title=$(xprop -id $WINDOWID | grep WM_NAME | cut -d= -f2)
   rather than a bitmap font. xterm uses the <code>faceName</code>
   resource for these values.</p>
 
+  <h3 id="bug_st">st <a href="http://st.suckless.org">link</a></h3>
+
+  <p>Rxvt revisited, this program depends only on the X11 library.
+  As of January 2013, it is in heavy development, and (according to
+  comments on its developer's list) growing steadily as the
+  developers implement useful features adapted from xterm.</p>
+
+  <p>For instance, the size counting libraries for st 0.3 on my
+  Debian testing machine is on a par with rxvt (and half that of
+  xterm, which uses the X Toolkit library).</p>
+
+  <p>By the way, the page quotes the README file from xterm's
+  sources, omitting my editorial comment at the top noting that the
+  paraphrase of the opening from Dante's <em>Inferno</em> dated
+  from 1991, and pointing to this FAQ to provide better
+  context.</p>
+
   <h3 id="bug_xgterm-id"><a name="bug_xgterm" id=
   "bug_xgterm">XGTERM</a> <a href=
   "ftp://iraf.noao.edu/iraf/x11iraf/">link</a></h3>
@@ -5477,7 +5605,28 @@ current_title=$(xprop -id $WINDOWID | grep WM_NAME | cut -d= -f2)
 
   <p>There appears to be no comprehensive source of information on
   xterm better than the documentation which comes with the source
-  code <a href="xterm.log.html">change log</a>).</p>
+  code</p>
+
+  <ul>
+    <li><a href=
+    "http://invisible-island.net/xterm/xterm.log.html">XTermchange
+    log</a></li>
+
+    <li><a href="#xterm_man">The XTerm Manual</a></li>
+
+    <li><a href="#ctlseqs_ms">XTerm Control Sequences</a></li>
+
+    <li><a href="#resize_man">resize</a> &ndash; set TERMCAP and
+    terminal settings to current xterm window size</li>
+
+    <li><a href="#uxterm_man">uxterm</a> &ndash; a UTF-8 wrapper
+    for XTerm</li>
+
+    <li><a href="#luit_prog">luit</a> &ndash; Locale and ISO 2022
+    support for Unicode terminals</li>
+
+    <li><a href="#other_sites">Other Sites</a></li>
+  </ul>
 
   <h3 id="other_sites-id"><a name="other_sites" id=
   "other_sites">Other Sites</a></h3>
@@ -5486,7 +5635,7 @@ current_title=$(xprop -id $WINDOWID | grep WM_NAME | cut -d= -f2)
     <li>I have found Richard Shuford's archive to be invaluable for
     notes on the DEC VT220 and related terminals. This was a
     <a href=
-    "http://www.cs.utk.edu/~shuford/terminal_index.html">webpage</a>
+    "http://web.eecs.utk.edu/~shuford/terminal_index.html">webpage</a>
     but was last seen via <a href=
     "ftp://cs.utk.edu/pub/shuford/">ftp</a>. (I have a snapshot
     from the ftp site).</li>
@@ -5539,22 +5688,56 @@ current_title=$(xprop -id $WINDOWID | grep WM_NAME | cut -d= -f2)
 
   <h3 id="resize_man-id"><a name="resize_man" id=
   "resize_man">resize &ndash; set TERMCAP and terminal settings to
-  current xterm window size</a></h3><em>resize</em> is useful by
-  itself, but is maintained for historical reasons as part of
-  xterm. <a href=
+  current xterm window size</a></h3>
+
+  <p><em>resize</em> is useful by itself, but is maintained for
+  historical reasons as part of xterm. <a href=
   "http://invisible-island.net/xterm/manpage/resize.html">html</a>,
   <a href=
   "http://invisible-island.net/xterm/manpage/resize.pdf">pdf</a>
   and <a href=
-  "http://invisible-island.net/xterm/manpage/resize.txt">text</a>.
+  "http://invisible-island.net/xterm/manpage/resize.txt">text</a>.</p>
+
+  <h3 id="uxterm_man-id"><a name="uxterm_man" id=
+  "uxterm_man">uxterm &ndash; a UTF-8 wrapper for xterm</a></h3>
+
+  <p>XTerm does not automatically <em>set</em> your locale. It can
+  be told to <em>use</em> your locale settings. This is a shell
+  script which sets xterm's resources to use UTF-8 encoding, and
+  use UTF-8 fonts. There is a similar <em>lxterm</em> script, but
+  it relies upon non-portable applications, unlike uxterm.</p>
+
+  <p>Here are copies of uxterm's documentation: <a href=
+  "http://invisible-island.net/xterm/manpage/uxterm.html">html</a>,
+  <a href=
+  "http://invisible-island.net/xterm/manpage/uxterm.pdf">pdf</a>
+  and <a href=
+  "http://invisible-island.net/xterm/manpage/uxterm.txt">text</a>.</p>
+
+  <p>Incidentally, there was a different program named "uxterm"
+  before the shell script was added to xterm in <a href=
+  "http://invisible-island.net/xterm/xterm.log.html#xterm_137">mid-2000</a>.
+  <a href="http://czyborra.com/unicode/terminals.html">Roman
+  Czyborra commented</a> in 1998 that it was based on the original
+  X11 xterm source (very likely, since "strings" run on the
+  executable shows the xterm actions, resources and even the
+  Tek4014 support). There are few references to it to provide
+  details: the first appearance was in <a href=
+  "http://www.unicode.org/mail-arch/unicode-ml/Archives-Old/UML001/0042.html">
+  1994</a>, and the last was Czyborra's page in 1998. For the
+  curious, there is a copy on <a href=
+  "http://www.ibiblio.org/pub/packages/ccic/software/x-win/uxterm/uxterm.README">
+  ibiblio.org</a> (no Linux executables, no source, however).</p>
 
   <h3 id="luit_prog-id"><a name="luit_prog" id="luit_prog">luit
   &ndash; Locale and ISO 2022 support for Unicode
-  terminals</a></h3><a href="../luit/luit.html">luit</a> also is
-  maintained as part of xterm, since its upstream maintainer is
-  inactive, and the ostensible maintainers have more than once
-  delivered unusable versions, causing many bug reports to be
-  issued against xterm.
+  terminals</a></h3>
+
+  <p><a href="../luit/luit.html">luit</a> also is maintained as
+  part of xterm, since its upstream maintainer is inactive, and the
+  ostensible maintainers have more than once delivered unusable
+  versions, causing many bug reports to be issued against
+  xterm.</p>
 
   <h2 id="future_work-id"><a name="future_work" id=
   "future_work">Ongoing/future work</a></h2>

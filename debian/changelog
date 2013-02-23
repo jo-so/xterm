@@ -3,6 +3,7 @@ xterm (290-1) UNRELEASED; urgency=low
   * New upstream release
   * Drop 100_manpage_whatis.diff, no longer necessary.
   * Drop explicit --with-desktop-category, no longer necessary.
+  * Update copy of XTerm FAQ to revision 1.221 (dated 2013/01/26).
 
  -- Julien Cristau <jcristau@debian.org>  Sat, 23 Feb 2013 16:06:02 +0100
 
