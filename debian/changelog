@@ -1,10 +1,10 @@
-xterm (288-1) UNRELEASED; urgency=low
+xterm (290-1) UNRELEASED; urgency=low
 
   * New upstream release
   * Drop 100_manpage_whatis.diff, no longer necessary.
   * Drop explicit --with-desktop-category, no longer necessary.
 
- -- Julien Cristau <jcristau@debian.org>  Sat, 12 Jan 2013 22:46:35 +0100
+ -- Julien Cristau <jcristau@debian.org>  Sat, 23 Feb 2013 16:06:02 +0100
 
 xterm (287-1) experimental; urgency=low
 
