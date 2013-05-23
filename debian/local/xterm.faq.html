@@ -1,4 +1,3 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <!--
  *****************************************************************************
  * Copyright 1997-2012,2013 by Thomas E. Dickey                              *
@@ -20,8 +19,9 @@
  * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF   *
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.            *
  *****************************************************************************
-  $XTermId: xterm.faq.html,v 1.221 2013/01/26 15:21:27 tom Exp $
+  $XTermId: xterm.faq.html,v 1.229 2013/05/18 00:50:50 tom Exp $
   -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 
 <html>
 <head>
@@ -32,20 +32,24 @@
   <link rev="MADE" href="mailto:dickey@invisible-island.net">
   <meta http-equiv="Content-Type" content=
   "text/html; charset=us-ascii">
-  <link rel="SHORTCUT ICON" href="images/mini.xterm_48.ico" type=
+  <link rel="SHORTCUT ICON" href="/img/icons/xterm.ico" type=
   "image/x-icon">
+  <link rel="stylesheet" href="/css/simplestyle.css" type=
+  "text/css">
 </head>
 
 <body>
   <hr>
-  <a href=
+
+  <p><a href=
   "http://invisible-island.net/">http://invisible-island.net/</a><a href="http://invisible-island.net/xterm/">xterm/</a><br>
 
-  Copyright &copy; 1997-2012,2013 by Thomas E. Dickey
+  Copyright &copy; 1997-2012,2013 by Thomas E. Dickey</p>
   <hr>
-  <a href=
+
+  <p><a href=
   "http://invisible-island.net/xterm/xterm.faq.html">Here</a> is
-  the latest version of this file.
+  the latest version of this file.</p>
 
   <h2 id="contents-id"><a name="contents" id=
   "contents">Contents</a></h2>
@@ -112,7 +116,7 @@
   <p>From the manual page:</p>
 
   <blockquote>
-    The xterm program is a terminal emulator for the X Window
+    <p>The xterm program is a terminal emulator for the X Window
     System. It provides DEC VT102/VT220 and selected features from
     higher-level terminals such as VT320/VT420/VT520 (VTxxx). It
     also provides Tektronix 4014 emulation for programs that cannot
@@ -120,7 +124,7 @@
     system supports terminal resizing capabilities (for example,
     the SIGWINCH signal in systems derived from 4.3bsd), xterm will
     use the facilities to notify programs running in the window
-    whenever it is resized.
+    whenever it is resized.</p>
   </blockquote>
 
   <p>That is, xterm (pronounced "<em>eks</em>-xterm") is a
@@ -155,7 +159,7 @@
   Email from Jim Gettys provides some background:</p>
 
   <blockquote>
-    Cast of thousands...
+    <p>Cast of thousands...</p>
 
     <p>To give a bit of history, xterm predates X!</p>
 
@@ -188,9 +192,9 @@
   <p>Email from Doug Mink provides more background:</p>
 
   <blockquote>
-    I was checking out the newly revised AltaVista search engine to
-    see what was on the net about xterm, and I found your pages. I
-    can add to the FAQ in that I was the "guy at the Smithsonian
+    <p>I was checking out the newly revised AltaVista search engine
+    to see what was on the net about xterm, and I found your pages.
+    I can add to the FAQ in that I was the "guy at the Smithsonian
     Astrophysical Observatory" Jim Gettys refers to. I am listed at
     the end of the man page under authors. What happened was that I
     was hired by SAO (after leaving the research staff at MIT) in
@@ -225,7 +229,7 @@
     of operation, anyway. While I wrote the emulator so that my
     software would work on it, it was tested by the X group against
     a BBN graphics package, the name of which slips my mind right
-    now.
+    now.</p>
 
     <p>Anyway, 15 years later, I am still using xterm and some of
     the same mapping software I wrote the emulator for. And I am
@@ -1691,14 +1695,14 @@
   vmsterm:</p>
 
   <blockquote>
-    This script is for people who wish to connect from a Linux or
-    Unix computer to a VMS computer using telnet and get a good
+    <p>This script is for people who wish to connect from a Linux
+    or Unix computer to a VMS computer using telnet and get a good
     VT100 or VT220 emulation. The key mappings have been
     specifically designed to emulate the VT terminal auxiliary
     numeric keypad, so that you can use VMS EDT and TPU editors, as
     well as the many VMS applications use keys PF1 to PF4. The
     script should work with any recent version of Xterm using a
-    standard extended IBM PC keyboard or a Sun keyboard.
+    standard extended IBM PC keyboard or a Sun keyboard.</p>
 
     <p>About the keymappings. First the auxiliary numeric keypad.
     My prime objective with these mappings was to produce a setup
@@ -2788,7 +2792,7 @@ current_title=$(xprop -id $WINDOWID | grep WM_NAME | cut -d= -f2)
   around 2000 is the core of the problem:</p>
 
   <blockquote>
-    ISO10646-1, ISO8859-1, ISO8859-2, ISO8859-3, ISO8859-4,
+    <p>ISO10646-1, ISO8859-1, ISO8859-2, ISO8859-3, ISO8859-4,
     ISO8859-5, ISO8859-6, ISO8859-7, ISO8859-8, ISO8859-9,
     ISO8859-10, ISO8859-11, ISO8859-13, ISO8859-14, ISO8859-15,
     ISO8859-16, JISX0201.1976-0, TIS620-0, GB2312.1980-0,
@@ -2797,7 +2801,7 @@ current_title=$(xprop -id $WINDOWID | grep WM_NAME | cut -d= -f2)
     IBM-CP1133, MULELAO-1, VISCII1.1-1, TCVN-5712,
     GEORGIAN-ACADEMY, GEORGIAN-PS, ISO8859-9E, MICROSOFT-CP1251,
     MICROSOFT-CP1255, MICROSOFT-CP1256, BIG5-0, BIG5-E0, BIG5-E1,
-    ISO10646-1, ISO10646-1
+    ISO10646-1, ISO10646-1</p>
   </blockquote>
 
   <p>However, xterm is going to use only the characters shown in
@@ -3313,10 +3317,12 @@ current_title=$(xprop -id $WINDOWID | grep WM_NAME | cut -d= -f2)
       resources are redundant, so that is not a problem
       either).</p>
     </li>
-  </ul><a href=
+  </ul>
+
+  <p><a href=
   "http://invisible-island.net/xterm/XTerm-debian-88c">Here is a
   resource file</a> which I tested with xterm-88c, xterm-149 and
-  xterm-158, using $TERM set to xterm-debian: <!--{{atr2html-->
+  xterm-158, using $TERM set to xterm-debian: <!--{{atr2html--></p>
 
   <p style="font-family: monospace; font-size: 10pt;"><font color=
   "#800000">!&nbsp;$Id: xterm.faq.html,v 1.169 2012/02/05 11:58:56
@@ -3457,6 +3463,11 @@ current_title=$(xprop -id $WINDOWID | grep WM_NAME | cut -d= -f2)
 
   <h4 id="xterm_terminfo-id"><a name="xterm_terminfo" id=
   "xterm_terminfo">What $TERM should I use?</a></h4>
+
+  <p><strong>XTerm</strong> provides in its sources both <a href=
+  "terminfo.html">terminfo</a> and termcap files. They are designed
+  to allow scripting to override the most common choices, e.g., the
+  backspace key.</p>
 
   <p>The <code>xterm-color</code> value for $TERM is a bad choice
   for modern xterm because it is commonly used for a terminfo entry
@@ -3618,9 +3629,9 @@ current_title=$(xprop -id $WINDOWID | grep WM_NAME | cut -d= -f2)
   vt100 colors":</p>
 
   <blockquote>
-    <a href="images/contrast.jpg"><img width="450" src=
+    <p><a href="images/contrast.jpg"><img width="450" src=
     "images/contrast.jpg" alt=
-    "Contrasting blue in terminal emulators"></a>
+    "Contrasting blue in terminal emulators"></a></p>
   </blockquote>Of course, anyone <em>developing</em> a terminal
   emulator already knew that <a href=
   "../ncurses/ncurses.faq.html#vt100_color">vt100's never did do
@@ -3786,8 +3797,8 @@ current_title=$(xprop -id $WINDOWID | grep WM_NAME | cut -d= -f2)
   mentioned in the terminfo manpage:</p>
 
   <blockquote>
-    Terminals which ignore a line-feed immediately after an am
-    wrap, such as the Concept and vt100, should indicate xenl.
+    <p>Terminals which ignore a line-feed immediately after an am
+    wrap, such as the Concept and vt100, should indicate xenl.</p>
   </blockquote>
 
   <p>When the terminal reaches the right margin, it is in a special
@@ -4534,7 +4545,9 @@ current_title=$(xprop -id $WINDOWID | grep WM_NAME | cut -d= -f2)
     <li>certain types of key translations cause a core dump because
     the program does not check the event class before attempting to
     use events.</li>
-  </ul>(These bugs are also present in the X11R5 version).
+  </ul>
+
+  <p>(These bugs are also present in the X11R5 version).</p>
 
   <p id="xterm-xorg">Update 2004/04/08:<br>
   Complicating this discussion is the "X.Org" xterm (from 2004).
@@ -4711,14 +4724,14 @@ current_title=$(xprop -id $WINDOWID | grep WM_NAME | cut -d= -f2)
   <p>The documentation for GNOME terminal asserts:</p>
 
   <blockquote>
-    GNOME Terminal emulates the xterm application developed by the
-    X Consortium. In turn, the xterm application emulates the DEC
-    VT102 terminal and also supports the DEC VT220 escape
+    <p>GNOME Terminal emulates the xterm application developed by
+    the X Consortium. In turn, the xterm application emulates the
+    DEC VT102 terminal and also supports the DEC VT220 escape
     sequences. An escape sequence is a series of characters that
     starts with the Esc character. GNOME Terminal accepts all of
     the escape sequences that the VT102 and VT220 terminals use for
     functions such as to position the cursor and to clear the
-    screen.
+    screen.</p>
   </blockquote>
 
   <p>That sounds fine, except that it is both inaccurate and
@@ -4770,8 +4783,9 @@ current_title=$(xprop -id $WINDOWID | grep WM_NAME | cut -d= -f2)
   <p>VTE's README file asserts</p>
 
   <blockquote>
-    VTE supports Unicode and character set conversion, as well as
-    emulating any terminal known to the system's terminfo database.
+    <p>VTE supports Unicode and character set conversion, as well
+    as emulating any terminal known to the system's terminfo
+    database.</p>
   </blockquote>
 
   <p>The latter part of that ("emulating any terminal") is
@@ -4921,11 +4935,11 @@ current_title=$(xprop -id $WINDOWID | grep WM_NAME | cut -d= -f2)
   handbook illustrates the problem:</p>
 
   <blockquote>
-    After a decade, Konsole is the first rewrite from the ground
+    <p>After a decade, Konsole is the first rewrite from the ground
     up. While xterm has definitely been hacked to death (its README
     begins with the words Abandon All Hope, Ye Who Enter Here),
     Konsole offers a fresh start using contemporary technologies
-    and understanding of X.
+    and understanding of X.</p>
   </blockquote>
 
   <p>The problem:</p>
@@ -5082,12 +5096,12 @@ current_title=$(xprop -id $WINDOWID | grep WM_NAME | cut -d= -f2)
   comment:</p>
 
   <blockquote>
-    rxvt, version 2.6.2, is a colour vt102 terminal emulator
+    <p>rxvt, version 2.6.2, is a colour vt102 terminal emulator
     intended as an xterm(1) replacement for users who do not
     require features such as Tektronix 4014 emulation and
     toolkit-style configurability. As a result, rxvt uses much less
     swap space -- a significant advantage on a machine serving many
-    X sessions.
+    X sessions.</p>
   </blockquote>
 
   <p>How much is <em>much less</em>? Perhaps not as much as one
@@ -5108,10 +5122,10 @@ current_title=$(xprop -id $WINDOWID | grep WM_NAME | cut -d= -f2)
   <p>This comment was topical in December 2001:</p>
 
   <blockquote>
-    Compared with something like GNOME Terminal, which takes 2-3
+    <p>Compared with something like GNOME Terminal, which takes 2-3
     times, or KDE konsole, which takes 15-20 times as much memory
     to run, xterm and rxvt memory requirements are
-    indistinguishable to the normal user.
+    indistinguishable to the normal user.</p>
   </blockquote>
 
   <p>In June 2010, the numbers have changed somewhat. Here is a
