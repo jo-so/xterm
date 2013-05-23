@@ -1,6 +1,7 @@
 xterm (292-1) UNRELEASED; urgency=low
 
   * New upstream release.
+  * Refresh 904_fontops.diff.
 
  -- Sven Joachim <svenjoac@gmx.de>  Thu, 23 May 2013 20:04:08 +0200
 
