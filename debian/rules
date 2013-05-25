@@ -103,13 +103,13 @@ install: build
 	install -m 755 debian/local/lxterm $(DEBTREEDIR)/usr/bin
 	install -m 755 debian/local/lxterm.1 $(DEBTREEDIR)/usr/share/man/man1
 	## Install terminfo and termcap precompiled definitions.
-	install -d $(DEBTREEDIR)/usr/lib
-	install -m 644 termcap  $(DEBTREEDIR)/usr/lib/xterm.termcap
-	install -m 644 terminfo $(DEBTREEDIR)/usr/lib/xterm.terminfo
+	install -d $(DEBTREEDIR)/usr/share/doc/xterm
+	install -m 644 termcap  $(DEBTREEDIR)/usr/share/doc/xterm/xterm.termcap
+	install -m 644 terminfo $(DEBTREEDIR)/usr/share/doc/xterm/xterm.terminfo
 	dh_installdocs
 	dh_installchangelogs
 	dh_installmenu
-	dh_install --sourcedir=debian/tmp --list-missing
+	dh_install --sourcedir=debian/tmp --fail-missing
 
 # Generate plain text XTerm FAQ from HTML.
 debian/local/xterm.faq: debian/local/xterm.faq.html
