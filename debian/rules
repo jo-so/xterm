@@ -98,7 +98,7 @@ install: build
 	# General installation
 	cd build && \
 	$(MAKE) install install-desktop mandir=/usr/share/man/man1 libdir=/etc DESTDIR=$(DEBTREEDIR)
-	
+
 	## Install lxterm command and manual page.
 	install -m 755 debian/local/lxterm $(DEBTREEDIR)/usr/bin
 	install -m 755 debian/local/lxterm.1 $(DEBTREEDIR)/usr/share/man/man1
