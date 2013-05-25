@@ -3,7 +3,7 @@ Section: x11
 Priority: optional
 Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
 Uploaders: Cyril Brulebois <kibi@debian.org>
-Standards-Version: 3.9.2
+Standards-Version: 3.9.4
 Vcs-Browser: http://git.debian.org/?p=pkg-xorg/app/xterm.git
 Vcs-Git: git://git.debian.org/git/pkg-xorg/app/xterm
 Homepage: http://invisible-island.net/xterm/xterm.html
