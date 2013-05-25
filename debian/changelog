@@ -7,6 +7,7 @@ xterm (292-1) UNRELEASED; urgency=low
   * Use dh_install's --fail-missing option.
   * Convert debian/rules to dh and drop xsfbs.
   * Bump Standards-Version to 3.9.4, no changes needed.
+  * Add myself to Uploaders.
 
  -- Sven Joachim <svenjoac@gmx.de>  Thu, 23 May 2013 20:04:08 +0200
 
