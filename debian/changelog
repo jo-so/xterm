@@ -5,6 +5,7 @@ xterm (292-1) UNRELEASED; urgency=low
   * Update copy of XTerm FAQ to revision 1.229 (dated 2013/05/18).
   * Bump debhelper compatibility level to 9.
   * Use dh_install's --fail-missing option.
+  * Convert debian/rules to dh and drop xsfbs.
 
  -- Sven Joachim <svenjoac@gmx.de>  Thu, 23 May 2013 20:04:08 +0200
 
