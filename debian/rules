@@ -87,7 +87,7 @@ clean: xsfclean
 	dh_testdir
 	rm -rf $(STAMP_DIR)
 	rm -rf build
-	dh_clean debian/local/xterm.faq
+	dh_clean
 
 .PHONY: install
 install: build
