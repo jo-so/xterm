@@ -3,6 +3,7 @@ xterm (292-1) UNRELEASED; urgency=low
   * New upstream release.
   * Refresh 904_fontops.diff.
   * Update copy of XTerm FAQ to revision 1.229 (dated 2013/05/18).
+  * Bump debhelper compatibility level to 9.
 
  -- Sven Joachim <svenjoac@gmx.de>  Thu, 23 May 2013 20:04:08 +0200
 

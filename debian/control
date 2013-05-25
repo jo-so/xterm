@@ -13,7 +13,7 @@ Build-Depends:
  libxaw7-dev,
  libxkbfile-dev,
  libutempter-dev,
- debhelper (>= 5),
+ debhelper (>= 9),
  quilt,
  lynx-cur | lynx,
  xorg-docs-core,
@@ -98,7 +98,7 @@ Build-Depends:
 #       main.c:#include <utempter.h>
 #   xorg-docs-core                  provides X(7) which minstall.sh tries to
 #                                   detect
-#   debhelper (>= 5)                debian/compat = 5
+#   debhelper (>= 9)                debian/compat = 9
 #   quilt                           patch management system
 #   lynx-cur | lynx                 generates plain-text version of xterm faq
 #   desktop-file-utils              for installing xterm.desktop
