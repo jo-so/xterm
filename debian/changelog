@@ -1,4 +1,4 @@
-xterm (292-1) UNRELEASED; urgency=low
+xterm (292-1) unstable; urgency=low
 
   * New upstream release.
   * Refresh 904_fontops.diff.
@@ -9,7 +9,7 @@ xterm (292-1) UNRELEASED; urgency=low
   * Bump Standards-Version to 3.9.4, no changes needed.
   * Add myself to Uploaders.
 
- -- Sven Joachim <svenjoac@gmx.de>  Thu, 23 May 2013 20:04:08 +0200
+ -- Sven Joachim <svenjoac@gmx.de>  Sun, 26 May 2013 11:22:26 +0200
 
 xterm (290-1) experimental; urgency=low
 
