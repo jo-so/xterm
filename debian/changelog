@@ -3,6 +3,7 @@ xterm (293-1) UNRELEASED; urgency=low
   * New upstream release.
     - Improve description of initialFont, set-vt-font and set-tex-text
       in manpage (Closes: #707899).
+  * Update copyright year in debian/copyright.
 
  -- Sven Joachim <svenjoac@gmx.de>  Tue, 28 May 2013 19:58:30 +0200
 
