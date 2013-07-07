@@ -5,6 +5,7 @@ xterm (295-1) UNRELEASED; urgency=low
       introduced problem in selection (Closes: #714527).
   * Update debian/copyright.
   * Switch Vcs-* fields to anonscm.debian.org.
+  * Update copy of XTerm FAQ to revision 1.243 (dated 2013/07/05).
 
  -- Sven Joachim <svenjoac@gmx.de>  Sun, 07 Jul 2013 11:42:34 +0200
 
