@@ -3,6 +3,7 @@ xterm (295-1) UNRELEASED; urgency=low
   * New upstream release.
     - Amend fix from xterm 292 by removing now-unneeded chunk which
       introduced problem in selection (Closes: #714527).
+  * Update debian/copyright.
 
  -- Sven Joachim <svenjoac@gmx.de>  Sun, 07 Jul 2013 11:42:34 +0200
 
