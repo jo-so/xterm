@@ -1,4 +1,4 @@
-xterm (295-1) UNRELEASED; urgency=low
+xterm (295-1) unstable; urgency=low
 
   * New upstream release.
     - Amend fix from xterm 292 by removing now-unneeded chunk which
@@ -7,7 +7,7 @@ xterm (295-1) UNRELEASED; urgency=low
   * Switch Vcs-* fields to anonscm.debian.org.
   * Update copy of XTerm FAQ to revision 1.243 (dated 2013/07/05).
 
- -- Sven Joachim <svenjoac@gmx.de>  Sun, 07 Jul 2013 11:42:34 +0200
+ -- Sven Joachim <svenjoac@gmx.de>  Sun, 07 Jul 2013 17:30:07 +0200
 
 xterm (293-1) unstable; urgency=low
 
