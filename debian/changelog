@@ -4,6 +4,7 @@ xterm (295-1) UNRELEASED; urgency=low
     - Amend fix from xterm 292 by removing now-unneeded chunk which
       introduced problem in selection (Closes: #714527).
   * Update debian/copyright.
+  * Switch Vcs-* fields to anonscm.debian.org.
 
  -- Sven Joachim <svenjoac@gmx.de>  Sun, 07 Jul 2013 11:42:34 +0200
 
