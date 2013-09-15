@@ -41,6 +41,7 @@ override_dh_auto_configure:
 		--enable-exec-xterm \
 		--enable-dabbrev \
 		--enable-backarrow-is-erase \
+		--enable-sixel-graphics \
 		--with-utempter \
 		DESKTOP_FLAGS="$(DESKTOP_FLAGS)" \
 		CFLAGS="$(CFLAGS)" \
