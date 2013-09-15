@@ -1,9 +1,9 @@
-xterm (297-1) UNRELEASED; urgency=low
+xterm (297-1) unstable; urgency=low
 
   * New upstream release.
   * Enable sixel graphics (Closes: #716660).
 
- -- Sven Joachim <svenjoac@gmx.de>  Thu, 11 Jul 2013 20:30:29 +0200
+ -- Sven Joachim <svenjoac@gmx.de>  Sun, 15 Sep 2013 15:52:21 +0200
 
 xterm (295-1) unstable; urgency=low
 
