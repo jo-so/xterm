@@ -1,6 +1,14 @@
 xterm (298-1) UNRELEASED; urgency=low
 
   * New upstream release.
+    - Change default for assumeAllChars resource (Closes: #725682).
+    - Amend change from xterm 297 for ASCII-equivalents to ensure that
+      missing characters which happen to be double-width are padded to
+      the expected number of columns. Also, correct the choice between
+      normal/wide Xft fonts used when checking for missing characters
+      (Closes: #728949).
+    - work around Xcursor library to make pointerColor resource work as
+      documented (Closes: #466704).
 
  -- Sven Joachim <svenjoac@gmx.de>  Wed, 27 Nov 2013 19:12:36 +0100
 
