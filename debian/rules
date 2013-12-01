@@ -68,3 +68,8 @@ override_dh_install:
 
 %:
 	dh $@ --with quilt --builddirectory=build/ --parallel
+
+debian/local/xterm.faq.html:
+	wget -O $@ http://invisible-island.net/xterm/xterm.faq.html
+
+.PHONY: debian/local/xterm.faq.html
