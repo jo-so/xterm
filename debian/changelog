@@ -1,4 +1,4 @@
-xterm (298-1) UNRELEASED; urgency=low
+xterm (298-1) unstable; urgency=low
 
   * New upstream release.
     - Change default for assumeAllChars resource (Closes: #725682).
@@ -13,7 +13,7 @@ xterm (298-1) UNRELEASED; urgency=low
   * Add a debian/rules target to download that FAQ from
     http://invisible-island.net.
 
- -- Sven Joachim <svenjoac@gmx.de>  Wed, 27 Nov 2013 19:12:36 +0100
+ -- Sven Joachim <svenjoac@gmx.de>  Sun, 01 Dec 2013 09:18:00 +0100
 
 xterm (297-1) unstable; urgency=low
 
