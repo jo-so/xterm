@@ -19,13 +19,13 @@
  * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF   *
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.            *
  *****************************************************************************
-  $XTermId: xterm.faq.html,v 1.243 2013/07/05 17:33:01 tom Exp $
+  $XTermId: xterm.faq.html,v 1.259 2013/11/25 10:22:56 tom Exp $
+  <base href="http://invisible-island.net/xterm/">
   -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
 
 <html>
 <head>
-  <base href="http://invisible-island.net/xterm/">
   <meta name="generator" content=
   "HTML Tidy for Linux (vers 25 March 2009), see www.w3.org">
 
@@ -521,19 +521,37 @@
 
   <p>Finally of course, there are a multitude of programs which set
   TERM to "xterm", in the hope that applications will treat them
-  the same as xterm. For example, PuTTY does this. But its wrapping
-  behavior is incompatible with xterm (and any vt100 emulator). You
-  can see this in the first menu entry for <a href=
-  "../vttest/vttest.html">vttest</a>.</p>
+  the same as xterm. For example,</p>
+
+  <ul>
+    <li>PuTTY does this. But its wrapping behavior is incompatible
+    with xterm (and any vt100 emulator). You can see this in the
+    first menu entry for <a href=
+    "../vttest/vttest.html">vttest</a>.</li>
+
+    <li>VTE does this. But consider the list of problems with
+    <a href=
+    "https://bugzilla.gnome.org/buglist.cgi?quicksearch=vte">VTE</a>
+    and with <a href=
+    "https://bugzilla.gnome.org/buglist.cgi?quicksearch=gnome+terminal">
+    GNOME Terminal</a>.</li>
+
+    <li>Konsole does this as well&mdash;intentionally as shown in
+    <a href="https://bugs.kde.org/show_bug.cgi?id=145977">KDE
+    #145977</a>. The reasoning expressed there is that Konsole
+    "should" match xterm. Incidentally, one of the comments (about
+    xterm's support for mouse) cited as proof a <a href=
+    "http://www.linuxjournal.com/article/1136">page about Gpm</a>
+    from Linux Journal which was more than 12 years old.</li>
+  </ul>
 
   <p>Each of the programs noted here which are well-established and
   which are known to differ markedly from xterm have their own
   terminal descriptions in ncurses, to which TERM should be set.
-  Otherwise, bug-reports are misdirected to ncurses which should
-  have been addressed by the respective developers of these
-  programs. <a href=
-  "../ncurses/ncurses.html#download_database">ncurses</a>. These
-  include</p>
+  Otherwise, bug-reports are misdirected to <a href=
+  "../ncurses/ncurses.html#download_database">ncurses</a> which
+  should have been addressed by the respective developers of these
+  programs. These include</p>
 
   <ul>
     <li>Eterm</li>
@@ -585,10 +603,10 @@
     <li>VTE 0.25.91 (vte), used in GNOME-Terminal and kindred.</li>
   </ul>
 
-  <p>As of mid-November 2010, these are the latest implementations.
-  I included data for the vt220 and vt102 to be able to contrast
-  the various terminal <em>emulators</em> against those as well as
-  xterm. There are:</p>
+  <p>As of mid-November 2010, these were the latest
+  implementations. I included data for the vt220 and vt102 to be
+  able to contrast the various terminal <em>emulators</em> against
+  those as well as xterm. There were:</p>
 
   <ul>
     <li>498 control sequences listed in the corresponding file for
@@ -1100,6 +1118,13 @@
       <td>vte</td>
     </tr>
   </table>
+
+  <p>I have continued to add features to xterm (as of September
+  2013, it implements 546 of 556 documented controls); the other
+  programs change far more slowly, adding only one to konsole. Even
+  for cases where they implement a function, it may not work
+  properly (see for example the screenshot of VTE in the <a href=
+  "../vttest/vttest-nrcs.html">vttest NRCS</a> examples).</p>
 
   <p>In summary, none of the other terminal emulators emulates
   "most" of xterm. Instead, they implement the most commonly-used
@@ -2563,6 +2588,9 @@ current_title=$(xprop -id $WINDOWID | grep WM_NAME | cut -d= -f2)
         <li><a href="xterm.faq.html#xterm_tite">Why doesn't the
         screen clear when running vi?</a></li>
 
+        <li><a href="xterm.faq.html#xterm_form_feed">Why doesn't
+        the screen clear when I type control/L?</a></li>
+
         <li><a href="xterm.faq.html#xterm_vite">Why is the cursor
         misplaced after running vi?</a></li>
 
@@ -3775,7 +3803,10 @@ ESC O F
   not implement back color erase will reset the background color to
   the default or initial colors. Applications that paint most of
   the screen in a single color are more efficient on terminals that
-  support back color erase.</p>
+  support back color erase. Inevitably, there are tradeoffs and
+  issues with standardization of the feature as noted in the
+  <a href="../ncurses/ncurses.faq.html#bce_mismatches">ncurses
+  FAQ</a>. Unsurprisingly, ncurses supports xterm's behavior.</p>
 
   <p>Curses libraries that support color know about
   <code>bce</code> and do the right thing &ndash; provided that you
@@ -3939,13 +3970,15 @@ ESC O F
   underlining. That is the usual typographic alternative, though of
   course some people want both at the same time.</p>
 
-  <p>However, curses does not support italics. Few terminals do
-  this reliably, so it was disregarded long ago, never was
-  standardized except for low-level applications (in terminfo). No
+  <p>However, standard curses does not support italics. Few
+  terminals do this reliably, so it was disregarded long ago, never
+  was supported except for low-level applications (in terminfo). No
   bit was reserved in the curses header for adding italics for
-  high-level applications. (As a special case, ncurses could be
-  modified to do this, but other implementations would not
-  work).</p>
+  high-level applications. (As a special case, ncurses was modified
+  to provide <a href=
+  "../ncurses/NEWS-contents.html#t20130831">partial support</a>,
+  but programs using this feature will not work with other
+  implementations).</p>
 
   <p>XTerm stores each cell of the display in fixed-size
   structures. One byte stores the graphic rendition. XTerm is using
@@ -4105,14 +4138,14 @@ ESC O F
   of my users verified the correctness of the test on a VT520.</p>
 
   <p>Reviewing the results with xterm-alikes or less ambitious
-  "vt100 emulators" in mid-2012:</p>
+  "vt100 emulators" in mid-2013:</p>
 
   <ul>
-    <li>xterm, kterm, mlterm, rxvt are consistent with the VT100
-    behavior.</li>
+    <li>xterm, kterm, mlterm, some operating system consoles are
+    consistent with the VT100 behavior.</li>
 
-    <li>screen, putty (pterm), konsole, vte (gnome-terminal),
-    xfce4-terminal are not consistent with VT100 (and behave
+    <li>rxvt, screen, putty (pterm), konsole, vte (gnome-terminal,
+    xfce4-terminal) are not consistent with VT100 (and behave
     differently compared to each other).
 
       <p>I included screen here because it claims to be a vt100
@@ -4124,6 +4157,9 @@ ESC O F
     <li>mrxvt does not get to that screen; it resizes its window to
     a single line.</li>
   </ul>
+
+  <p>In the <a href="../vttest/vttest-wrap.html">vttest</a> page, I
+  have provided screenshots to illustrate these points.</p>
 
   <h3 id="problems_weird-id"><a name="problems_weird" id=
   "problems_weird">Odd behavior</a></h3>
@@ -4337,6 +4373,39 @@ ESC O F
   the ability to change it at runtime, e.g., using a menu entry.
   Like any other half-done implementation, that is a bug which
   should be reported to the developers of those programs.</p>
+
+  <h4 id="xterm_form_feed-id"><a name="xterm_form_feed" id=
+  "xterm_form_feed">Why doesn't the screen clear when I type
+  control/L?</a></h4>
+
+  <p><em>Control/L</em> is ASCII <em>form-feed</em>. Printers do
+  something with form-feed. Terminals do not, as a rule (though I
+  agree it would be nice, e.g., <a href=
+  "../personal/oldprogs.html#repaginator">this</a>).</p>
+
+  <p>Interpreting form-feed is normally done by your shell, not by
+  the terminal emulator. In a quick check:</p>
+
+  <ul>
+    <li>bash, tcsh, zsh interpret form-feed by clearing the screen,
+    while</li>
+
+    <li>csh, dash, ksh, mksh, yash do not</li>
+  </ul>
+
+  <p>VT100s did not respond to form-feed. A few terminal emulators
+  interpret form-feed (PuTTY and SunOS console), but neither
+  matches VT100 behavior.</p>
+
+  <p>Because most people do not see the difference between a
+  form-feed which they type (and is presumably echoed as a
+  form-feed) versus a form-feed which is sent from an application
+  to the terminal, this leads to confusion. <a href=
+  "http://bytes.com/topic/c/answers/524484-screen-editing">Several
+  years ago</a>, I pointed this out as one of the errors in the
+  <a href="http://c-faq.com/osdep/termcap.html">C FAQ</a>
+  (notwithstanding Summit's comment, he did not update the
+  FAQ).</p>
 
   <h4 id="xterm_vite-id"><a name="xterm_vite" id="xterm_vite">Why
   is the cursor misplaced after running vi?</a></h4>
@@ -4933,7 +5002,8 @@ Warning: Actions not found: ignore, scroll-back, scroll-forw
 
   <p>(These bugs are also present in the X11R5 version).</p>
 
-  <p id="xterm-xorg">Update 2004/04/08:<br>
+  <p id="xterm-xorg-id"><a name="xterm-xorg" id="xterm-xorg">Update
+  2004/04/08:</a><br>
   Complicating this discussion is the "X.Org" xterm (from 2004).
   That is the XFree86 xterm from XFree86 CVS with all visible
   "xfree86" strings changed to "X.Org" or "xorg", depending on the
@@ -5446,7 +5516,7 @@ larry.mcrcim.mcgill.edu (132.206.1.1) in
     </li>
 
     <li><a href=
-    "http://web.archive.org/web/*/http%3A//www.fh-wilhelmshaven.de/~akcaagaa/index_mxterm.html">
+    "http://web.archive.org/web/*/http%3A%2f%2fwww.fh-wilhelmshaven.de/~akcaagaa/index_mxterm.html">
     mxterm</a> This is a different reworking of the Motif widget
     patch, using a 1993 version (ignoring the more recent 1994
     patches noted above). However, it appears to have the same
@@ -5830,7 +5900,8 @@ larry.mcrcim.mcgill.edu (132.206.1.1) in
   (Xft) font rather than a bitmap font. xterm uses the
   <code>faceName</code> resource for these values.</p>
 
-  <h3 id="bug_st">st <a href="http://st.suckless.org">link</a></h3>
+  <h3 id="bug_st-id">st <a name="bug_st" href=
+  "http://st.suckless.org" id="bug_st">link</a></h3>
 
   <p>Rxvt revisited, this program depends only on the X11 library.
   As of January 2013, it is in heavy development, and (according to
@@ -5871,13 +5942,13 @@ larry.mcrcim.mcgill.edu (132.206.1.1) in
 
   <p>That is, it was. The name was later appropriated by a
   different <a href=
-  "http://web.archive.org/web/*/http%3A//oss.software.ibm.com/linux/projects/iterm/">
+  "http://web.archive.org/web/*/http%3A%2f%2foss.software.ibm.com/linux/projects/iterm/">
   program</a>, which also uses the name <code>iterm</code>. Like
   gnome-terminal, iterm aims to be an xterm-emulator rather than a
   VT102- or VT220-emulator.</p>
 
   <p>An earlier <a href=
-  "http://web.archive.org/web/*/http%3A//www.openi18n.org">attempt</a>
+  "http://web.archive.org/web/*/http%3A%2f%2fwww.openi18n.org">attempt</a>
   by the same author (the "CSI-xterm") incorporates some of the
   changes I made for XFree86 xterm via cut and paste (but does not
   mention this in its README). It is said to be the basis for

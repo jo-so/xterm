@@ -9,6 +9,7 @@ xterm (298-1) UNRELEASED; urgency=low
       (Closes: #728949).
     - work around Xcursor library to make pointerColor resource work as
       documented (Closes: #466704).
+  * Update copy of XTerm FAQ to revision 1.259 (dated 2013/11/25).
 
  -- Sven Joachim <svenjoac@gmx.de>  Wed, 27 Nov 2013 19:12:36 +0100
 
