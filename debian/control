@@ -13,6 +13,7 @@ Build-Depends:
  libxaw7-dev,
  libxkbfile-dev,
  libutempter-dev,
+ libxcursor-dev,
  debhelper (>= 9),
  quilt,
  lynx-cur | lynx,
@@ -96,6 +97,8 @@ Build-Depends:
 #       data.h:#include <X11/extensions/XKBbells.h>
 #   libutempter-dev
 #       main.c:#include <utempter.h>
+#   libxcursor-dev
+#       misc.c:#ifdev HAVE_LIB_XCURSOR
 #   xorg-docs-core                  provides X(7) which minstall.sh tries to
 #                                   detect
 #   debhelper (>= 9)                debian/compat = 9
