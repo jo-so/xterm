@@ -1,9 +1,9 @@
-xterm (299-1) UNRELEASED; urgency=low
+xterm (299-1) unstable; urgency=low
 
   * New upstream release.
   * Add libxcursor-dev to Build-Depends (Closes: #466704).
 
- -- Sven Joachim <svenjoac@gmx.de>  Mon, 02 Dec 2013 18:35:58 +0100
+ -- Sven Joachim <svenjoac@gmx.de>  Mon, 02 Dec 2013 18:58:17 +0100
 
 xterm (298-1) unstable; urgency=low
 
