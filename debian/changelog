@@ -1,10 +1,10 @@
-xterm (300-1) UNRELEASED; urgency=low
+xterm (300-1) unstable; urgency=low
 
   * New upstream release.
     - Avoid infinite recursion and stack overflow in libxcursor
       (Closes: #731269).
 
- -- Sven Joachim <svenjoac@gmx.de>  Wed, 04 Dec 2013 17:52:17 +0100
+ -- Sven Joachim <svenjoac@gmx.de>  Wed, 04 Dec 2013 18:05:01 +0100
 
 xterm (299-1) unstable; urgency=low
 
