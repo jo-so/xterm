@@ -16,6 +16,7 @@ Build-Depends:
  libxcursor-dev,
  debhelper (>= 9),
  quilt,
+ autotools-dev,
  lynx-cur | lynx,
  xorg-docs-core,
  desktop-file-utils,
@@ -103,6 +104,7 @@ Build-Depends:
 #                                   detect
 #   debhelper (>= 9)                debian/compat = 9
 #   quilt                           patch management system
+#   autotools-dev                   update config.guess, config.sub
 #   lynx-cur | lynx                 generates plain-text version of xterm faq
 #   desktop-file-utils              for installing xterm.desktop
 
