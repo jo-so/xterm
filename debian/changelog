@@ -1,5 +1,6 @@
-xterm (300-2) UNRELEASED; urgency=low
+xterm (301-1) UNRELEASED; urgency=low
 
+  * New upstream release.
   * Build-depend on autotools-dev to update config.{guess,sub}.
   * Bump Standards-Version to 3.9.5, no changes needed.
 
