@@ -1,4 +1,4 @@
-xterm (301-1) UNRELEASED; urgency=low
+xterm (301-1) unstable; urgency=low
 
   * New upstream release.
     - Improve manpage description of scrollbar translations versus
@@ -6,7 +6,7 @@ xterm (301-1) UNRELEASED; urgency=low
   * Build-depend on autotools-dev to update config.{guess,sub}.
   * Bump Standards-Version to 3.9.5, no changes needed.
 
- -- Sven Joachim <svenjoac@gmx.de>  Sun, 05 Jan 2014 19:08:05 +0100
+ -- Sven Joachim <svenjoac@gmx.de>  Wed, 22 Jan 2014 18:22:12 +0100
 
 xterm (300-1) unstable; urgency=low
 
