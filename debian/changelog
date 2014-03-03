@@ -1,3 +1,9 @@
+xterm (301-2) UNRELEASED; urgency=low
+
+  * Check GPG signature of upstream tarballs in the watch file.
+
+ -- Sven Joachim <svenjoac@gmx.de>  Mon, 03 Mar 2014 18:39:43 +0100
+
 xterm (301-1) unstable; urgency=low
 
   * New upstream release.
