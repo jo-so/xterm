@@ -1,6 +1,8 @@
 xterm (302-1) UNRELEASED; urgency=low
 
   * New upstream release.
+  * Update copy of XTerm FAQ to revision 1.278 (dated 2014/02/24)
+    (Closes: #737692).
   * Check GPG signature of upstream tarballs in the watch file.
 
  -- Sven Joachim <svenjoac@gmx.de>  Mon, 03 Mar 2014 18:39:43 +0100
