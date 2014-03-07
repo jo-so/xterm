@@ -1,6 +1,8 @@
 xterm (303-1) UNRELEASED; urgency=low
 
   * New upstream release.
+    - Fix a regression in xterm 302 relating to interaction of SHELL
+      and XTERM_SHELL variables (Closes: #740919).
 
  -- Sven Joachim <svenjoac@gmx.de>  Fri, 07 Mar 2014 18:00:40 +0100
 
