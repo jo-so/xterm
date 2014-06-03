@@ -1,3 +1,9 @@
+xterm (305-1) UNRELEASED; urgency=medium
+
+  * New upstream release.
+
+ -- Julien Cristau <jcristau@debian.org>  Tue, 03 Jun 2014 09:27:48 +0200
+
 xterm (304-1) unstable; urgency=low
 
   * New upstream release.
