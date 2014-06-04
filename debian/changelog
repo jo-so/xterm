@@ -6,6 +6,7 @@ xterm (306-1) UNRELEASED; urgency=medium
 
   [ Sven Joachim ]
   * New upstream release.
+  * Update copy of XTerm FAQ to revision 1.282 (dated 2014/05/25).
 
  -- Julien Cristau <jcristau@debian.org>  Tue, 03 Jun 2014 09:27:48 +0200
 

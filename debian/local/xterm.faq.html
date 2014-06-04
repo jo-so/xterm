@@ -19,7 +19,7 @@
  * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF   *
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.            *
  *****************************************************************************
-  $XTermId: xterm.faq.html,v 1.278 2014/02/24 22:32:04 tom Exp $
+  $XTermId: xterm.faq.html,v 1.282 2014/05/25 15:58:15 tom Exp $
   -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
 
@@ -270,7 +270,7 @@
 
   <p>There were exceptions. Christian Weisgerber proposed a package
   for FreeBSD ports later in 1999 (<a href=
-  "http://www.mavetju.org/mail/view_message.php?list=freebsd-ports&amp;id=578273">ports/15545:
+  "https://web.archive.org/web/20130801223050/http://www.mavetju.org/mail/view_message.php?list=freebsd-ports&amp;id=578273">ports/15545:
   new port: x11/xterm</a>, followup in <a href=
   "http://marc.info/?t=102422536300028&amp;r=l&amp;=2">March
   2000</a>). However, that was an exception. None of the Linux
@@ -1894,7 +1894,7 @@
   <p>a summary of the keyboard mapping:</p>
 
   <blockquote>
-    <pre>
+    <pre class="code-block">
 PC Key     maps to   VT Key.
 ------               ------
 F1                   PF1
@@ -2424,7 +2424,7 @@ Left                 Left
   Hemant Shah &lt;shah@typhoon.xnet.com&gt;):</p>
 
   <blockquote>
-    <pre>
+    <pre class="code-block">
 $ xprop -id $WINDOWID | grep WM_NAME
 WM_NAME(STRING) = "this is my title"
 current_title=$(xprop -id $WINDOWID | grep WM_NAME | cut -d= -f2)
@@ -2624,7 +2624,7 @@ current_title=$(xprop -id $WINDOWID | grep WM_NAME | cut -d= -f2)
     /dev which has to have the right permissions. For example:
 
       <blockquote>
-        <pre>
+        <pre class="code-block">
 # ls -l /dev/ptmx
 crw-rw----    1 root     tty        5,   2 Aug 21 20:19 /dev/ptmx
 </pre>
@@ -2669,7 +2669,7 @@ crw-rw----    1 root     tty        5,   2 Aug 21 20:19 /dev/ptmx
   <p>This means, for example, that if you attempt to run</p>
 
   <blockquote>
-    <pre>
+    <pre class="code-block">
 xterm -e foo
 </pre>
   </blockquote>
@@ -2721,7 +2721,7 @@ xterm -e foo
     <li>Running
 
       <blockquote>
-        <pre>
+        <pre class="code-block">
 stty -a
 </pre>
       </blockquote>
@@ -2764,9 +2764,8 @@ stty -a
   window:</p>
 
   <blockquote>
-    <pre>
-<code>stty rows 24 columns 80
-</code>
+    <pre class="code-block">
+stty rows 24 columns 80
 </pre>
   </blockquote>
 
@@ -2775,9 +2774,9 @@ stty -a
   terminal description:</p>
 
   <blockquote>
-    <pre>
-<code>setenv LINES 24
-setenv COLUMNS 80</code>
+    <pre class="code-block">
+setenv LINES 24
+setenv COLUMNS 80
 </pre>
   </blockquote>
 
@@ -3089,7 +3088,7 @@ setenv COLUMNS 80</code>
   that are being equated as "Delete":</p>
 
   <blockquote>
-    <pre>
+    <pre class="code-block">
 ASCII backspace (code 8)
 ASCII delete (code 127)
 VT220 "remove" aka "delete" (ESC [ 3 ~)
@@ -3134,7 +3133,7 @@ VT220 "remove" aka "delete" (ESC [ 3 ~)
   <em>ptyInitialErase</em> resource (or perhaps both). Use</p>
 
   <blockquote>
-    <pre>
+    <pre class="code-block">
 appres XTerm
 </pre>
   </blockquote>
@@ -3183,7 +3182,7 @@ appres XTerm
   commonly advised to use <em>xmodmap</em>, e.g.,</p>
 
   <blockquote>
-    <pre>
+    <pre class="code-block">
 keysym BackSpace = Delete
 </pre>
   </blockquote>
@@ -3191,7 +3190,7 @@ keysym BackSpace = Delete
   <p>or</p>
 
   <blockquote>
-    <pre>
+    <pre class="code-block">
 keycode 22 = 0xff08
 </pre>
   </blockquote>
@@ -3241,7 +3240,7 @@ keycode 22 = 0xff08
   <p>Here's a picture of the VT100 numeric keypad:</p>
 
   <blockquote>
-    <pre>
+    <pre class="code-block">
 +-----+-----+-----+-----+
 | PF1 | PF2 | PF3 | PF4 |
 +-----+-----+-----+-----+
@@ -3259,7 +3258,7 @@ keycode 22 = 0xff08
   <p>and the similar Sun and PC keypads:</p>
 
   <blockquote>
-    <pre>
+    <pre class="code-block">
 +-----+-----+-----+-----+
 | NUM |  /  |  *  |  -  |
 +-----+-----+-----+-----+
@@ -3284,7 +3283,7 @@ keycode 22 = 0xff08
   keypad:</p>
 
   <blockquote>
-    <pre>
+    <pre class="code-block">
 +--------+--------+--------+
 | Find   | Insert | Remove |
 +--------+--------+--------+
@@ -3296,7 +3295,7 @@ keycode 22 = 0xff08
   <p>and the similar Sun and PC keypads:</p>
 
   <blockquote>
-    <pre>
+    <pre class="code-block">
 +--------+--------+--------+
 | Insert | Home   | PageUp |
 +--------+--------+--------+
@@ -3310,7 +3309,7 @@ keycode 22 = 0xff08
   same positions:</p>
 
   <blockquote>
-    <pre>
+    <pre class="code-block">
 +--------+--------+--------+
 | Insert | Find   | Prev   |
 +--------+--------+--------+
@@ -3349,7 +3348,7 @@ keycode 22 = 0xff08
   with the file given in two locations:</p>
 
   <blockquote>
-    <pre>
+    <pre class="code-block">
 /usr/lib/X11/app-defaults/XTerm
 /usr/openwin/lib/app-defaults
 </pre>
@@ -3381,7 +3380,7 @@ keycode 22 = 0xff08
     in AIX's copy of the app-defaults file in</p>
 
     <blockquote>
-      <pre>
+      <pre class="code-block">
 /usr/lpp/X11/lib/X11/app-defaults
 </pre>
     </blockquote>
@@ -3505,7 +3504,7 @@ keycode 22 = 0xff08
   "ansi"), i.e.,</p>
 
   <blockquote>
-    <pre>
+    <pre class="code-block">
 ESC [ H
 ESC [ F
 </pre>
@@ -3514,7 +3513,7 @@ ESC [ F
   <p>for normal mode, and</p>
 
   <blockquote>
-    <pre>
+    <pre class="code-block">
 ESC O H
 ESC O F
 </pre>
@@ -4354,23 +4353,26 @@ ESC O F
   <p>In this example, the terminfo strings are a series of
   operations:</p>
 
-  <dl>
-    <dt><code>smcup</code></dt>
+  <blockquote>
+    <dl>
+      <dt><code>smcup</code></dt>
 
-    <dd><code>\E7</code> saves the cursor's position</dd>
+      <dd><code>\E7</code> saves the cursor's position</dd>
 
-    <dd><code>\E[?47h</code> switches to the alternate screen</dd>
+      <dd><code>\E[?47h</code> switches to the alternate
+      screen</dd>
 
-    <dt><code>rmcup</code></dt>
+      <dt><code>rmcup</code></dt>
 
-    <dd><code>\E[2J</code> clears the screen (assumed to be the
-    alternate screen)</dd>
+      <dd><code>\E[2J</code> clears the screen (assumed to be the
+      alternate screen)</dd>
 
-    <dd><code>\E[?47l</code> switches back to the normal
-    screen</dd>
+      <dd><code>\E[?47l</code> switches back to the normal
+      screen</dd>
 
-    <dd><code>\E8</code> restores the cursor's position.</dd>
-  </dl>
+      <dd><code>\E8</code> restores the cursor's position.</dd>
+    </dl>
+  </blockquote>
 
   <p>However, xterms that are linked with termcap are more flexible
   in this area than those linked with terminfo libraries. The xterm
@@ -4490,8 +4492,8 @@ ESC O F
   <p>For instance</p>
 
   <blockquote>
-    <pre>
-<code>configure --disable-imake --disable-narrowproto</code>
+    <pre class="code-block">
+configure --disable-imake --disable-narrowproto
 </pre>
   </blockquote>
 
@@ -4915,7 +4917,7 @@ ESC O F
       <p>will produce warnings such as</p>
 
       <blockquote>
-        <pre>
+        <pre class="code-block">
 Warning: Actions not found: ignore, scroll-back, scroll-forw
 Warning: Actions not found: ignore, scroll-back, scroll-forw
 Warning: Actions not found: ignore, scroll-back, scroll-forw
@@ -5037,8 +5039,8 @@ Warning: Actions not found: ignore, scroll-back, scroll-forw
 
   <p>(These bugs are also present in the X11R5 version).</p>
 
-  <p id="xterm-xorg-id"><a name="xterm-xorg" id="xterm-xorg">Update
-  2004/04/08:</a><br>
+  <p id="xterm-xorg-id"><a name="xterm-xorg" id=
+  "xterm-xorg"><em>Update 2004/04/08:</em></a><br>
   Complicating this discussion is the "X.Org" xterm (from 2004).
   That is the XFree86 xterm from XFree86 CVS with all visible
   "xfree86" strings changed to "X.Org" or "xorg", depending on the
@@ -5047,10 +5049,36 @@ Warning: Actions not found: ignore, scroll-back, scroll-forw
   shows this. Similarly, the release notes for X11R6.7 included my
   notes for XFree86 4.4.</p>
 
-  <p>As of 2009, it appears that "X.Org" xterm died a natural
-  death, since none of the people who created it had any likelihood
-  of maintaining it. Instead, X.Org defers to my version of
-  xterm.</p>
+  <p><em>As of 2009</em>, it was apparent that "X.Org" xterm had
+  died a natural death, since none of the people who created it had
+  any likelihood of maintaining it. Instead, X.Org defers to my
+  version of xterm.</p>
+
+  <p><em>Reviewing in 2014</em>, the major vendors have been using
+  modern xterm (different patch levels) for some time. However,
+  there are documentation problems with AIX, beyond what is noted
+  <a href="#xterm_pageup">here</a>:</p>
+
+  <ul>
+    <li>AIX provides a copy of <a href="/luit/luit.html">luit</a>,
+    and a corresponding <a href=
+    "http://publib.boulder.ibm.com/infocenter/aix/v7r1/index.jsp?topic=%2Fcom.ibm.aix.cmds%2Fdoc%2Faixcmds3%2Fluit.htm">
+    manpage</a>&mdash;which omits the sections on security, bugs
+    and attribution.</li>
+
+    <li>The <a href=
+    "http://publib.boulder.ibm.com/infocenter/aix/v7r1/index.jsp?topic=%2Fcom.ibm.aix.cmds%2Fdoc%2Faixcmds6%2Fxterm.htm">
+    xterm</a> manpage provided with AIX says this is X11R6 xterm
+    &ldquo;with no functional enhancements.&rdquo; Comparing
+    releases X11R5, X11R6.1, X11R6.3 against the AIX page, it
+    matches X11R6.1 (December 1995). That is, it includes the text
+    of the X11R6.1 xterm manpage plus the control sequences
+    document&mdash;again omitting the security, bugs and
+    attribution sections from each.</li>
+  </ul>
+
+  <p>The other vendors provide documentation which is more
+  up-to-date.</p>
 
   <h3 id="bug_color_xterm-id"><a name="bug_color_xterm" id=
   "bug_color_xterm">COLOR_XTERM</a> <a href=
@@ -5158,7 +5186,7 @@ Warning: Actions not found: ignore, scroll-back, scroll-forw
   sends</p>
 
   <blockquote>
-    <pre>
+    <pre class="code-block">
 \E[&gt;c
 </pre>
   </blockquote>
@@ -5166,7 +5194,7 @@ Warning: Actions not found: ignore, scroll-back, scroll-forw
   <p>expecting a response such as</p>
 
   <blockquote>
-    <pre>
+    <pre class="code-block">
 \E[&gt;0;138;0c
 </pre>
   </blockquote>
@@ -5490,7 +5518,7 @@ Warning: Actions not found: ignore, scroll-back, scroll-forw
   (not Motif), attributed to "Der Mouse".</p>
 
   <blockquote>
-    <pre>
+    <pre class="code-block">
 (mouse@Lightning.McRCIM.McGill.EDU) Available:
 larry.mcrcim.mcgill.edu (132.206.1.1) in
 /X/mterm.src/mterm.ball-o-wax.  
@@ -6013,7 +6041,7 @@ larry.mcrcim.mcgill.edu (132.206.1.1) in
   configured imake utility), all you need to do is type</p>
 
   <blockquote>
-    <pre>
+    <pre class="code-block">
 xmkmf
 make
 </pre>
@@ -6030,7 +6058,7 @@ make
   variety of features. Type</p>
 
   <blockquote>
-    <pre>
+    <pre class="code-block">
 configure --help
 </pre>
   </blockquote>
@@ -6056,7 +6084,7 @@ configure --help
   this patch:</p>
 
   <blockquote>
-    <pre>
+    <pre class="code-block">
 --- Intrinsic.h.orig    2009-08-25 13:22:15.000000000 -0400
 +++ Intrinsic.h 2009-12-06 09:48:39.000000000 -0500
 @@ -66,7 +66,11 @@
@@ -6171,7 +6199,7 @@ configure --help
   this file with different options than a manpage, e.g.,</p>
 
   <blockquote>
-    <pre>
+    <pre class="code-block">
 tbl ctlseqs.ms | nroff -ms &gt;ctlseqs.txt
 tbl ctlseqs.ms | groff -ms &gt;ctlseqs.ps
 </pre>
