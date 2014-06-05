@@ -1,4 +1,4 @@
-xterm (306-1) UNRELEASED; urgency=medium
+xterm (306-1) unstable; urgency=medium
 
   [ Julien Cristau ]
   * New upstream release.
@@ -8,7 +8,7 @@ xterm (306-1) UNRELEASED; urgency=medium
   * New upstream release.
   * Update copy of XTerm FAQ to revision 1.282 (dated 2014/05/25).
 
- -- Julien Cristau <jcristau@debian.org>  Tue, 03 Jun 2014 09:27:48 +0200
+ -- Sven Joachim <svenjoac@gmx.de>  Thu, 05 Jun 2014 17:50:00 +0200
 
 xterm (304-1) unstable; urgency=low
 
