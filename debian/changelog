@@ -1,4 +1,4 @@
-xterm (307-1) UNRELEASED; urgency=medium
+xterm (307-1) unstable; urgency=medium
 
   * New upstream release.
     - Amend fix for Freedesktop bug #15979 (Closes: #750733).
@@ -6,7 +6,7 @@ xterm (307-1) UNRELEASED; urgency=medium
       from xterm 305 changes to account for resource settings
       (Closes: #751351).
 
- -- Sven Joachim <svenjoac@gmx.de>  Wed, 18 Jun 2014 17:39:07 +0200
+ -- Sven Joachim <svenjoac@gmx.de>  Wed, 18 Jun 2014 19:49:57 +0200
 
 xterm (306-1) unstable; urgency=medium
 
