@@ -1,6 +1,8 @@
 xterm (308-1) UNRELEASED; urgency=medium
 
   * New upstream release.
+    - Correct font used for clipping double-width bitmap fonts from
+      xterm 307 changes to work around mis-scaled fonts (Closes: #752047).
 
  -- Sven Joachim <svenjoac@gmx.de>  Fri, 20 Jun 2014 17:34:15 +0200
 
