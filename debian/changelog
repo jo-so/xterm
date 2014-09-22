@@ -1,4 +1,4 @@
-xterm (311-1) UNRELEASED; urgency=low
+xterm (311-1) unstable; urgency=low
 
   * New upstream release.
     - Mention xclip in manpage as an alternative workaround for copying
@@ -18,7 +18,7 @@ xterm (311-1) UNRELEASED; urgency=low
       recovery used the "current font", it would fail if one first selected
       a valid font, then an invalid font (Closes: #760207).
 
- -- Sven Joachim <svenjoac@gmx.de>  Fri, 19 Sep 2014 18:05:27 +0200
+ -- Sven Joachim <svenjoac@gmx.de>  Mon, 22 Sep 2014 17:55:43 +0200
 
 xterm (310-1) unstable; urgency=low
 
