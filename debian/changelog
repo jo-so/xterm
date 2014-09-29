@@ -1,6 +1,7 @@
 xterm (312-1) UNRELEASED; urgency=medium
 
   * New upstream release.
+    - Undo change to do_select_regex() in xterm 311 (Closes: #762978).
 
  -- Sven Joachim <svenjoac@gmx.de>  Mon, 29 Sep 2014 17:11:31 +0200
 
