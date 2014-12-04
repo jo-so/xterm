@@ -1,10 +1,10 @@
-xterm (313-1) UNRELEASED; urgency=low
+xterm (313-1) experimental; urgency=low
 
   * New upstream release.
   * Refresh Debian patches.
   * Bump Standards-Version to 3.9.6, no changes needed.
 
- -- Sven Joachim <svenjoac@gmx.de>  Sat, 29 Nov 2014 10:37:05 +0100
+ -- Sven Joachim <svenjoac@gmx.de>  Thu, 04 Dec 2014 18:51:09 +0100
 
 xterm (312-1) unstable; urgency=medium
 
