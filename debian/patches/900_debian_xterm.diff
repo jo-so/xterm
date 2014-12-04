@@ -20,10 +20,15 @@ Make Debian-specific tweaks to xterm:
 
 This patch by Branden Robinson.
 
-Index: xterm/termcap
-===================================================================
---- xterm.orig/termcap
-+++ xterm/termcap
+---
+ XTerm-col.ad |   42 +++++++++++++++++++++++++++---------------
+ XTerm.ad     |    3 +++
+ termcap      |    4 +++-
+ terminfo     |    8 ++++++--
+ 4 files changed, 39 insertions(+), 18 deletions(-)
+
+--- a/termcap
++++ b/termcap
 @@ -239,5 +239,7 @@ v0|xterm|X11 terminal emulator:\
  
  # This fragment is for people who cannot agree on what the backspace key
@@ -33,10 +38,8 @@ Index: xterm/termcap
  xterm+kbs|fragment for backspace key:\
 -	:kb=^H:
 +	:kb=^?:
-Index: xterm/terminfo
-===================================================================
---- xterm.orig/terminfo
-+++ xterm/terminfo
+--- a/terminfo
++++ b/terminfo
 @@ -137,6 +137,8 @@ xterm-new|modern xterm terminal emulator
  	use=xterm+pcfkeys,
  	use=xterm+tmux,
@@ -46,7 +49,7 @@ Index: xterm/terminfo
  #
  # Encode modifiers using parameters (see "Xterm Control Sequences" ctlseqs.ms).
  # Note that this is unrelated to PCTERM.
-@@ -1967,11 +1969,13 @@ xterm-r5|xterm R5 version,
+@@ -1970,11 +1972,13 @@ xterm-r5|xterm R5 version,
  # This is the only entry which you should have to customize, since "xterm"
  # is widely used for a variety of incompatible terminal emulations including
  # color_xterm and rxvt.
@@ -62,11 +65,9 @@ Index: xterm/terminfo
  xterm+kbs|fragment for backspace key,
 -	kbs=^H,
 +	kbs=\177,
-Index: xterm/XTerm.ad
-===================================================================
---- xterm.orig/XTerm.ad
-+++ xterm/XTerm.ad
-@@ -159,6 +159,9 @@
+--- a/XTerm.ad
++++ b/XTerm.ad
+@@ -161,6 +161,9 @@
  *tek4014*font3: 6x13
  *tek4014*fontSmall: 6x10
  
@@ -76,10 +77,8 @@ Index: xterm/XTerm.ad
  ! If xterm is built with a toolbar, the widget hierarchy looks like this,
  ! showing widget name / class names.  The complete menu hierarchy is built
  ! at startup because it is needed to make the layout work for the menubar:
-Index: xterm/XTerm-col.ad
-===================================================================
---- xterm.orig/XTerm-col.ad
-+++ xterm/XTerm-col.ad
+--- a/XTerm-col.ad
++++ b/XTerm-col.ad
 @@ -37,9 +37,9 @@
  *VT100*boldColors: on
  *VT100*dynamicColors: on

@@ -1,6 +1,7 @@
 xterm (313-1) UNRELEASED; urgency=low
 
   * New upstream release.
+  * Refresh Debian patches.
 
  -- Sven Joachim <svenjoac@gmx.de>  Sat, 29 Nov 2014 10:37:05 +0100
 
