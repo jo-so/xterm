@@ -19,7 +19,7 @@
  * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF   *
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.            *
  *****************************************************************************
-  $XTermId: xterm.faq.html,v 1.282 2014/05/25 15:58:15 tom Exp $
+  $XTermId: xterm.faq.html,v 1.289 2014/12/19 01:59:01 tom Exp $
   -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
 
@@ -112,7 +112,7 @@
 
   <p>From the manual page:</p>
 
-  <blockquote>
+  <blockquote class="code-block">
     <p>The xterm program is a terminal emulator for the X Window
     System. It provides DEC VT102/VT220 and selected features from
     higher-level terminals such as VT320/VT420/VT520 (VTxxx). It
@@ -124,7 +124,7 @@
     whenever it is resized.</p>
   </blockquote>
 
-  <p>That is, xterm (pronounced "<em>eks</em>-xterm") is a
+  <p>That is, xterm (pronounced "<em>eks</em>-term") is a
   <em>specific</em> program, not a generic item. It is the standard
   X terminal emulator program.</p>
 
@@ -152,9 +152,10 @@
   part of the Open Group &ndash; I'm well aware of the distinction,
   but am citing when the work was done, not who the current owner
   may be). There is no changelog, and it is not clear who did what.
-  Email from Jim Gettys provides some background:</p>
+  Email from Jim Gettys (September 1998) provides some
+  background:</p>
 
-  <blockquote>
+  <blockquote class="code-block">
     <p>Cast of thousands...</p>
 
     <p>To give a bit of history, xterm predates X!</p>
@@ -185,9 +186,10 @@
     <p>Then hacked on at the X Consortium by uncounted people.</p>
   </blockquote>
 
-  <p>Email from Doug Mink provides more background:</p>
+  <p>Email from Doug Mink (October 1999) provides more
+  background:</p>
 
-  <blockquote>
+  <blockquote class="code-block">
     <p>I was checking out the newly revised AltaVista search engine
     to see what was on the net about xterm, and I found your pages.
     I can add to the FAQ in that I was the "guy at the Smithsonian
@@ -332,7 +334,7 @@
     function keys. My keyboard has 12 function keys.</li>
 
     <li>VT100s do not do <a href=
-    "/ncurses/ncurses.faq.html">color</a>.</li>
+    "/ncurses/ncurses.faq.html#vt100_color">color</a>.</li>
   </ul>
 
   <p>Initially, I was only interested in making colors workable for
@@ -1287,7 +1289,7 @@
   one from Bruce Momjian &lt;root@candle.pha.pa.us&gt; for a
   VT220:</p>
 
-  <blockquote>
+  <blockquote class="code-block">
     <!--{{atr2html-->
 
     <p style="font-family: monospace; font-size: 10pt;">
@@ -1301,7 +1303,7 @@
 
   <p>with the corresponding resources:</p>
 
-  <blockquote>
+  <blockquote class="code-block">
     <!--{{atr2html-->
 
     <p style="font-family: monospace; font-size: 10pt;">
@@ -1544,7 +1546,7 @@
   <p>Here's another one, from Robert Ess
   &lt;ress@spd.dsccc.com&gt;:</p>
 
-  <blockquote>
+  <blockquote class="code-block">
     <!--{{atr2html-->
 
     <p style="font-family: monospace; font-size: 10pt;">
@@ -1961,7 +1963,7 @@ Left                 Left
 
   <p>and the script:</p>
 
-  <blockquote>
+  <blockquote class="code-block">
     <!--{{atr2html-->
 
     <p style="font-family: monospace; font-size: 10pt;">
@@ -2303,7 +2305,7 @@ Left                 Left
   seen, from Roy Wright &lt;nobody@roystoy.dseg.ti.com&gt;. In your
   /etc/profile after:</p>
 
-  <blockquote>
+  <blockquote class="code-block">
     <!--{{atr2html-->
 
     <p style="font-family: monospace; font-size: 10pt;">
@@ -2337,7 +2339,7 @@ Left                 Left
 
   <p>add:</p>
 
-  <blockquote>
+  <blockquote class="code-block">
     <!--{{atr2html-->
 
     <p style="font-family: monospace; font-size: 10pt;">
@@ -2380,7 +2382,7 @@ Left                 Left
   title from an xterm. This works for modern xterm and dtterm, but
   not for other variations:</p>
 
-  <blockquote>
+  <blockquote class="code-block">
     <!--{{atr2html-->
 
     <p style="font-family: monospace; font-size: 10pt;">
@@ -2800,7 +2802,7 @@ setenv COLUMNS 80
   makes the geometry apply to the menus as well as the VT100
   widget:</p>
 
-  <blockquote>
+  <blockquote class="code-block">
     <!--{{atr2html-->
 
     <p style="font-family: monospace; font-size: 10pt;">
@@ -2813,7 +2815,7 @@ setenv COLUMNS 80
   <p>while this applies only to the VT100 widget (which is probably
   what you intended):</p>
 
-  <blockquote>
+  <blockquote class="code-block">
     <!--{{atr2html-->
 
     <p style="font-family: monospace; font-size: 10pt;">
@@ -2827,7 +2829,7 @@ setenv COLUMNS 80
   <p>or better yet (to allow for the toolbar option, which uses a
   level of widget hierarchy):</p>
 
-  <blockquote>
+  <blockquote class="code-block">
     <!--{{atr2html-->
 
     <p style="font-family: monospace; font-size: 10pt;">
@@ -2887,7 +2889,7 @@ setenv COLUMNS 80
   fixed by disabling the feature, e.g., by appending ":unscaled" to
   the path:</p>
 
-  <blockquote>
+  <blockquote class="code-block">
     <!--{{atr2html-->
 
     <p style="font-family: monospace; font-size: 10pt;">
@@ -2963,7 +2965,7 @@ setenv COLUMNS 80
 
   <p>Suppose your resource setting includes this pattern</p>
 
-  <blockquote>
+  <blockquote class="code-block">
     <!--{{atr2html-->
 
     <p style="font-family: monospace; font-size: 10pt;">
@@ -2975,7 +2977,7 @@ setenv COLUMNS 80
 
   <p>It could be interpreted as this:</p>
 
-  <blockquote>
+  <blockquote class="code-block">
     <!--{{atr2html-->
 
     <p style="font-family: monospace; font-size: 10pt;">
@@ -2996,7 +2998,7 @@ setenv COLUMNS 80
   unavailable (i.e., shown as boxes). If instead your resource
   looks like</p>
 
-  <blockquote>
+  <blockquote class="code-block">
     <!--{{atr2html-->
 
     <p style="font-family: monospace; font-size: 10pt;">
@@ -3040,7 +3042,7 @@ setenv COLUMNS 80
   example, this list (from <code>lcUTF8.c</code>) which dates from
   around 2000 is the core of the problem:</p>
 
-  <blockquote>
+  <blockquote class="code-block">
     <p>ISO10646-1, ISO8859-1, ISO8859-2, ISO8859-3, ISO8859-4,
     ISO8859-5, ISO8859-6, ISO8859-7, ISO8859-8, ISO8859-9,
     ISO8859-10, ISO8859-11, ISO8859-13, ISO8859-14, ISO8859-15,
@@ -3203,7 +3205,7 @@ keycode 22 = 0xff08
   well for environments where you have different versions of xterm,
   e.g.,</p>
 
-  <blockquote>
+  <blockquote class="code-block">
     <!--{{atr2html-->
 
     <p style="font-family: monospace; font-size: 10pt;">
@@ -3395,7 +3397,7 @@ keycode 22 = 0xff08
   guide. The relevant section of the app-default file looks
   like</p>
 
-  <blockquote>
+  <blockquote class="code-block">
     <!--{{atr2html-->
 
     <p style="font-family: monospace; font-size: 10pt;">
@@ -3458,7 +3460,7 @@ keycode 22 = 0xff08
   <p>For example, a more-specific pattern for the resource name
   lets you override:</p>
 
-  <blockquote>
+  <blockquote class="code-block">
     <!--{{atr2html-->
 
     <p style="font-family: monospace; font-size: 10pt;">
@@ -3556,7 +3558,7 @@ ESC O F
       to switching modes on the fly, I overlooked a line in my
       .Xdefaults file:
 
-      <blockquote>
+      <blockquote class="code-block">
         <!--{{atr2html-->
 
         <p style="font-family: monospace; font-size: 10pt;">
@@ -3615,7 +3617,7 @@ ESC O F
     <code>^?</code>. As noted, the terminfo I wrote for XFree86
     3.3.x has an error. Setting
 
-      <blockquote>
+      <blockquote class="code-block">
         <!--{{atr2html-->
 
         <p style="font-family: monospace; font-size: 10pt;">
@@ -3629,7 +3631,7 @@ ESC O F
       which was that I documented in the terminfo the behavior
       <em>with</em> that resource set. Similarly, setting</p>
 
-      <blockquote>
+      <blockquote class="code-block">
         <!--{{atr2html-->
 
         <p style="font-family: monospace; font-size: 10pt;">
@@ -3646,7 +3648,7 @@ ESC O F
     <li>Debian unstable is xterm-149. Other than omitting the color
     resources from the app-defaults file, I see that it sets
 
-      <blockquote>
+      <blockquote class="code-block">
         <!--{{atr2html-->
 
         <p style="font-family: monospace; font-size: 10pt;">
@@ -3667,7 +3669,7 @@ ESC O F
   which I tested with xterm-88c, xterm-149 and xterm-158, using
   $TERM set to xterm-debian:</p>
 
-  <blockquote>
+  <blockquote class="code-block">
     <!--{{atr2html-->
 
     <p style="font-family: monospace; font-size: 10pt;">
@@ -3974,7 +3976,7 @@ ESC O F
   of the other terminals which (were said to) provide "standard
   vt100 colors":</p>
 
-  <blockquote>
+  <blockquote class="code-block">
     <p><a href="/xterm/images/contrast.jpg"><img width="450" src=
     "images/contrast.jpg" alt=
     "Contrasting blue in terminal emulators"></a></p>
@@ -4009,10 +4011,9 @@ ESC O F
   was supported except for low-level applications (in terminfo). No
   bit was reserved in the curses header for adding italics for
   high-level applications. (As a special case, ncurses was modified
-  to provide <a href=
-  "/ncurses/NEWS-contents.html#t20130831">partial support</a>, but
-  programs using this feature will not work with other
-  implementations).</p>
+  to provide <a href="/ncurses/NEWS.html#t20130831">partial
+  support</a>, but programs using this feature will not work with
+  other implementations).</p>
 
   <p>XTerm stores each cell of the display in fixed-size
   structures. One byte stores the graphic rendition. XTerm is using
@@ -4139,6 +4140,24 @@ ESC O F
   of the next line. In that case, grep's output will not look
   right.</p>
 
+  <p>Here are some relevant bug reports:</p>
+
+  <ul>
+    <li><a href=
+    "https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=456943">Debian
+    #456943 - grep: incorrect display with color and wrapping in
+    some terminals</a></li>
+
+    <li><a href=
+    "https://bugzilla.redhat.com/show_bug.cgi?id=1006310">Fedora
+    #1006310 - xterm does not print a character if the character is
+    last on a row and a color-change ANSI sequence follows</a></li>
+
+    <li><a href=
+    "https://bugzilla.novell.com/show_bug.cgi?id=148844">Novell
+    #148844 - terminal text wrapping bug</a></li>
+  </ul>
+
   <h4 id="vt100_wrapping-id"><a name="vt100_wrapping" id=
   "vt100_wrapping">That description of wrapping is odd, say
   more?</a></h4>
@@ -4146,7 +4165,7 @@ ESC O F
   <p>This is one of the aspects of the so-called "vt100 glitch", as
   mentioned in the terminfo manpage:</p>
 
-  <blockquote>
+  <blockquote class="code-block">
     <p>Terminals which ignore a line-feed immediately after an am
     wrap, such as the Concept and vt100, should indicate xenl.</p>
   </blockquote>
@@ -4331,7 +4350,7 @@ ESC O F
   procedure adds these capabilities to the "xterm" terminfo
   definition on HP-UX 10.20:</p>
 
-  <blockquote>
+  <blockquote class="code-block">
     <!--{{atr2html-->
 
     <p style="font-family: monospace; font-size: 10pt;">
@@ -4438,9 +4457,9 @@ ESC O F
   form-feed which they type (and is presumably echoed as a
   form-feed) versus a form-feed which is sent from an application
   to the terminal, this leads to confusion. <a href=
-  "http://bytes.com/topic/c/answers/524484-screen-editing">Several
-  years ago</a>, I pointed this out as one of the errors in the
-  <a href="http://c-faq.com/osdep/termcap.html">C FAQ</a>
+  "http://www.thecodingforums.com/threads/screen-editing.444014/page-2#post-2480220">
+  Several years ago</a>, I pointed this out as one of the errors in
+  the <a href="http://c-faq.com/osdep/termcap.html">C FAQ</a>
   (notwithstanding Summit's comment, he did not update the
   FAQ).</p>
 
@@ -4666,7 +4685,7 @@ configure --disable-imake --disable-narrowproto
   "my_xdefaults">Sample .Xdefaults Color-Settings for
   XTerm</a></h3>
 
-  <blockquote>
+  <blockquote class="code-block">
     <!--{{atr2html-->
 
     <p style="font-family: monospace; font-size: 10pt;">
@@ -4829,7 +4848,7 @@ configure --disable-imake --disable-narrowproto
   color, add the following line to your <code>.Xdefaults</code>
   file:</p>
 
-  <blockquote>
+  <blockquote class="code-block">
     <!--{{atr2html-->
 
     <p style="font-family: monospace; font-size: 10pt;">
@@ -4875,7 +4894,7 @@ configure --disable-imake --disable-narrowproto
       xterm from a window manager menu), you can suppress it by
       setting a resource:</p>
 
-      <blockquote>
+      <blockquote class="code-block">
         <!--{{atr2html-->
 
         <p style="font-family: monospace; font-size: 10pt;">
@@ -4894,7 +4913,7 @@ configure --disable-imake --disable-narrowproto
       a resource file whose translations match widgets that do not
       support them. For example, this
 
-      <blockquote>
+      <blockquote class="code-block">
         <!--{{atr2html-->
 
         <p style="font-family: monospace; font-size: 10pt;">
@@ -4927,7 +4946,7 @@ Warning: Actions not found: ignore, scroll-back, scroll-forw
       <p>This is a correct form, assigning the actions to the
       "VT100" widget.</p>
 
-      <blockquote>
+      <blockquote class="code-block">
         <!--{{atr2html-->
 
         <p style="font-family: monospace; font-size: 10pt;">
@@ -5240,7 +5259,7 @@ Warning: Actions not found: ignore, scroll-back, scroll-forw
 
   <p>The documentation for GNOME terminal asserts:</p>
 
-  <blockquote>
+  <blockquote class="code-block">
     <p>GNOME Terminal emulates the xterm application developed by
     the X Consortium. In turn, the xterm application emulates the
     DEC VT102 terminal and also supports the DEC VT220 escape
@@ -5254,29 +5273,32 @@ Warning: Actions not found: ignore, scroll-back, scroll-forw
   <p>That sounds fine, except that it is both inaccurate and
   misleading:</p>
 
-  <dl>
-    <dt>inaccurate</dt>
+  <blockquote>
+    <dl>
+      <dt>inaccurate</dt>
 
-    <dd>
-      combining the "X Consortium" and "DEC VT220", for example,
-      since that was done after the demise of said organization.
+      <dd>
+        combining the "X Consortium" and "DEC VT220", for example,
+        since that was done after the demise of said organization.
 
-      <p>It emulates a <em>subset</em> of VT100, lacks support for
-      most of the VT220 control sequences (including some used for
-      positioning the cursor) that are not recognized by a
-      VT100.</p>
+        <p>It emulates a <em>subset</em> of VT100, lacks support
+        for most of the VT220 control sequences (including some
+        used for positioning the cursor) that are not recognized by
+        a VT100.</p>
 
-      <p>Even in the subset which it emulates, GNOME Terminal has
-      bugs. Many of these are easy to demonstrate with vttest.</p>
-    </dd>
+        <p>Even in the subset which it emulates, GNOME Terminal has
+        bugs. Many of these are easy to demonstrate with
+        vttest.</p>
+      </dd>
 
-    <dt>misleading</dt>
+      <dt>misleading</dt>
 
-    <dd>as noted in <a href="#ctlseqs_ms">Xterm Control
-    Sequences</a>, xterm (mostly after "X Consortium") supports
-    control sequences which are not VT100/VT220. GNOME Terminal
-    implements many of these, but not all.</dd>
-  </dl>
+      <dd>as noted in <a href="#ctlseqs_ms">Xterm Control
+      Sequences</a>, xterm (mostly after "X Consortium") supports
+      control sequences which are not VT100/VT220. GNOME Terminal
+      implements many of these, but not all.</dd>
+    </dl>
+  </blockquote>
 
   <p>Perhaps that was unintentional &ndash; GNOME developers did
   not appear to document what their program <em>does</em> outside
@@ -5299,7 +5321,7 @@ Warning: Actions not found: ignore, scroll-back, scroll-forw
 
   <p>VTE's README file asserts</p>
 
-  <blockquote>
+  <blockquote class="code-block">
     <p>VTE supports Unicode and character set conversion, as well
     as emulating any terminal known to the system's terminfo
     database.</p>
@@ -5451,7 +5473,7 @@ Warning: Actions not found: ignore, scroll-back, scroll-forw
   documentation is incomplete and inaccurate. This gem from its
   handbook illustrates the problem:</p>
 
-  <blockquote>
+  <blockquote class="code-block">
     <p>After a decade, Konsole is the first rewrite from the ground
     up. While xterm has definitely been hacked to death (its README
     begins with the words Abandon All Hope, Ye Who Enter Here),
@@ -5610,7 +5632,7 @@ larry.mcrcim.mcgill.edu (132.206.1.1) in
   <p>Rxvt's manual page states the following unqualified
   comment:</p>
 
-  <blockquote>
+  <blockquote class="code-block">
     <p>rxvt, version 2.6.2, is a colour vt102 terminal emulator
     intended as an xterm(1) replacement for users who do not
     require features such as Tektronix 4014 emulation and
@@ -5636,7 +5658,7 @@ larry.mcrcim.mcgill.edu (132.206.1.1) in
 
   <p>This comment was topical in December 2001:</p>
 
-  <blockquote>
+  <blockquote class="code-block">
     <p>Compared with something like GNOME Terminal, which takes 2-3
     times, or KDE konsole, which takes 15-20 times as much memory
     to run, xterm and rxvt memory requirements are
