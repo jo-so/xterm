@@ -1,9 +1,9 @@
-xterm (314-1) UNRELEASED; urgency=low
+xterm (314-1) experimental; urgency=low
 
   * New upstream release.
   * Update copy of XTerm FAQ to revision 1.289 (dated 2014/12/19).
 
- -- Sven Joachim <svenjoac@gmx.de>  Mon, 29 Dec 2014 19:16:16 +0100
+ -- Sven Joachim <svenjoac@gmx.de>  Tue, 30 Dec 2014 18:25:43 +0100
 
 xterm (313-1) experimental; urgency=low
 
