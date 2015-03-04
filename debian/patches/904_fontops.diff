@@ -4,12 +4,12 @@
 
 --- a/xterm.man
 +++ b/xterm.man
-@@ -1814,7 +1814,7 @@ The default is \*(``true\*(''.
+@@ -1899,7 +1899,7 @@ The default is \*(``true\*(''.
  .TP
  .B "allowFontOps (\fPclass\fB AllowFontOps)"
  Specifies whether control sequences that set/query the font should be allowed.
 -The default is \*(``true\*(''.
 +The default is \*(``false\*(''.
- .TP 5
+ .TP 8
  .B "allowPasteControls (\fPclass\fB AllowPasteControls)"
  If true, allow control characters such as BEL and CAN to be pasted.
