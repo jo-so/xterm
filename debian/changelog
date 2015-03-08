@@ -2,6 +2,7 @@ xterm (316-1) UNRELEASED; urgency=low
 
   * New upstream release.
   * Refresh Debian patches.
+  * Update years in debian/copyright.
 
  -- Sven Joachim <svenjoac@gmx.de>  Wed, 04 Mar 2015 17:09:50 +0100
 
