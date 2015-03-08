@@ -1,6 +1,10 @@
 xterm (316-1) UNRELEASED; urgency=low
 
   * New upstream release.
+    - Add configure option --enable-initial-erase to set ptyInitialErase
+      consistently with manpage, as well as adding a table in manpage to
+      clarify the relationship between the resources related to the
+      backarrow key (Closes: #775952).
   * Refresh Debian patches.
   * Update years in debian/copyright.
 
