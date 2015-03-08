@@ -19,7 +19,7 @@
  * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF   *
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.            *
  *****************************************************************************
-  $XTermId: xterm.faq.html,v 1.289 2014/12/19 01:59:01 tom Exp $
+  $XTermId: xterm.faq.html,v 1.293 2015/02/16 11:31:49 tom Exp $
   -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
 
@@ -54,7 +54,7 @@
 
   <p><a href="/">http://invisible-island.net/</a><a href=
   "./">xterm/</a><br>
-  Copyright &copy; 1997-2013,2014 by Thomas E. Dickey</p>
+  Copyright &copy; 1997-2014,2015 by Thomas E. Dickey</p>
   <hr>
 
   <p><a href=
@@ -3571,7 +3571,13 @@ ESC O F
       <p>Downstream packagers (when they noticed this) accommodated
       the bug by modifying the VT100 translations resource which is
       not a good technical solution since it interferes with the
-      users' ability to modify that resource. See <a href=
+      users' ability to modify that resource. For example, Red Hat
+      bug <a href=
+      "https://bugzilla.redhat.com/show_bug.cgi?id=100695">#100695</a>
+      quoted a suggested <a href=
+      "https://bugzilla.redhat.com/attachment.cgi?id=93107&amp;action=diff">
+      patch</a> which shows that the package had overridden the
+      xterm behavior for shifted function keys. See <a href=
       "xterm.faq.html#xterm_xmodmap">this</a> for more
       discussion.</p>
     </dd>
@@ -4096,6 +4102,48 @@ ESC O F
   <p>While additional bytes could be added to each cell, the cost
   to the typical user has so far not been in line with the
   usefulness of the feature.</p>
+
+  <p>For those who are not constrained by cost, since <a href=
+  "xterm.log.html#xterm_305">patch #305</a> xterm provides an
+  experimental compile-time option to support italics. The main
+  reason for implementing this is to be able to test the italics
+  feature added in ncurses (patch <a href=
+  "/ncurses/NEWS.html#t20130831">5.9.20130831</a>):</p>
+
+  <ul>
+    <li>this increases the size of the attributes data.</li>
+
+    <li>the feature requires some overhead for font-switching
+    (treating italics as "rare")</li>
+  </ul>
+
+  <p>The increase in size is not entirely wasted. The SGR
+  attributes for <em>dim</em>, <em>strike-out</em>, and
+  <em>double-underscore</em> also are implemented. However, the
+  last two are not in the portable terminfo definition (from
+  X/Open), and are not supported in the higher-level curses
+  interface (there is no <code>A_STRIKE</code> for that
+  reason).</p>
+
+  <p>Here are screenshots showing the ncurses test-program
+  displaying video attributes (including italics). The first uses
+  bitmap fonts:</p>
+
+  <blockquote>
+    <p><a href=
+    "/ncurses/images/ncurses6-bitmap-italics.png"><img width="300"
+    src="/ncurses/images/ncurses6-bitmap-italics.png" alt=
+    "ncurses &ndash; video attributes with bitmap-font"></a></p>
+  </blockquote>
+
+  <p>and the second uses a (same size) TrueType font:</p>
+
+  <blockquote>
+    <p><a href=
+    "/ncurses/images/ncurses6-truetype-italics.png"><img width=
+    "300" src="/ncurses/images/ncurses6-truetype-italics.png" alt=
+    "ncurses &ndash; video attributes with TrueType font"></a></p>
+  </blockquote>
 
   <h4 id="grep_colors-id"><a name="grep_colors" id=
   "grep_colors">"grep --color" does not show the right
