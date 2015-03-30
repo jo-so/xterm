@@ -1,3 +1,9 @@
+xterm (317-1) UNRELEASED; urgency=low
+
+  * New upstream release.
+
+ -- Sven Joachim <svenjoac@gmx.de>  Mon, 30 Mar 2015 18:14:25 +0200
+
 xterm (316-1) experimental; urgency=low
 
   * New upstream release.
