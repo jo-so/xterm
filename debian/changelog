@@ -1,4 +1,4 @@
-xterm (317-1) UNRELEASED; urgency=low
+xterm (317-1) experimental; urgency=low
 
   * New upstream release.
     - Adapt example for exec-formatted from Lukáš Zapletal's webpage
@@ -6,7 +6,7 @@ xterm (317-1) UNRELEASED; urgency=low
     - Add a short usage section to the xterm manual, including notes
       on setting the window title (Closes: #742477).
 
- -- Sven Joachim <svenjoac@gmx.de>  Mon, 30 Mar 2015 18:14:25 +0200
+ -- Sven Joachim <svenjoac@gmx.de>  Tue, 31 Mar 2015 17:50:42 +0200
 
 xterm (316-1) experimental; urgency=low
 
