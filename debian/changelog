@@ -1,8 +1,8 @@
-xterm (318-1) UNRELEASED; urgency=low
+xterm (318-1) experimental; urgency=low
 
   * New upstream release.
 
- -- Sven Joachim <svenjoac@gmx.de>  Mon, 13 Apr 2015 19:32:59 +0200
+ -- Sven Joachim <svenjoac@gmx.de>  Wed, 15 Apr 2015 17:33:16 +0200
 
 xterm (317-1) experimental; urgency=low
 
