@@ -42,6 +42,14 @@ xterm (313-1) experimental; urgency=low
 
  -- Sven Joachim <svenjoac@gmx.de>  Thu, 04 Dec 2014 18:51:09 +0100
 
+xterm (312-2) unstable; urgency=medium
+
+  * Cherry-pick a patch from xterm 314: change passedPty[] to an
+    allocated string to ensure it is long enough for the -S option
+    value (Closes: #779397).
+
+ -- Sven Joachim <svenjoac@gmx.de>  Sun, 01 Mar 2015 11:45:01 +0100
+
 xterm (312-1) unstable; urgency=medium
 
   * New upstream release.
