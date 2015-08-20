@@ -1,6 +1,6 @@
 <!--
  *****************************************************************************
- * Copyright 1997-2013,2014 by Thomas E. Dickey                              *
+ * Copyright 1997-2014,2015 by Thomas E. Dickey                              *
  * All Rights Reserved.                                                      *
  *                                                                           *
  * Permission to use, copy, modify, and distribute this software and its     *
@@ -19,7 +19,7 @@
  * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF   *
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.            *
  *****************************************************************************
-  $XTermId: xterm.faq.html,v 1.293 2015/02/16 11:31:49 tom Exp $
+  $XTermId: xterm.faq.html,v 1.305 2015/05/01 07:43:40 tom Exp $
   -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
 
@@ -185,6 +185,10 @@
 
     <p>Then hacked on at the X Consortium by uncounted people.</p>
   </blockquote>
+
+  <p>There is a git repository <a href=
+  "http://cgit.freedesktop.org/~alanc/xc-historical/log/xc/programs/xterm/">
+  here</a> which gives some more of xterm's prehistory.</p>
 
   <p>Email from Doug Mink (October 1999) provides more
   background:</p>
@@ -3082,17 +3086,17 @@ setenv COLUMNS 80
   <h4 id="xterm_erase-id"><a name="xterm_erase" id=
   "xterm_erase">Why doesn't my delete key work?</a></h4>
 
-  <p>This seems to be a problem with the older XFree86 release
-  (3.1.2). I have picked up pieces of the story (xterm and the
-  keyboard work as designed under XFree86 3.2 and up).</p>
+  <p>This seems to have begun as a problem with the older XFree86
+  release (3.1.2). I have picked up pieces of the story (xterm and
+  the keyboard work as designed under XFree86 3.2 and up).</p>
 
   <p>The underlying problem is that we've accumulated three things
   that are being equated as "Delete":</p>
 
   <blockquote>
     <pre class="code-block">
-ASCII backspace (code 8)
-ASCII delete (code 127)
+ASCII BS (backspace, code 8)
+ASCII DEL (delete. code 127)
 VT220 "remove" aka "delete" (ESC [ 3 ~)
 </pre>
   </blockquote>
@@ -3105,7 +3109,31 @@ VT220 "remove" aka "delete" (ESC [ 3 ~)
   <code>^?</code>). You would use a control/H to obtain a backspace
   on a real VT220.</p>
 
-  <p>Tastes differ on Unix, people expect the backarrow key to
+  <p>The reason why <code>BS</code> and <code>DEL</code> are of
+  special interest is that on Unix, the <code>stty</code> command
+  and the underlying termios/termio system calls allow only
+  single-byte codes to be assigned to special functions such as
+  <code>erase</code>. For instance, you could see something like
+  this on your terminal:</p>
+
+  <blockquote>
+    <pre class="code-block">
+$ stty -a
+speed 38400 baud; rows 40; columns 80; line = 0;
+intr = ^C; quit = ^\; erase = ^H; kill = ^U; eof = ^D; eol = &lt;undef&gt;;
+eol2 = &lt;undef&gt;; swtch = &lt;undef&gt;; start = &lt;undef&gt;; stop = &lt;undef&gt;; susp = &lt;undef&gt;;
+rprnt = ^R; werase = ^W; lnext = ^V; flush = ^O; min = 1; time = 0;
+-parenb -parodd cs8 -hupcl -cstopb cread -clocal -crtscts
+-ignbrk brkint -ignpar -parmrk -inpck -istrip -inlcr -igncr -icrnl ixon -ixoff
+-iuclc -ixany -imaxbel -iutf8
+-opost -olcuc -ocrnl -onlcr -onocr -onlret -ofill -ofdel nl0 cr0 tab0 bs0 vt0 ff0
+isig -icanon -iexten -echo -echoe -echok -echonl -noflsh -xcase -tostop -echoprt
+-echoctl -echoke
+
+</pre>
+  </blockquote>
+
+  <p>Tastes differ. On Unix, people expect the backarrow key to
   generate a backspace (or not). As I understand it, at one point,
   XFree86 picked up the sense of the erase character during
   initialization, so that xterm would in effect use the same erase
@@ -3113,7 +3141,8 @@ VT220 "remove" aka "delete" (ESC [ 3 ~)
   keyboard mapping tables that are independent of the
   environment.</p>
 
-  <p>Modern xterm provides a resource toggle <em>backarrowKey</em>
+  <p>Modern xterm (since <a href="/xterm.log.html#xterm_83">patch
+  #83</a> in 1998) provides a resource toggle <em>backarrowKey</em>
   (and an escape sequence from VT320) that changes this key between
   the two styles (backspace or delete).</p>
 
@@ -4385,14 +4414,24 @@ ESC O F
   the <code>ti</code> and <code>te</code> capabilities a command to
   switch to xterm's alternate screen (e.g., while running
   <code>vi</code>), and return to the normal screen on exit. This
-  has the effect of clearing the screen. Under Solaris 2.x, the
-  terminfo description does not use the alternate screen (it is a
-  matter of preference after all), so that the text from vi remains
-  on the screen after exit. There are corresponding terminfo
-  symbols for <code>ti</code> and <code>te</code>:
+  has the effect of clearing the screen. The corresponding terminfo
+  symbols for <code>ti</code> and <code>te</code> are
   <code>smcup</code> and <code>rmcup</code>, respectively.</p>
 
-  <p>This is configurable...</p>
+  <p>Beginning with Solaris 2.x, the terminfo description did not
+  use the alternate screen (it is a matter of preference after
+  all), so that the text from vi remains on the screen after exit.
+  Sun patched the X11R5 terminfo description to omit the
+  <code>smcup</code> and <code>rmcup</code> capabilities. However,
+  Sun began distributing modern xterm on the <em>freeware
+  companion</em> (a CDROM) beginning with Solaris 8. In Solaris 10
+  for instance, the ncurses 5.6 package provided a usable terminal
+  description for xterm which uses the alternate screen. Solaris 11
+  distributes modern xterm (though perhaps oddly) using an
+  old&mdash;unpatched&mdash;terminal description.</p>
+
+  <p>Because it is in the terminal description, the feature is
+  configurable...</p>
 
   <p>For example (from Bjorn Helgaas &lt;helgaas@dhc.net&gt;) this
   procedure adds these capabilities to the "xterm" terminfo
@@ -4453,14 +4492,14 @@ ESC O F
   <code>titeInhibit</code>, but not the associated cursor
   save/restore and clear-screen operations.</p>
 
-  <p>XFree86 3.9s xterm implements a different set of controls
-  (private setmodes 1047, 1048 and 1049) which address this (in
-  addition to the older set of controls, for compatibility). The
-  new set of controls implements the entire <code>ti</code>
-  sequence (save cursor, switch to alternate screen, clear screen)
-  and <code>te</code> (switch to normal screen, restore cursor) as
-  two control sequences that can be disabled by
-  <code>titeInhibit</code>.</p>
+  <p><a href="/xterm/xterm.log.html#xterm_54">XFree86 3.9s</a>
+  xterm implemented a different set of controls (private setmodes
+  1047, 1048 and 1049) which address this (in addition to the older
+  set of controls, for compatibility). The new set of controls
+  implements the entire <code>ti</code> sequence (save cursor,
+  switch to alternate screen, clear screen) and <code>te</code>
+  (switch to normal screen, restore cursor) as two control
+  sequences that can be disabled by <code>titeInhibit</code>.</p>
 
   <p>The 1049 code is a refinement of 1047 and 1048, clearing the
   alternate screen before switching to it rather than after
@@ -5591,7 +5630,7 @@ Warning: Actions not found: ignore, scroll-back, scroll-forw
     <pre class="code-block">
 (mouse@Lightning.McRCIM.McGill.EDU) Available:
 larry.mcrcim.mcgill.edu (132.206.1.1) in
-/X/mterm.src/mterm.ball-o-wax.  
+/X/mterm.src/mterm.ball-o-wax.
 </pre>
   </blockquote>
 
@@ -6079,13 +6118,73 @@ larry.mcrcim.mcgill.edu (132.206.1.1) in
 
   <p>An earlier <a href=
   "http://web.archive.org/web/*/http://www.openi18n.org">attempt</a>
-  by the same author (the "CSI-xterm") incorporates some of the
-  changes I made for XFree86 xterm via cut and paste (but does not
-  mention this in its README). It is said to be the basis for
-  Solaris 10 xterm.</p>
+  by the same author (the "CSI-xterm") incorporated in 2002 some of
+  the changes I made for XFree86 xterm via cut and paste (but does
+  not mention this in its README). The "borrowed" changes comprised
+  about 10% of the patch provided for X11R6.5.1, summarized
+  here:</p>
 
-  <p>Both have similar problems running <a href=
-  "/vttest/vttest.html">vttest</a>.</p>
+  <blockquote>
+    <pre class="code-block">
+xterm-6.5.1-i18n-0.7.patch.gz
+ Imakefile     |   25 +
+ RELNOTES-I18N |  104 ++++++
+ XTerm.ad      |    1 
+ button.c      |  155 ++++++++-
+ charproc.c    |  979 ++++++++++++++++++++++++++++++++++++++++++++++++++++------
+ data.c        |    6 
+ data.h        |    4 
+ error.h       |    8 
+ fontutils.c   |   78 ++++
+ fontutils.h   |    8 
+ input.c       |   11 
+ main.c        |   40 +-
+ main.h        |    1 
+ misc.c        |   46 ++
+ ptyx.h        |  156 ++++++++-
+ screen.c      |  513 +++++++++++++++++++++++++++---
+ scrollbar.c   |   36 +-
+ util.c        |  218 +++++++++++-
+ 18 files changed, 2183 insertions(+), 206 deletions(-)
+  
+</pre>
+  </blockquote>
+
+  <p>This patch was said to be the basis for Solaris 10 xterm, and
+  was briefly referred to as the Solaris "color xterm". It did not
+  use the <code>bce</code> color model however, and Sun provided no
+  terminal description for it.</p>
+
+  <p>Back to <em>iterm</em>: the author's README in the patch used
+  the same terminology as in the later work, demonstrating their
+  relationship:</p>
+
+  <blockquote>
+    <pre class="code-block">
+ This is a patch for the xterm of X11 release 6.5.1 to fix its
+internationalization defects. This patch enables xterm to handle
+whatever the character set encodings and scripts support underlining
+operating system supports via the technology called CSI(Code Set
+Independence) and XOM(X Output Method). Traditionally, several
+X terminal emulators which are hard-wired to specific languages and
+encodings were introduced to support local language requirements, such
+as kterm, hanterm, cxterm, UTF-8 xterm and so on. This  truly
+internationalized terminal emulator supersedes the needs of those
+multiple locale specific terminalemulators. 
+</pre>
+  </blockquote>
+
+  <p>The key to understanding the "code set independence" is that
+  the author intended to treat existing character encodings on an
+  equal basis with Unicode and UTF-8. Some of that is reflected in
+  the Solaris <em><a href=
+  "http://docs.oracle.com/cd/E19253-01/817-2521/os-1208/index.html">
+  International Language Environments Guide</a></em>, but in
+  explaining <em>how</em> this is done, the documentation is weak,
+  lacking detail.</p>
+
+  <p>Either version of <em>iterm</em> has similar problems running
+  <a href="/vttest/vttest.html">vttest</a>.</p>
 
   <h2 id="building_it-id"><a name="building_it" id=
   "building_it">How do I build <strong>XTerm</strong>?</a></h2>
@@ -6158,22 +6257,22 @@ configure --help
 --- Intrinsic.h.orig    2009-08-25 13:22:15.000000000 -0400
 +++ Intrinsic.h 2009-12-06 09:48:39.000000000 -0500
 @@ -66,7 +66,11 @@
- 
+
  #define XtSpecificationRelease 6
- 
+
 +#ifdef _CONST_X_STRING
 +typedef const char *String;
 +#else
  typedef char *String;
 +#endif
- 
+
  /* We do this in order to get "const" declarations to work right.  We
   * use _XtString instead of String so that C++ applications can
 --- Xresource.h.orig    2009-07-19 14:43:21.000000000 -0400
 +++ Xresource.h 2009-12-06 10:11:19.000000000 -0500
 @@ -338,8 +338,8 @@
  } XrmOptionKind;
- 
+
  typedef struct {
 -    char           *option;        /* Option abbreviation in argv          */
 -    char           *specifier;     /* Resource specifier                   */
@@ -6182,7 +6281,7 @@ configure --help
      XrmOptionKind   argKind;       /* Which style of option it is          */
      XPointer       value;          /* Value to provide if XrmoptionNoArg   */
  } XrmOptionDescRec, *XrmOptionDescList;
-  
+
 </pre>
   </blockquote>
 
@@ -6227,23 +6326,9 @@ configure --help
     support for Unicode terminals</li>
 
     <li><a href="#other_sites">Other Sites</a></li>
-  </ul>
 
-  <h3 id="other_sites-id"><a name="other_sites" id=
-  "other_sites">Other Sites</a></h3>
-
-  <ul>
-    <li>I have found Richard Shuford's archive to be invaluable for
-    notes on the DEC VT220 and related terminals. This was a
-    <a href=
-    "http://web.eecs.utk.edu/~shuford/terminal_index.html">webpage</a>
-    but was last seen via <a href=
-    "ftp://cs.utk.edu/pub/shuford/">ftp</a>. (I have a snapshot
-    from the ftp site).</li>
-
-    <li>Though not available at the time that I was collecting most
-    of my notes, <a href="http://vt100.net">VT100.net</a> is also a
-    good source of primary information.</li>
+    <li><a href="#ref_misleading">Interesting but
+    misleading</a></li>
   </ul>
 
   <h3 id="xterm_man-id"><a name="xterm_man" id="xterm_man">The
@@ -6348,6 +6433,178 @@ tbl ctlseqs.ms | groff -ms &gt;ctlseqs.ps
   ostensible maintainers have more than once delivered unusable
   versions, causing many bug reports to be issued against
   xterm.</p>
+
+  <h3 id="other_sites-id"><a name="other_sites" id=
+  "other_sites">Other Sites</a></h3>
+
+  <ul>
+    <li>I have found Richard Shuford's archive to be invaluable for
+    notes on the DEC VT220 and related terminals. This was a
+    <a href=
+    "http://web.eecs.utk.edu/~shuford/terminal_index.html">webpage</a>
+    but was last seen via <a href=
+    "ftp://cs.utk.edu/pub/shuford/">ftp</a>. (I have a snapshot
+    from the ftp site).</li>
+
+    <li>Though not available at the time that I was collecting most
+    of my notes, <a href="http://vt100.net">VT100.net</a> is also a
+    good source of primary information.</li>
+  </ul>
+
+  <h3 id="ref_misleading-id"><a name="ref_misleading" id=
+  "ref_misleading">Interesting but misleading:</a></h3>
+
+  <ul>
+    <li>
+      <p>The ncurses FAQ <em><a href=
+      "/ncurses/ncurses.faq.html#vt100_color" id="vt100_color"
+      name="vt100_color">How do I get color with VT100?</a></em>
+      discusses a widely cited bit of misinformation.<br>
+      For instance, this <a href=
+      "https://www.google.com/search?q=%22http%3A%2F%2Fwww.termsys.demon.co.uk%2Fvtansi.htm%22">
+      web search</a> gives 3,000 hits in March 2015.</p>
+    </li>
+
+    <li>
+      <p>Also widely cited, <a href=
+      "http://www.ibb.net/~anne/keyboard/keyboard.html">Consistent
+      BackSpace and Delete Configuration</a> gives advice regarding
+      <a href="#xterm_erase">backspace and delete</a> keys which is
+      heavily biased toward Linux. For instance:</p>
+
+      <ul>
+        <li>
+          <p>the <em>console</em> referred to is the Linux console,
+          which initially had as a goal <em>VT220</em> emulation.
+          Linux never came close to meeting that goal, which was
+          abandoned in the late 1990s when UTF-8 became more
+          important.</p>
+
+          <p>As part of that, Linux's keyboard was (actually
+          modelled on xterm) said to be <em>VT220</em>, and its
+          coding for the backspace key sent <code>DEL</code>. In
+          contrast, ncurses' terminal database says
+          <code>kbs</code> for the <a href=
+          "/ncurses/terminfo.src.html#tic-vt220">vt220</a> sends
+          <code>^H</code> (<code>BS</code>).</p>
+        </li>
+
+        <li>
+          <p>the guideline uses "newer", "right" and "correct" in
+          the part which describes <code>DEL</code>, versus "dirty"
+          and "break", "broken" in that addressing
+          <code>BS</code>.</p>
+        </li>
+      </ul>
+
+      <p>In addition to bias, the technical remedies are unsuitable
+      for generic advice. In particular, the comments about
+      terminfo, <code>xmodmap</code> and xterm's translations
+      resource are suitable only for special cases because the
+      proposed solutions create problems of their own.</p>
+
+      <p>The page itself was written in 1997, with only minor fixes
+      since then. Thus, it does not reflect any of the improvements
+      made to xterm. Its lack of relevance does not prevent people
+      from citing it. For instance, <a href=
+      "http://unix.stackexchange.com/questions/180087/why-pressing-ctrl-h-in-xterm-tmux-sends/180106#180106">
+      this page</a>'s <em>accepted answer</em> recommends that
+      (although neither gives a useful answer to the question).
+      Here are a few clues:</p>
+
+      <ul>
+        <li>
+          <p>Debian's current package for ncurses uses the
+          <code>--with-xterm-kbs</code> configure option which I
+          added in <a href="/ncurses/NEWS.html#20120211">2012</a>.
+          Debian also applies patches to many of the terminal
+          descriptions, including adding a patched copy of xterm's
+          terminfo file to ncurses's terminfo file.</p>
+
+          <p>The patched copy is redundant and a source of problems
+          (since the two overlap, with slightly different goals
+          regarding PC- and VT220-style keyboards). My intent in
+          adding the configure option to ncurses was to wean them
+          away from the patch. That has not happened yet.</p>
+        </li>
+
+        <li>
+          <a href="http://tmux.sourceforge.net/">tmux</a> is
+          (mostly) a terminfo application. However, it does not use
+          the terminal database's <code>kbs</code> value. Rather
+          (referring to the source for 1.9a), it uses the termios
+          setting:
+
+          <blockquote>
+            <!--{{atr2html-->
+
+            <p style="font-family: monospace; font-size: 10pt;"
+            class="code-block">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">/*<br>
+            </span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">*&nbsp;Check&nbsp;for&nbsp;backspace&nbsp;key&nbsp;using&nbsp;termios&nbsp;VERASE&nbsp;-&nbsp;the&nbsp;terminfo<br>
+            </span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">*&nbsp;kbs&nbsp;entry&nbsp;is&nbsp;extremely&nbsp;unreliable,&nbsp;so&nbsp;cannot&nbsp;be&nbsp;safely<br>
+            </span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">*&nbsp;used.&nbsp;termios&nbsp;should&nbsp;have&nbsp;a&nbsp;better&nbsp;idea.<br>
+            </span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">*/</span><br>
+
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bspace&nbsp;=&nbsp;tty-&gt;tio.c_cc[VERASE];<br>
+
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;(bspace&nbsp;!=&nbsp;_POSIX_VDISABLE&nbsp;&amp;&amp;&nbsp;key&nbsp;==&nbsp;bspace)<br>
+
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;key&nbsp;=&nbsp;KEYC_BSPACE;<br>
+
+            <!--atr2html}}--></p>
+          </blockquote>
+
+          <p>At the same time, <code>tmux</code> sets
+          <code>$TERM</code> to "screen", by default. Debian
+          patches that terminal description, too. Applications
+          running inside <code>tmux</code> use that terminal
+          description. If instead <code>tmux</code> translated the
+          backspace key to match the value from <a href=
+          "/ncurses/man/curs_termattrs.3x.html">erasechar</a> (for
+          the given <code>$TERM</code>), its clients would receive
+          consistent information.</p>
+
+          <p>Thus, rather than blaming the user (for a "badly
+          configured" xterm), the actual problem is a design flaw
+          in <code>tmux</code> which should have been sent to its
+          developers in a bug report.</p>
+        </li>
+      </ul>
+    </li>
+
+    <li>
+      <p>Noted <a href=
+      "http://stackoverflow.com/questions/24833129/how-to-change-the-window-title-of-te-based-on-vt320">
+      here</a>, someone pointed out an <a href=
+      "http://bio.gsi.de/DOCS/NCDWARE/V5.0.000/HTML/term_em8.htm">NCDware
+      document</a> describing its terminal control sequences.</p>
+
+      <p>Disregarding the title <em>Using VT320 Terminal Emulator
+      Escape Sequences</em>, it described some variant of xterm
+      rather than a DEC VT320. VT320s for example had no "alternate
+      screen". Nor did it have a feature for the "curses (1)
+      fix".</p>
+
+      <p>The NCD documentation (dated December 12, 1997) does not
+      mention xterm. A <a href=
+      "http://www.textfiles.com/bitsavers/pdf/ncd/9300584A_NCDware_Reference_Manual_Oct1997.pdf">
+      related manual</a> does mention xterm, but only in other
+      sections. There are other issues with the manual. For
+      example, aixterm (<a href=
+      "/xterm/xterm.log.html#xterm_39">16-color</a>) control
+      sequences are documented as "NCD-specific values". NCD did
+      add escape sequences for status line (<a href=
+      "#bug_kterm">kterm</a> did this as well, according to the
+      6.2.0 sources dated July 1996), as well as VT220 national
+      replacement characters (which I added early in <a href=
+      "/xterm/xterm.log.html#xterm_70">1998</a>).</p>
+    </li>
+  </ul>
 
   <h2 id="future_work-id"><a name="future_work" id=
   "future_work">Ongoing/future work</a></h2>
