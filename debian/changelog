@@ -1,6 +1,8 @@
 xterm (320-1) UNRELEASED; urgency=medium
 
   * New upstream release.
+    - Amend fix for bug #794201 (report forwarded from Christian Jachmann
+      by Emanuel Haupt, Closes: #797008).
 
  -- Sven Joachim <svenjoac@gmx.de>  Sat, 29 Aug 2015 08:57:26 +0200
 
