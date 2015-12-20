@@ -1,3 +1,10 @@
+xterm (320-2) UNRELEASED; urgency=medium
+
+  * Run lynx with the -display_charset=utf-8 option when dumping the text
+    version of the XTerm FAQ, making the build reproducible.
+
+ -- Sven Joachim <svenjoac@gmx.de>  Sun, 20 Dec 2015 12:09:26 +0100
+
 xterm (320-1) unstable; urgency=medium
 
   * New upstream release.

@@ -12,7 +12,7 @@ CFLAGS += -Wall
 LDFLAGS = $(shell dpkg-buildflags --get LDFLAGS)
 CPPFLAGS = $(shell dpkg-buildflags --get CPPFLAGS)
 
-HTML2TEXT:=lynx -dump -nolist
+HTML2TEXT:=lynx -dump -nolist -display_charset=utf-8
 
 DEBTREEDIR:=$(CURDIR)/debian/tmp
 
