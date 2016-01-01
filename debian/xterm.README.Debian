@@ -14,7 +14,7 @@ xterm-xorg in exactly two respects:
      27, a.k.a ESCAPE) instead of ^? (ASCII 127)
 ^[[3~ is the DEC VT220 escape sequence for the keypad delete key (not the
 numeric keypad, the one with Page Up, Page Down, etc. on a PC keyboard).
-DEC VT100's, the text terminal wich xterm was designed to emulate, had no
+DEC VT100's, the text terminal which xterm was designed to emulate, had no
 keypad delete key.  ^[[3~ is also what the Linux console terminal type
 generates for the keypad delete key.  Note that the terminal definitions
 that a Debian system uses are in the ncurses-base and ncurses-term
