@@ -19,7 +19,7 @@
  * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF   *
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.            *
  *****************************************************************************
-  $XTermId: xterm.faq.html,v 1.305 2015/05/01 07:43:40 tom Exp $
+  $XTermId: xterm.faq.html,v 1.307 2015/12/28 00:45:27 tom Exp $
   -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
 
@@ -759,9 +759,9 @@
   </table>
 
   <p>Modern xterm implements 188 primary controls. In this table,
-  konsole ranks last because it does not support vt52 emulation.
-  This is not unusual, since the rxvt-based emulators do not,
-  either. However, all vt100's provide this feature; programs
+  vte ranks lower than PuTTY because it does not support vt52
+  emulation. This is not unusual, since the rxvt-based emulators do
+  not, either. However, all vt100's provide this feature; programs
   lacking this are not really a vt100 emulator. On the other hand,
   PuTTY (which is not a vt100 emulator due to its incompatible
   wrapping behavior) supports this feature.</p>
@@ -3141,10 +3141,11 @@ isig -icanon -iexten -echo -echoe -echok -echonl -noflsh -xcase -tostop -echoprt
   keyboard mapping tables that are independent of the
   environment.</p>
 
-  <p>Modern xterm (since <a href="/xterm.log.html#xterm_83">patch
-  #83</a> in 1998) provides a resource toggle <em>backarrowKey</em>
-  (and an escape sequence from VT320) that changes this key between
-  the two styles (backspace or delete).</p>
+  <p>Modern xterm (since <a href=
+  "/xterm/xterm.log.html#xterm_83">patch #83</a> in 1998) provides
+  a resource toggle <em>backarrowKey</em> (and an escape sequence
+  from VT320) that changes this key between the two styles
+  (backspace or delete).</p>
 
   <p>With modern xterm <a href=
   "/xterm/xterm.log.html#xterm_95">patch 95</a> (also in the stable

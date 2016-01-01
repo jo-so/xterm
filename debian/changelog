@@ -3,6 +3,7 @@ xterm (321-1) UNRELEASED; urgency=medium
   * New upstream release.
   * Run lynx with the -display_charset=utf-8 option when dumping the text
     version of the XTerm FAQ, making the build reproducible.
+  * Update copy of XTerm FAQ to revision 1.307 (dated 2015/12/28).
 
  -- Sven Joachim <svenjoac@gmx.de>  Sun, 20 Dec 2015 12:09:26 +0100
 
