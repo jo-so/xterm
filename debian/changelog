@@ -3,6 +3,7 @@ xterm (322-1) UNRELEASED; urgency=medium
   * New upstream release.
     - Fix regression due to incorrect fix for compiler warning when
       allocating storage for /etc/shells (Closes: #809646). 
+  * Update years in debian/copyright.
 
  -- Sven Joachim <svenjoac@gmx.de>  Sat, 02 Jan 2016 16:10:35 +0100
 
