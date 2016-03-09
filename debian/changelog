@@ -4,14 +4,14 @@ xterm (323-1) UNRELEASED; urgency=medium
   * Use https for Vcs-* fields.
   * Prefer lynx over lynx-cur in Build-Depends.
   * Bump Standards-Version to 3.9.7, no changes needed.
-  
+
  -- Sven Joachim <svenjoac@gmx.de>  Wed, 09 Mar 2016 17:30:44 +0100
 
 xterm (322-1) unstable; urgency=medium
 
   * New upstream release.
     - Fix regression due to incorrect fix for compiler warning when
-      allocating storage for /etc/shells (Closes: #809646). 
+      allocating storage for /etc/shells (Closes: #809646).
   * Update years in debian/copyright.
 
  -- Sven Joachim <svenjoac@gmx.de>  Sat, 02 Jan 2016 16:17:27 +0100
@@ -1024,7 +1024,7 @@ xterm (210-1) unstable; urgency=low
    * Merge duplicate Provides fields
 
  -- David Nusinow <dnusinow@debian.org>  Mon, 13 Mar 2006 22:12:41 -0500
- 
+
 xterm (208-3.1) unstable; urgency=low
 
   * Emergency NMU to fix queue/accepted breakage: s/Provides/Replaces/
