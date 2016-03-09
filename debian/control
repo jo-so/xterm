@@ -17,7 +17,7 @@ Build-Depends:
  debhelper (>= 9),
  quilt,
  autotools-dev,
- lynx-cur | lynx,
+ lynx | lynx-cur,
  xorg-docs-core,
  desktop-file-utils,
 
