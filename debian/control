@@ -3,7 +3,7 @@ Section: x11
 Priority: optional
 Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
 Uploaders: Sven Joachim <svenjoac@gmx.de>
-Standards-Version: 3.9.6
+Standards-Version: 3.9.7
 Vcs-Browser: https://anonscm.debian.org/cgit/pkg-xorg/app/xterm.git
 Vcs-Git: https://anonscm.debian.org/git/pkg-xorg/app/xterm.git
 Homepage: http://invisible-island.net/xterm/xterm.html
