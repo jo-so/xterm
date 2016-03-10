@@ -1,11 +1,11 @@
-xterm (323-1) UNRELEASED; urgency=medium
+xterm (323-1) unstable; urgency=medium
 
   * New upstream release.
   * Use https for Vcs-* fields.
   * Prefer lynx over lynx-cur in Build-Depends.
   * Bump Standards-Version to 3.9.7, no changes needed.
 
- -- Sven Joachim <svenjoac@gmx.de>  Wed, 09 Mar 2016 17:30:44 +0100
+ -- Sven Joachim <svenjoac@gmx.de>  Thu, 10 Mar 2016 18:02:21 +0100
 
 xterm (322-1) unstable; urgency=medium
 
