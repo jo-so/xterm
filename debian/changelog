@@ -1,3 +1,9 @@
+xterm (324-1) UNRELEASED; urgency=medium
+
+  * New upstream release.
+
+ -- Sven Joachim <svenjoac@gmx.de>  Fri, 11 Mar 2016 18:06:51 +0100
+
 xterm (323-1) unstable; urgency=medium
 
   * New upstream release.
