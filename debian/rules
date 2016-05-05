@@ -6,6 +6,8 @@
 # Licensed under the GNU General Public License, version 2.  See the file
 # /usr/share/common-licenses/GPL or <http://www.gnu.org/copyleft/gpl.txt>.
 
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
 CFLAGS = $(shell dpkg-buildflags --get CFLAGS)
 CFLAGS += -Wall
 
