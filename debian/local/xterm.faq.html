@@ -1,6 +1,6 @@
 <!--
  *****************************************************************************
- * Copyright 1997-2014,2015 by Thomas E. Dickey                              *
+ * Copyright 1997-2015,2016 by Thomas E. Dickey                              *
  * All Rights Reserved.                                                      *
  *                                                                           *
  * Permission to use, copy, modify, and distribute this software and its     *
@@ -19,7 +19,7 @@
  * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF   *
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.            *
  *****************************************************************************
-  $XTermId: xterm.faq.html,v 1.307 2015/12/28 00:45:27 tom Exp $
+  $XTermId: xterm.faq.html,v 1.317 2016/03/21 00:56:33 tom Exp $
   -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
 
@@ -54,7 +54,7 @@
 
   <p><a href="/">http://invisible-island.net/</a><a href=
   "./">xterm/</a><br>
-  Copyright &copy; 1997-2014,2015 by Thomas E. Dickey</p>
+  Copyright &copy; 1997-2015,2016 by Thomas E. Dickey</p>
   <hr>
 
   <p><a href=
@@ -2551,6 +2551,9 @@ current_title=$(xprop -id $WINDOWID | grep WM_NAME | cut -d= -f2)
         <li><a href="#bold_vs_16colors">Aren't bright colors the
         same as bold?</a></li>
 
+        <li><a href="#color_by_number">Can I set a color by its
+        number?</a></li>
+
         <li><a href="#dont_like_blue">I don't like that shade of
         blue</a></li>
 
@@ -2589,6 +2592,9 @@ current_title=$(xprop -id $WINDOWID | grep WM_NAME | cut -d= -f2)
 
         <li><a href="#narrowproto">Why doesn't the scrollbar
         work?</a></li>
+
+        <li><a href="#xaw_scrollbars">Can I improve the
+        scrollbars?</a></li>
 
         <li><a href="#window_ops">Why can't my program read the
         window title?</a></li>
@@ -3995,6 +4001,554 @@ ESC O F
   configurable and you can use anything that you like for the
   numbered colors.</p>
 
+  <h4 id="color_by_number-id"><a name="color_by_number" id=
+  "color_by_number">Can I set a color by its number?</a></h4>
+
+  <p>Well, yes: you can set a color in several ways:</p>
+
+  <ul>
+    <li>using the color <em>name</em></li>
+
+    <li>using an RGB <em>value</em></li>
+
+    <li>selecting an <em>index</em> from the color palette</li>
+  </ul>
+
+  <p>That last (an <em>index</em>) is what some people think of as
+  the <em>color number</em>. The short answer is that you can find
+  on the web tables of colors and match them up to the &ldquo;color
+  number&rdquo;. But the number itself has no meaning.</p>
+
+  <p>In my reply to <em><a href=
+  "http://unix.stackexchange.com/questions/269077/tput-setaf-color-table-how-to-determine-color-codes">
+  tput setaf color table? How to determine color codes?</a></em>, I
+  noted</p>
+
+  <blockquote>
+    <p>You may find this question/answer helpful as well:
+    <em><a href=
+    "https://stackoverflow.com/questions/27159322/rgb-values-of-the-colors-in-the-ansi-extended-colors-index-17-255">
+    RGB values of the colors in the Ansi extended colors index
+    (17-255)</a></em></p>
+  </blockquote>
+
+  <p>although both question and answer raise additional questions.
+  This FAQ is the logical place to answer those questions.</p>
+
+  <p>Presumably you are reading this to better understand how xterm
+  works. But you may be interested in the way in which other
+  terminals emulate xterm. If so, this explanation may help as
+  well.</p>
+
+  <p>The long answer is that the correct mapping depends on the
+  terminal &mdash; other terminals do not necessarily match
+  xterm.</p>
+
+  <p>From a shell script, you might use <a href=
+  "/ncurses/man/tput.1.html">tput</a> with a parameter to an escape
+  sequence referred to as <code>setaf</code> in the terminal
+  description. <code>tput</code> attaches no particular meaning to
+  the number. That actually depends upon the particular terminal
+  emulator.</p>
+
+  <p>A while back, ANSI defined codes for 8 colors, and there were
+  two schemes for numbering those. The two are seen in some
+  terminal descriptions as the pairs <code>setf/setb</code> or
+  <code>setaf/setab</code>. Since the latter has the connotation of
+  "ANSI colors", you will see that used more often. The former
+  (<code>setf/setb</code>) switched the order for red/blue as noted
+  in <em><a href=
+  "/ncurses/ncurses.faq.html#interchanged_colors">Why are red/blue
+  interchanged?</a></em>, but in either case, the scheme was
+  established for just numbering the colors. There is no predefined
+  relationship between those numbers and RGB content.</p>
+
+  <p>For specific terminal emulators, there are predefined color
+  palettes which can be enumerated easily enough &mdash; and can be
+  programmed using these escape sequences. There are no relevant
+  standards, and you will see differences between terminal
+  emulators, as noted in <em><a href="#dont_like_blue">I don't like
+  that shade of blue</a></em>.</p>
+
+  <p>However, convention is often confused with standards. Because
+  xterm has been around a while, it is regarded as a standard by
+  some.</p>
+
+  <p>XTerm had color support before I began working on it at the
+  <a href="/xterm/xterm.html#history">end of 1995</a>. Some of this
+  was mentioned in XFree86's changelog:</p>
+
+  <blockquote>
+    <pre class="code-block">
+XFree86 3.1.2Be (10 January 1996)
+203. Major xterm cleanup (including prototyping), and fixes to the colour
+     code (Thomas E. Dickey).
+XFree86 3.1.2a (23 September 1995)
+ 14. Colour support for xterm (David Wexelblat).
+ 13. Fix usage of $LINES and $COLUMNS by xterm on SVR4 (David Wexelblat).
+</pre>
+  </blockquote>
+
+  <p>and some was not:</p>
+
+  <ul>
+    <li>
+      <p>The &ldquo;dynamic colors&rdquo; feature came from a patch
+      written by Erik Fortune (at SGI). Someone applied this to the
+      XFree86 sources (probably early 1995).</p>
+
+      <p>Since X11R4, xterm had colors for foreground and
+      background in the VT100 and Tek4014 widgets, as well as
+      cursor- and mouse-colors which could be set via resources.
+      But those were <em>static</em>. The <em>dynamic colors</em>
+      feature allowed those colors to be set via escape
+      sequences.</p>
+    </li>
+
+    <li>
+      <p>&ldquo;Colour support&rdquo; was a set of changes for ANSI
+      color. It might have been based on a patch (said to be of
+      unknown authorship) for X11R5 xterm incorporated into a
+      program called <em>color_xterm</em>. Raymond's <a href=
+      "/ncurses/terminfo.src.html#tic-color_xterm">comment</a> in
+      terminfo.src implies that this program was distributed
+      earlier; however the copy of <code>color_xterm-alpha4</code>
+      which I have at hand has file modification dates starting in
+      December 1995. Wexelblat's commit is an earlier
+      <em>non-patch</em> use of the feature for xterm.</p>
+
+      <p>Both were probably due to Tom Weinstein (also at SGI) in
+      1992, which you can find in the <a href=
+      "http://www.ibiblio.org/pub/historic-linux/ftp-archives/tsx-11.mit.edu/Oct-07-1996/sources/usr.bin.X11/">
+      historic Linux</a> archive. The <code>README.color</code>
+      file in this earlier <a href=
+      "http://www.ibiblio.org/pub/historic-linux/ftp-archives/tsx-11.mit.edu/Oct-07-1996/sources/usr.bin.X11/color_xterm.tar.gz">
+      color_xterm</a> says</p>
+
+      <blockquote>
+        <pre class="code-block">
+2) Added ISO 6429 support for color text.  You can set the foreground
+   and background color for text using SGR.  For example, to make the
+   foreground red, you do:  "^[[31m".  The values from 30 to 37 set
+   foreground, those from 40 to 47 set background.  The default colors
+   are: 
+        0) black   1) red   2) green  3) yellow  4) blue  5) magenta
+        6) cyan    7) white
+
+   These are settable with the resources "color0" to "color1"
+</pre>
+      </blockquote>
+
+      <p>Aside from <code>README.color</code>, there was no
+      documentation. The terminal description was unmodified.</p>
+    </li>
+  </ul>
+
+  <p>Thus, from the start there were two types of color support in
+  xterm. ANSI colors treats the available colors as an array (its
+  palette) which can be programmed, while dynamic colors applies a
+  single color to a feature.</p>
+
+  <p>There have been some changes since the <em>color_xterm</em> in
+  1992:</p>
+
+  <blockquote>
+    <table border="1" summary="ANSI colors before and now">
+      <tr>
+        <th>Resource</th>
+
+        <th>1992</th>
+
+        <th>1995</th>
+
+        <th>2016</th>
+      </tr>
+
+      <tr>
+        <td><code>color0</code></td>
+
+        <td><code>Black</code></td>
+
+        <td><code>black</code></td>
+
+        <td><code>black</code></td>
+      </tr>
+
+      <tr>
+        <td><code>color1</code></td>
+
+        <td><code>Red</code></td>
+
+        <td><code>red3</code></td>
+
+        <td><code>red3</code></td>
+      </tr>
+
+      <tr>
+        <td><code>color2</code></td>
+
+        <td><code>Green</code></td>
+
+        <td><code>green3</code></td>
+
+        <td><code>green3</code></td>
+      </tr>
+
+      <tr>
+        <td><code>color3</code></td>
+
+        <td><code>Yellow</code></td>
+
+        <td><code>yellow3</code></td>
+
+        <td><code>yellow3</code></td>
+      </tr>
+
+      <tr>
+        <td><code>color4</code></td>
+
+        <td><code>Blue</code></td>
+
+        <td><code>blue3</code></td>
+
+        <td><code>blue2</code></td>
+      </tr>
+
+      <tr>
+        <td><code>color5</code></td>
+
+        <td><code>Magenta</code></td>
+
+        <td><code>magenta3</code></td>
+
+        <td><code>magenta3</code></td>
+      </tr>
+
+      <tr>
+        <td><code>color6</code></td>
+
+        <td><code>Cyan</code></td>
+
+        <td><code>cyan3</code></td>
+
+        <td><code>cyan3</code></td>
+      </tr>
+
+      <tr>
+        <td><code>color7</code></td>
+
+        <td><code>White</code></td>
+
+        <td><code>gray90</code></td>
+
+        <td><code>gray90</code></td>
+      </tr>
+
+      <tr>
+        <td><code>color8</code></td>
+
+        <td>&nbsp;</td>
+
+        <td><code>gray30</code></td>
+
+        <td><code>gray50</code></td>
+      </tr>
+
+      <tr>
+        <td><code>color9</code></td>
+
+        <td>&nbsp;</td>
+
+        <td><code>red</code></td>
+
+        <td><code>red</code></td>
+      </tr>
+
+      <tr>
+        <td><code>color10</code></td>
+
+        <td>&nbsp;</td>
+
+        <td><code>green</code></td>
+
+        <td><code>green</code></td>
+      </tr>
+
+      <tr>
+        <td><code>color11</code></td>
+
+        <td>&nbsp;</td>
+
+        <td><code>yellow</code></td>
+
+        <td><code>yellow</code></td>
+      </tr>
+
+      <tr>
+        <td><code>color12</code></td>
+
+        <td>&nbsp;</td>
+
+        <td><code>blue</code></td>
+
+        <td><code>rgb:5c/5c/ff</code></td>
+      </tr>
+
+      <tr>
+        <td><code>color13</code></td>
+
+        <td>&nbsp;</td>
+
+        <td><code>magenta</code></td>
+
+        <td><code>magenta</code></td>
+      </tr>
+
+      <tr>
+        <td><code>color14</code></td>
+
+        <td>&nbsp;</td>
+
+        <td><code>cyan</code></td>
+
+        <td><code>cyan</code></td>
+      </tr>
+
+      <tr>
+        <td><code>color15</code></td>
+
+        <td>&nbsp;</td>
+
+        <td><code>white</code></td>
+
+        <td><code>white</code></td>
+      </tr>
+
+      <tr>
+        <td><code>colorUL</code></td>
+
+        <td>&nbsp;</td>
+
+        <td><code>yellow</code></td>
+
+        <td><code>foreground</code></td>
+      </tr>
+
+      <tr>
+        <td><code>colorBD</code></td>
+
+        <td>&nbsp;</td>
+
+        <td><code>white</code></td>
+
+        <td><code>foreground</code></td>
+      </tr>
+
+      <tr>
+        <td><code>colorRV</code></td>
+
+        <td>&nbsp;</td>
+
+        <td>&nbsp;</td>
+
+        <td><code>foreground</code></td>
+      </tr>
+
+      <tr>
+        <td><code>colorIT</code></td>
+
+        <td>&nbsp;</td>
+
+        <td>&nbsp;</td>
+
+        <td><code>foreground</code></td>
+      </tr>
+    </table>
+  </blockquote>
+
+  <p>In development of xterm over the past 20 years, we</p>
+
+  <ul>
+    <li>incorporated ANSI (8) colors,</li>
+
+    <li>adapted the aixterm feature (16) colors,</li>
+
+    <li>added extensions for 88- and 256-colors.</li>
+  </ul>
+
+  <p>Much of that has been adopted by other developers for
+  different terminal emulators. That is summarized in <a href=
+  "/ncurses/ncurses.faq.html#xterm_256color">Why not make "xterm"
+  equated to "xterm-256color"?</a>.</p>
+
+  <p>As hinted by the table, the 16-color extension was partly
+  implemented in xterm by late 1995, using the scheme of Linux
+  console: <em>bold</em> fonts are shown as <em>brighter</em>
+  equivalents of the ANSI 8 colors. Unlike the Linux console, xterm
+  can use bold fonts and (aside from providing similar appearance
+  to the Linux console for programs such as <a href=
+  "/dialog/dialog.html">dialog</a>) there was no reason to pretend
+  that <a href="#bold_vs_16colors">bold and bright were
+  synonymous</a>.</p>
+
+  <p>The <code>colorUL</code> and <code>colorBD</code> features are
+  part of this discussion because I incorporated those into the
+  indexing scheme for colors. More on that later.</p>
+
+  <p>First, deal with the 256- and 88-color extensions.</p>
+
+  <p>The reason for <em>256</em> colors is that the index would fit
+  in a byte. Larason's scheme was simple enough:</p>
+
+  <ul>
+    <li>the existing 16 colors</li>
+
+    <li>a color cube (6x6x6 is 216, which is the largest cube no
+    larger than 256).</li>
+
+    <li>a grayscale "ramp", using the remaining 24 entries.</li>
+  </ul>
+
+  <p>The xterm source-code includes scripts for demonstrating the
+  colors, e.g., using the same escape sequences that
+  <code>tput</code> would use:</p>
+
+  <ul>
+    <li><a href="/xterm/xterm.log.html#xterm_94">patch #94</a>
+    (1999/03/27) added <code>8colors.sh, 16colors.sh</code></li>
+
+    <li><a href="/xterm/xterm.log.html#xterm_111">patch #111</a>
+    (1999/07/10) added <code>256colors.pl and
+    256colors2.pl</code></li>
+
+    <li><a href="/xterm/xterm.log.html#xterm_115">patch #115</a>
+    (1999/07/18) added <code>88colors.pl and
+    88colors2.pl</code></li>
+  </ul>
+
+  <p>I added the scripts in patch #94 because of some user comments
+  that there were scripts of that sort available, that there were
+  some deficiencies in those, and and it would be nice to have some
+  good examples in xterm's source. Coincidentally, that gave Todd
+  Larason and Stephen P Wall a starting point for the changes to
+  support 256- and 88-colors.</p>
+
+  <p>The 256-color extension came first. 88-colors (using the same
+  control sequence) came next, to reduce the amount of memory
+  needed. XTerm stores both foreground and background color indexes
+  for each cell on the screen. That is two bytes, which doubled the
+  amount of memory used by xterm for the scrollback. Reducing that
+  to a single byte allowed a similar scheme using a 4x4x4 cube and
+  a proportionately shorter grayscale ramp.</p>
+
+  <p>Like the aixterm 16-color extension, these colors are stored
+  in an array. Unlike aixterm (whose developers invented a new set
+  of escape sequences not found in ANSI or ECMA-48), we used
+  sequences found in ECMA-48: SGR codes 38 and 48. However, the
+  feature evolved:</p>
+
+  <ul>
+    <li>
+      <p>The default color palette for xterm uses header-files
+      generated using scripts similar to the ones provided for
+      demonstrations (<a href=
+      "/xterm/xterm.log.html#xterm_112">patch #112</a>).</p>
+
+      <p>The first 16 colors (except for blue) use names in the X
+      <code>rgb.txt</code>.</p>
+    </li>
+
+    <li>
+      <p>The X libraries cannot handle enough resources to specify
+      all of the 256 colors as well as other features in xterm.</p>
+
+      <p>Starting with <a href=
+      "/xterm/xterm.log.html#xterm_129">patch #129</a>, I made the
+      <em>resource</em> settings for colors past the first 16 a
+      compile-time option. If you prefer to have the colors as X
+      resource values, you lose UTF-8. Since xterm accepted escape
+      sequences for setting the palette, this was not a
+      problem.</p>
+    </li>
+
+    <li>Steve Wall modified the palette in 2002 (<a href=
+    "/xterm/xterm.log.html#xterm_166">patch #166</a>), making it a
+    little brighter.</li>
+
+    <li>
+      <p>We used semicolon (like other SGR parameters) for
+      separating the R/G/B values in the escape sequence, since a
+      copy of ITU T.416 (ISO-8613-6) which presumably clarified the
+      use of colon for this feature was costly.</p>
+
+      <p>It took several years for this to become an issue. The
+      developers of other terminal emulators were not the ones who
+      first complained about it.</p>
+
+      <p>Finally, in 2012 (<a href="/xterm/xterm.log.html">patch
+      #282</a>), I extended the parser to accommodate the "correct"
+      syntax. The original remains, simply because of its
+      widespread use. As before, it took a few years for other
+      terminal developers to notice and start incorporating the
+      improvement. As of March 2016, not all have finished
+      noticing.</p>
+    </li>
+  </ul>
+
+  <p>As others incorporated the xterm 256-color feature, the
+  ability to <em>set</em> the palette was usually not done before
+  announcing that a program had the 256-color feature. Others
+  acquired the ability to set the palette after a lapse of years.
+  As an exception, Geoff Wing (rxvt developer) implemented the
+  complete feature in August 2002 (release 2.7.9). Any
+  xterm-<em>compatible</em> implementation with support for
+  256-colors automatically supports 88-colors, since the palette is
+  modifiable, which makes comments such as <a href=
+  "http://unix.stackexchange.com/questions/269077/tput-setaf-color-table-how-to-determine-color-codes">
+  this</a> at best badly informed.</p>
+
+  <p>XTerm stores the colors for <code>colorUL</code>, etc., at the
+  end of the color array used for ANSI, 16-, 88- and 256-colors. An
+  application can <em>modify</em> the colors using
+  <code>OSC&nbsp;4</code>, which does not reduce the range
+  available for the <code>SGR&nbsp;38/48</code> index used for
+  <em>selecting</em> colors (underline, bold, reverse &mdash; and
+  italics &mdash; all have their place in the video attribute
+  fields). Like dynamic colors, this was a feature found in XFree86
+  but not in X11R5 or X11R6. According to David Dawes, some people
+  liked the feature. <a href="http://olesenm.github.io/about/">Mark
+  J Olesen</a> incorporated the same into rxvt mid-1996, and I
+  added the other two attributes. However, it was mainly popular
+  with Red Hat users who wanted to color their manpages. After
+  Werner Lemberg changed groff behavior <a href=
+  "https://lists.gnu.org/archive/html/groff/2001-10/msg00055.html">in
+  2001</a> to color manpages, this feature is not that well
+  known.</p>
+
+  <p>Finally, there are the <em>default</em> foreground and
+  background colors set using <code>SGR&nbsp;39/49</code>.</p>
+
+  <p>If one wants to enumerate the colors which can be set by index
+  in xterm, there are multiple indices that are needed:</p>
+
+  <ul>
+    <li>SGR number (for the 8 ANSI colors, the extra 8 aixterm
+    colors and the default colors)</li>
+
+    <li>SGR 38/48 with (index) parameter (for the 88-colors and the
+    256-colors, keeping in mind that those include the first 16
+    ANSI and aixterm colors)</li>
+
+    <li>OSC 4 with (index) parameter (colored video
+    attributes)</li>
+
+    <li>OSC numbers 10-19 (dynamic colors)</li>
+  </ul>
+
+  <p>The sample scripts in xterm's sources demonstrate these
+  features. Some are written in POSIX shell, the remainder are in
+  Perl.</p>
+
   <h4 id="dont_like_blue-id"><a name="dont_like_blue" id=
   "dont_like_blue">I don't like that shade of blue</a></h4>
 
@@ -4603,6 +5157,61 @@ ESC O F
 configure --disable-imake --disable-narrowproto
 </pre>
   </blockquote>
+
+  <h4 id="xaw_scrollbars-id"><a name="xaw_scrollbars" id=
+  "xaw_scrollbars">Can I improve the scrollbars?</a></h4>
+
+  <p>Is that a problem with the appearance, or the way they
+  work?</p>
+
+  <p>The appearance can be modified (though few do this) by linking
+  with one of the variants of the Athena widget set (Xaw).</p>
+
+  <p>To illustrate, here are a few screenshots:</p>
+
+  <blockquote>
+    <dl>
+      <dt>Xaw (default)</dt>
+
+      <dd>
+        <p><a href="images/xterm-Xaw.png"><img width="300" src=
+        "images/xterm-Xaw.png" alt=
+        "xterm &ndash; default scrollbar with Xaw"></a></p>
+      </dd>
+
+      <dt>XawPlus</dt>
+
+      <dd>
+        <p><a href="images/xterm-XawPlus.png"><img width="300" src=
+        "images/xterm-XawPlus.png" alt=
+        "xterm &ndash; scrollbar with XawPlus"></a></p>
+      </dd>
+
+      <dt>Xaw3d</dt>
+
+      <dd>
+        <p><a href="images/xterm-Xaw3d.png"><img width="300" src=
+        "images/xterm-Xaw3d.png" alt=
+        "xterm &ndash; scrollbar with Xaw3d"></a></p>
+      </dd>
+
+      <dt>neXtaw</dt>
+
+      <dd>
+        <p><a href="images/xterm-neXtaw.png"><img width="300" src=
+        "images/xterm-neXtaw.png" alt=
+        "xterm &ndash; scrollbar with neXtaw"></a></p>
+      </dd>
+    </dl>
+  </blockquote>
+
+  <p>Those variants use the same calling interface, so supporting
+  them is simple. Adapting to other toolkits would be much more
+  difficult. For instance (see the discussion of <a href=
+  "#bug_mxterm">mxterm</a>), replacing the scrollbars may require
+  replacing other parts from the library to get consistent
+  initialization and operation. In the case of Motif, it had
+  nothing like the Athena widget set's popup menus.</p>
 
   <h4 id="window_ops-id"><a name="window_ops" id="window_ops">Why
   can't my program read the window title?</a></h4>
