@@ -105,7 +105,7 @@ Build-Depends:
 #   debhelper (>= 9)                debian/compat = 9
 #   quilt                           patch management system
 #   autotools-dev                   update config.guess, config.sub
-#   lynx-cur | lynx                 generates plain-text version of xterm faq
+#   lynx | lynx-cur                 generates plain-text version of xterm faq
 #   desktop-file-utils              for installing xterm.desktop
 
 Package: xterm
