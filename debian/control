@@ -14,6 +14,7 @@ Build-Depends:
  libxkbfile-dev,
  libutempter-dev,
  libxcursor-dev,
+ libxinerama-dev,
  debhelper (>= 9),
  quilt,
  autotools-dev,
@@ -100,6 +101,8 @@ Build-Depends:
 #       main.c:#include <utempter.h>
 #   libxcursor-dev
 #       misc.c:#ifdev HAVE_LIB_XCURSOR
+#   libxinerama-dev
+#       util.c:#ifdef HAVE_X11_EXTENSIONS_XINERAMA_H
 #   xorg-docs-core                  provides X(7) which minstall.sh tries to
 #                                   detect
 #   debhelper (>= 9)                debian/compat = 9
