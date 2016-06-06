@@ -1,6 +1,7 @@
 xterm (325-1) UNRELEASED; urgency=medium
 
   * New upstream release.
+  * Refresh Debian patches.
 
  -- Sven Joachim <svenjoac@gmx.de>  Mon, 06 Jun 2016 17:28:47 +0200
 

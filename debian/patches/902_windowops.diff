@@ -4,7 +4,7 @@
 
 --- a/xterm.man
 +++ b/xterm.man
-@@ -2648,8 +2648,9 @@ This is a comma-separated list of names,
+@@ -2675,8 +2675,9 @@ This is a comma-separated list of names,
  from \fIdtterm\fP the operation number).
  The default value is
  .RS

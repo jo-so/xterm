@@ -24,8 +24,8 @@ This patch by Branden Robinson.
  XTerm-col.ad |   42 +++++++++++++++++++++++++++---------------
  XTerm.ad     |    3 +++
  termcap      |    4 +++-
- terminfo     |    8 ++++++--
- 4 files changed, 39 insertions(+), 18 deletions(-)
+ terminfo     |    6 ++++--
+ 4 files changed, 37 insertions(+), 18 deletions(-)
 
 --- a/termcap
 +++ b/termcap
@@ -49,7 +49,7 @@ This patch by Branden Robinson.
  #
  # Encode modifiers using parameters (see "Xterm Control Sequences" ctlseqs.ms).
  # Note that this is unrelated to PCTERM.
-@@ -1970,11 +1972,13 @@ xterm-r5|xterm R5 version,
+@@ -1972,12 +1974,12 @@ xterm-r5|xterm R5 version,
  # This is the only entry which you should have to customize, since "xterm"
  # is widely used for a variety of incompatible terminal emulations including
  # color_xterm and rxvt.
@@ -60,14 +60,13 @@ This patch by Branden Robinson.
  
  # This fragment is for people who cannot agree on what the backspace key
  # should send.
-+# Modified to more strictly conform to the DEC VT220 behavior; this is
-+# mandated by Section 9.8 of the Debian Policy Manual.
  xterm+kbs|fragment for backspace key,
 -	kbs=^H,
 +	kbs=\177,
+ #	kbs=^?,
 --- a/XTerm.ad
 +++ b/XTerm.ad
-@@ -161,6 +161,9 @@
+@@ -163,6 +163,9 @@
  *tek4014*font3: 6x13
  *tek4014*fontSmall: 6x10
  

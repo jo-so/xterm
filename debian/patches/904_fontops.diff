@@ -4,7 +4,7 @@
 
 --- a/xterm.man
 +++ b/xterm.man
-@@ -1899,7 +1899,7 @@ The default is \*(``true\*(''.
+@@ -1926,7 +1926,7 @@ The default is \*(``true\*(''.
  .TP
  .B "allowFontOps (\fPclass\fB AllowFontOps)"
  Specifies whether control sequences that set/query the font should be allowed.
