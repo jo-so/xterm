@@ -3,6 +3,9 @@ xterm (326-1) UNRELEASED; urgency=medium
   * New upstream release.
     - Add examples of setting the icon title with/without the window
       title in the manual (Closes: #833984).
+    - Amend fix for #738794 to restore a check for missing characters
+      which are not combining characters.  Also fill in a corresponding
+      special case for TrueType fonts (Closes: #827905).
   * Refresh Debian patches.
 
  -- Sven Joachim <svenjoac@gmx.de>  Mon, 26 Sep 2016 17:48:50 +0200
