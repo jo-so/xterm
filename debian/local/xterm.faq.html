@@ -19,7 +19,7 @@
  * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF   *
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.            *
  *****************************************************************************
-  $XTermId: xterm.faq.html,v 1.317 2016/03/21 00:56:33 tom Exp $
+  $XTermId: xterm.faq.html,v 1.329 2016/09/16 09:19:01 tom Exp $
   -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
 
@@ -2572,8 +2572,11 @@ current_title=$(xprop -id $WINDOWID | grep WM_NAME | cut -d= -f2)
       <a href="#problems_weird">Odd behavior</a>
 
       <ul>
-        <li><a href="#xterm_paste">Why can't I cut/paste in
+        <li><a href="#xterm_paste">Why can't I select/paste in
         xterm?</a></li>
+
+        <li><a href="#xterm_select_clipboard">Why can't I
+        select/paste to/from other programs?</a></li>
 
         <li><a href="#xterm_tabs">Why can't I select tab-characters
         in xterm?</a></li>
@@ -2606,6 +2609,9 @@ current_title=$(xprop -id $WINDOWID | grep WM_NAME | cut -d= -f2)
         place?</a></li>
       </ul>
     </li>
+
+    <li><a href="#my_xdefaults">Sample .Xdefaults Color-Settings
+    for XTerm</a></li>
 
     <li><a href="#warning_msg">What is this warning
     message?</a></li>
@@ -4850,14 +4856,155 @@ XFree86 3.1.2a (23 September 1995)
   "problems_weird">Odd behavior</a></h3>
 
   <h4 id="xterm_paste-id"><a name="xterm_paste" id=
-  "xterm_paste">Why can't I cut/paste in xterm?</a></h4>
+  "xterm_paste">Why can't I select/paste in xterm?</a></h4>
 
-  <p>When an application sets xterm to any of its mouse tracking
-  modes, it reserves the unshifted mouse button clicks for the
-  application's use. Unless you have modified the treatment of the
-  shifted mouse button events (e.g., with your window manager), you
-  can always do cut/paste by pressing the shift key while clicking
-  with the mouse.</p>
+  <p>When an application sets xterm to any of its <a href=
+  "ctlseqs/ctlseqs.html#h2-Mouse-Tracking">mouse tracking
+  modes</a>, it reserves the <em>unshifted</em> mouse button clicks
+  for the application's use. Unless you have modified the treatment
+  of the shifted mouse button events (e.g., with your window
+  manager), you can always do select/paste by pressing the
+  <em>shift</em> key while clicking with the mouse.</p>
+
+  <p>This is all done using the <em>translations</em> resource (see
+  the <a href=
+  "manpage/xterm.html#h3-Default-Key-Bindings"><em>Default Key
+  Bindings</em></a> section in the manual page).</p>
+
+  <h4><a name="xterm_select_clipboard" id=
+  "xterm_select_clipboard">Why can't I select/paste to/from other
+  programs?</a></h4>
+
+  <p>Whether you select text in xterm and paste into another
+  window, or the reverse, the X client in which you have
+  <em>selected</em> text may provide the data in different
+  <em>formats</em> and different <em>containers</em>:</p>
+
+  <blockquote>
+    <dl>
+      <dt><em>formats</em></dt>
+
+      <dd>
+        <p>Originally (and by default) xterm made the selected data
+        available with ISO-8859-1 encoding (Latin-1). Since
+        <a href="xterm.log.html#xterm_101">patch #101 (1999)</a>,
+        it has provided it also in UTF-8.</p>
+
+        <p>Regarding the type of data:</p>
+
+        <ul>
+          <li>X11R4's ICCM documented "string" selection data with
+          ISO-8859-1, while</li>
+
+          <li>X11R6 documented "compound text" (another name for
+          multibyte encoding, without specifying <em>what</em>
+          encoding).</li>
+
+          <li>Selection data using UTF-8 was an extension by
+          XFree86.</li>
+        </ul>
+
+        <p>The client holding the selection advertises the formats
+        that it can provide, and other client(s) ask for it using
+        one of those formats.</p>
+
+        <p>Xterm can ask for UTF-8 even if it is not configured to
+        use UTF-8. In that case, it converts (a small number of)
+        useful characters to their ASCII or VT100 line-graphics
+        equivalents, and uses a "#" character for those which
+        cannot be converted.</p>
+      </dd>
+
+      <dt><em>containers</em></dt>
+
+      <dd>
+        <p>By default, xterm follows the <a href=
+        "https://tronche.com/gui/x/icccm/"><em>Inter-Client
+        Communication Conventions Manual</em></a> (ICCM). That
+        dates back to X11R4 in 1989, with minor updates in 1996 for
+        X11R6. The copyright for ICCM 1.0 is 1988/1989, making it
+        slightly older than Microsoft Windows.</p>
+
+        <p>The ICCM specifies <a href=
+        "https://tronche.com/gui/x/icccm/sec-2.html#s-2.6"><em>"selection
+        atoms"</em></a> which are maintained by the X server.
+        According to the ICCM:</p>
+
+        <blockquote>
+          <p>The selection named by the atom <em>PRIMARY</em> is
+          used for all commands that take only a single argument
+          and is the principal means of communication between
+          clients that use the selection mechanism.</p>
+        </blockquote>
+
+        <p>and</p>
+
+        <blockquote>
+          <p>The selection named by the atom <em>CLIPBOARD</em> is
+          used to hold data that is being transferred between
+          clients, that is, data that usually is being cut or
+          copied, and then pasted.</p>
+        </blockquote>
+
+        <p>xterm uses PRIMARY by default. The default translations
+        also update something called CUT_BUFFER0 (also <a href=
+        "https://tronche.com/gui/x/icccm/sec-3.html#s-3">part of
+        the ICCM</a>).</p>
+
+        <p>Unlike the PRIMARY selection, a cut buffer can hold only
+        "type STRING and format 8" (which happens to be
+        ISO-8859-1). That sounds like a drawback, but on the other
+        hand, cut buffers are <em>persistent</em>, while the
+        PRIMARY selection is <em>not</em>. An X client can provide
+        data using the PRIMARY selection only as long as it
+        <em>holds</em> the selection.</p>
+      </dd>
+    </dl>
+  </blockquote>
+
+  <p>If xterm does not own the selection, it cannot supply the data
+  (and you cannot select/paste). Initially, xterm held the PRIMARY
+  selection only as long as the text was highlighted. Another
+  application could assert the selection, but generally losing the
+  PRIMARY selection in xterm was the same as losing highlighting.
+  That has been improved, e.g., using the
+  <code>keepSelection</code> resource in <a href=
+  "xterm.log.html#xterm_230">patch #230</a> (2007), as well as
+  refinements to retain highlighting when it updates other parts of
+  the window.</p>
+
+  <p>A more likely reason for failing to select/paste is that the
+  other application may not use the same <em>selection atom</em>
+  (container). In the mid-1990s, Netscape set out to compete with
+  Internet Explorer. Part of that involved copying many aspects of
+  the way Internet Explorer worked, including the way it worked
+  with the Microsoft Windows clipboard. Netscape on non-Windows
+  platforms, "of course" assumed the clipboard was the way to do
+  things, and used the X11 clipboard rather following the ICCM.
+  (The way it used the X11 clipboard was also not in line with the
+  ICCM, but it was "close").</p>
+
+  <p>Not all applications followed Netscape and its descendents,
+  making it a nuisance if one wanted to select/paste text to/from
+  the web browser.</p>
+
+  <p>Since <a href="xterm.log.html#xterm_209">patch #209</a>
+  (2006), xterm has provided a workaround: a menu entry (and
+  resource <code>selectToClipboard</code>) which changes xterm's
+  behavior for a special token <em>SELECT</em> in its default
+  translations. If the resource is true (or the menu item enabled),
+  xterm provides its selection to the <em>CLIPBOARD</em>. A menu
+  item is provided, of course, since many applications follow the
+  ICCM. In the default translations, these lines use
+  <em>SELECT</em>:</p>
+
+  <blockquote>
+    <pre class="code-block">
+Shift &lt;KeyPress&gt; Select:select-cursor-start() \
+                           select-cursor-end(SELECT, CUT_BUFFER0) \n\
+Shift &lt;KeyPress&gt; Insert:insert-selection(SELECT, CUT_BUFFER0) \n\
+</pre>
+  </blockquote>
 
   <h4 id="xterm_tabs-id"><a name="xterm_tabs" id="xterm_tabs">Why
   can't I select tabs in xterm?</a></h4>
@@ -5382,6 +5529,8 @@ configure --disable-imake --disable-narrowproto
   "my_xdefaults">Sample .Xdefaults Color-Settings for
   XTerm</a></h3>
 
+  <p>This example dates from March 1997:</p>
+
   <blockquote class="code-block">
     <!--{{atr2html-->
 
@@ -5553,6 +5702,103 @@ configure --disable-imake --disable-narrowproto
     "literal">&nbsp;-color</span><br>
     <!--atr2html}}--></p>
   </blockquote>
+
+  <p>Since 1997, the resource files grew in size and number.
+  Besides <code>XTerm</code> and <code>XTerm-color</code>, there
+  are also resource files for <strong>xterm</strong> using
+  different <em>class</em> values, together with the
+  <code>-color</code> flavors of these. Because the
+  <code>-color</code> flavors differ only by an
+  <code>#include</code> statement, the makefile generates these
+  from <a href=
+  "https://github.com/ThomasDickey/xterm-snapshots/blob/master/XTerm-col.ad">
+  XTerm-col.ad</a>. Here are the others:</p>
+
+  <blockquote>
+    <table border="1" summary="resource files for XTerm">
+      <tr>
+        <th>Program</th>
+
+        <th>Resource</th>
+      </tr>
+
+      <tr>
+        <td><a href="#xterm_man">xterm</a></td>
+
+        <td><a href=
+        "https://github.com/ThomasDickey/xterm-snapshots/blob/master/XTerm.ad">
+        XTerm</a></td>
+      </tr>
+
+      <tr>
+        <td><a href="#uxterm_man">uxterm</a></td>
+
+        <td><a href=
+        "https://github.com/ThomasDickey/xterm-snapshots/blob/master/UXTerm.ad">
+        UXTerm</a></td>
+      </tr>
+
+      <tr>
+        <td><a href="#koi8rxterm_man">koi8rxterm</a></td>
+
+        <td><a href=
+        "https://github.com/ThomasDickey/xterm-snapshots/blob/master/KOI8RXTerm.ad">
+        KOI8RXTerm</a></td>
+      </tr>
+    </table>
+  </blockquote>
+
+  <p>Besides just adding files, I continued testing more resource
+  combinations. Originally (in the 1990s for instance), developers
+  could reasonably expect their users to configure resources for
+  themselves, rather than use a single prepackaged flavor. That was
+  a while ago. After 2000, I developed nicer resource files. Rather
+  than modify the installed <code>app-defaults</code> file, I use
+  this feature from X:</p>
+
+  <blockquote>
+    <p class="code-block">Directories named by the environment
+    variable <code>XUSERFILESEARCHPATH</code> or the environment
+    variable <strong><code>XAPPLRESDIR</code></strong> (which names
+    a single directory and should end with a &lsquo;/&rsquo; on
+    POSIX systems), plus directories in a standard place (usually
+    under <em><code>/usr/share/X11/</code></em>, but this can be
+    overridden with the <em><code>XFILESEARCHPATH</code></em>
+    environment variable) are searched for for application-specific
+    resources. For example, application default resources are
+    usually kept in
+    <em><code>/usr/share/X11/app-defaults/</code></em>. See the
+    <em>X Toolkit Intrinsics &ndash; C Language Interface</em>
+    manual for details.</p>
+  </blockquote>
+
+  <p>That is, if you set the <code>XAPPLRESDIR</code> environment
+  variable to point to a directory, you can put application
+  resource files there, and X will find those before the system
+  app-defaults files. That allows more flexibility and better
+  control over the various applications than putting everything
+  into a single <code>.Xdefaults</code> file.</p>
+
+  <p>On the opposite extreme, some people advise using
+  <code>xrdb</code>. Not everyone. Back around 1990 I had an
+  informative conversation with one of the developers at the
+  Software Productivity Consortium. He was a member of a team
+  developing a set of X widgets. The gist of our conversation was
+  that</p>
+
+  <ul>
+    <li>using <code>xrdb</code> prevented you from changing things
+    dynamically.</li>
+
+    <li>it was like using a hammer (nailing things down to prevent
+    them from being different).</li>
+
+    <li>when the only tool you know how to use is a hammer,
+    <a href="https://www.google.com/search?q=hammer+nail+problem&amp;tbm=isch&amp;tbo=u&amp;source=univ&amp;sa=X&amp;ved=0ahUKEwigkLaixZLPAhWGWCYKHVD5B0sQsAQIUQ">
+    all of the problems look like nails</a>.</li>
+
+    <li>a good developer knows how to use more than one tool.</li>
+  </ul>
 
   <h3 id="warning_msg-id"><a name="warning_msg" id=
   "warning_msg">What is this warning message?</a></h3>
@@ -5954,7 +6200,8 @@ Warning: Actions not found: ignore, scroll-back, scroll-forw
   "https://bugzilla.redhat.com/show_bug.cgi?id=122815">Here</a> is
   a related bug report, for key bindings.</p>
 
-  <p>The documentation for GNOME terminal asserts:</p>
+  <p id="vte:xconsortium">The documentation for GNOME Terminal
+  asserts:</p>
 
   <blockquote class="code-block">
     <p>GNOME Terminal emulates the xterm application developed by
@@ -7065,7 +7312,7 @@ tbl ctlseqs.ms | groff -ms &gt;ctlseqs.ps
   "ref_misleading">Interesting but misleading:</a></h3>
 
   <ul>
-    <li>
+    <li id="mis:vt100-color">
       <p>The ncurses FAQ <em><a href=
       "/ncurses/ncurses.faq.html#vt100_color" id="vt100_color"
       name="vt100_color">How do I get color with VT100?</a></em>
@@ -7075,7 +7322,7 @@ tbl ctlseqs.ms | groff -ms &gt;ctlseqs.ps
       web search</a> gives 3,000 hits in March 2015.</p>
     </li>
 
-    <li>
+    <li id="mis:backspace-delete">
       <p>Also widely cited, <a href=
       "http://www.ibb.net/~anne/keyboard/keyboard.html">Consistent
       BackSpace and Delete Configuration</a> gives advice regarding
@@ -7187,7 +7434,7 @@ tbl ctlseqs.ms | groff -ms &gt;ctlseqs.ps
       </ul>
     </li>
 
-    <li>
+    <li id="mis:ncdware">
       <p>Noted <a href=
       "http://stackoverflow.com/questions/24833129/how-to-change-the-window-title-of-te-based-on-vt320">
       here</a>, someone pointed out an <a href=
@@ -7213,6 +7460,196 @@ tbl ctlseqs.ms | groff -ms &gt;ctlseqs.ps
       6.2.0 sources dated July 1996), as well as VT220 national
       replacement characters (which I added early in <a href=
       "/xterm/xterm.log.html#xterm_70">1998</a>).</p>
+    </li>
+
+    <li id="mis:geekery">
+      <p><em><a href=
+      "http://aperiodic.net/phil/archives/Geekery/term-function-keys.html">
+      Terminal Function Key Escape Codes</a></em> has good
+      intentions, but falls astray in several respects.<br>
+      For a different treatment of the same material, see my
+      notes:</p>
+
+      <blockquote>
+        <p><em><a href="/xterm/xterm-function-keys.html">Table of
+        function-keys for XTerm and other Terminal
+        Emulators</a></em></p>
+      </blockquote>
+
+      <p>First off, it (like the the <a href=
+      "#vte:xconsortium">documentation</a> for GNOME Terminal)
+      misattributes work which I did, crediting the X
+      Consortium:</p>
+
+      <blockquote class="code-block">
+        <p>This brings me to xterm. xterm has a long history, and
+        the function key definitions have changed over time. The
+        <strong>original</strong> xterm from the X Consortium (even
+        before they became the Open Group) used escape codes based
+        on the VT220, but extended to cover the range from F1 to
+        <strong>F48</strong>. F1 through F12 generated,
+        respectively, codes <code>^[[11~</code> to
+        <code>^[[15~</code>, <code>^[[17~</code> to
+        <code>^[[21~</code>, <code>^[[23~</code>, and
+        <code>^[[24~</code>. <em><code>Shift-F1</code></em> through
+        <em><code>Shift-F12</code></em> were used for F13 through
+        F24, and generated codes from <code>^[[11;2~</code> to
+        <code>^[[24;2~</code>. Similarly
+        <em><code>Ctrl-F1</code></em> through
+        <em><code>Ctrl-F12</code></em> were used for F25 through
+        F36 and generated codes <code>^[[11;5~</code> to
+        <code>^[[24;5~</code>, and
+        <em><code>Ctrl-Shift-F1</code></em> through
+        <em><code>Ctrl-Shift-F12</code></em> were used for F37
+        through F48 and generated codes <code>^[[11;6~</code> to
+        <code>^[[24;6~</code>. None of the base xterm
+        <code>$TERM</code> types on my system correspond to this
+        series of escape codes, though you can still get xterm to
+        exhibit the old behavior by setting the
+        <code>OldXtermFKeys</code> resource to 'true'.</p>
+      </blockquote>
+
+      <p>Not only that, but the comment (and much of the page) is
+      inaccurate. For instance:</p>
+
+      <ul>
+        <li>The X Consortium went out of business late in 1996 (see
+        <a href=
+        "http://www.opengroup.org/tech/desktop/Press_Releases/xccloses.htm">
+          press release</a> from July 1996).
+
+          <ul>
+            <li>The first release of X11R6 was done <a href=
+            "https://www.x.org/releases/X11R6.1/RELNOTES.TXT">early
+            in 1996</a> by X Consortium.</li>
+
+            <li>I've been working on xterm since before that (see
+            <a href="#my_history">history</a>).</li>
+          </ul>
+        </li>
+
+        <li>The X Consortium xterm only knew about function keys up
+        to <strong>F20</strong>.
+
+          <ul>
+            <li>X11R5 defined only 20 function keys, and xterm used
+            only those since May 1991.<br>
+            X11R6 changes to xterm did not take advantage of
+            additional keys aside from the
+            <em><code>Insert</code></em> and
+            <em><code>Delete</code></em> on the keypad.</li>
+
+            <li>Further changes by The Open Group through X11R6.6
+            made no changes to xterm's handling of special
+            keys.</li>
+
+            <li>That came in xterm <a href=
+            "/xterm/xterm.log.html#xterm_130">patch #130</a>
+            (2000/3/1), starting with the SCO function-keys
+            feature.</li>
+          </ul>
+        </li>
+
+        <li>The X Consortium xterm didn't know about using
+        <em><code>Shift</code></em> to get F13 through F24.
+
+          <ul>
+            <li>I introduced a similar feature (using
+            <em><code>Control</code></em>) in <a href=
+            "/xterm/xterm.log.html#xterm_51">patch #51</a>
+            (1997/9/15) as the <a href=
+            "how2_fkeys"><code>sunKeyboard</code></a> resource.<br>
+            I did this to leave <em><code>Shift</code></em> for the
+            VT220 UDK (user-defined keys).</li>
+
+            <li><strong>rxvt</strong> used
+            <em><code>Shift</code></em>; the key combination was
+            popular.</li>
+
+            <li>Alexander V Lukyanov's changes in <a href=
+            "/xterm/xterm.log.html#xterm_121">patch #121</a> to
+            update the terminal descriptions for these keys took
+            that into account.</li>
+          </ul>
+        </li>
+
+        <li>The X Consortium xterm didn't know about using
+        <em><code>Control</code></em> to get F25 through F36.
+
+          <ul>
+            <li>Even with X11R6, the last function key was
+            <em><code>XK_F35</code></em>.</li>
+
+            <li>However, since xterm <a href=
+            "/xterm/xterm.log.html#xterm_94">patch #94</a>
+            (1999/3/27), it accepts modifiers (shift, control, alt)
+            to extend the actual set of keys to generate different
+            escape sequences.</li>
+          </ul>
+        </li>
+
+        <li>The escape sequences described all date from 2002
+        (xterm <a href="/xterm/xterm.log.html#xterm_167">patch
+        #167</a>).
+
+          <ul>
+            <li>Besides function-keys, there are two other groups
+            of special keys on the keyboard: cursor and
+            editing-keypad.</li>
+
+            <li>Before then, the "2" and "5" in cursor- and
+            home/end sequences would be first (before the
+            semicolon).</li>
+
+            <li>By that point, GNOME Terminal and KDE Konsole had
+            copied the earlier behavior, and failed to follow this
+            change.</li>
+
+            <li>At the time, I preferred the VT220 keyboard (that
+            does not support modified special keys).</li>
+
+            <li>However, the <em>app-defaults</em> file which I
+            provided with xterm did not set the
+            <code>sunKeyboard</code> resource to do this.<br>
+            Packagers routinely altered the recommended
+            configuration, so this difference was not noticed for a
+            while.</li>
+
+            <li>In response to a <a href=
+            "https://bugzilla.redhat.com/show_bug.cgi?id=122815">bug
+            report</a>, I switched to the Sun/PC keyboard, using
+            the <a href=
+            "/ncurses/NEWS.html#t20040717">xterm-pc-fkeys</a>
+            building blocks in ncurses' terminfo description for
+            xterm.</li>
+          </ul>
+        </li>
+
+        <li>The X Consortium xterm had incomplete support for VT100
+        keypad.
+
+          <ul>
+            <li>I added a resource <code>sunKeyboard</code> to tell
+            xterm to look at other keyboards to simulate the
+            keypad.</li>
+
+            <li>To do this, I made F1 through F4 act like the VT100
+            PF1 through PF4.</li>
+
+            <li>That came in xterm <a href=
+            "/xterm/xterm.log.html#xterm_79">patch #79</a>
+            (1998/6/28).</li>
+
+            <li>Not everyone liked that, so I added another
+            resource to allow turning off the change to F1 through
+            F4.</li>
+
+            <li>Actually <code>OldXtermFKeys</code> is the resource
+            <em>class</em>; the actual resource is
+            <code>oldXtermFKeys</code>.</li>
+          </ul>
+        </li>
+      </ul>
     </li>
   </ul>
 

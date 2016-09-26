@@ -7,6 +7,7 @@ xterm (326-1) UNRELEASED; urgency=medium
       which are not combining characters.  Also fill in a corresponding
       special case for TrueType fonts (Closes: #827905).
   * Refresh Debian patches.
+  * Update copy of XTerm FAQ to revision 1.329 (dated 2016/09/16).
 
  -- Sven Joachim <svenjoac@gmx.de>  Mon, 26 Sep 2016 17:48:50 +0200
 
