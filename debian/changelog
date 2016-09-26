@@ -1,6 +1,8 @@
 xterm (326-1) UNRELEASED; urgency=medium
 
   * New upstream release.
+    - Add examples of setting the icon title with/without the window
+      title in the manual (Closes: #833984).
   * Refresh Debian patches.
 
  -- Sven Joachim <svenjoac@gmx.de>  Mon, 26 Sep 2016 17:48:50 +0200
