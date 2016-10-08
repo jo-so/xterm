@@ -1,6 +1,9 @@
 xterm (327-1) UNRELEASED; urgency=medium
 
   * New upstream release.
+    - Add a check in the function which handles end-of-line wrapping
+      to ensure that C1 controls are allocated one column when
+      allowC1Printable is set (Closes: #738794).
 
  -- Sven Joachim <svenjoac@gmx.de>  Sat, 08 Oct 2016 08:51:23 +0200
 
