@@ -1,4 +1,4 @@
-xterm (327-1) UNRELEASED; urgency=medium
+xterm (327-1) unstable; urgency=medium
 
   * New upstream release.
     - Add a check in the function which handles end-of-line wrapping
@@ -7,7 +7,7 @@ xterm (327-1) UNRELEASED; urgency=medium
     - Modify allowC1Printable to disallow codes 160-254 as being equivalent
       to codes 32-126 when parsing escape sequences (Closes: #839220).
 
- -- Sven Joachim <svenjoac@gmx.de>  Sat, 08 Oct 2016 08:51:23 +0200
+ -- Sven Joachim <svenjoac@gmx.de>  Sun, 09 Oct 2016 11:25:56 +0200
 
 xterm (326-1) unstable; urgency=medium
 
