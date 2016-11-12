@@ -15,9 +15,10 @@ Build-Depends:
  libutempter-dev,
  libxcursor-dev,
  libxinerama-dev,
- debhelper (>= 9),
+ debhelper (>= 10),
  quilt,
  autotools-dev,
+ autoconf-dickey,
  lynx | lynx-cur,
  xorg-docs-core,
  desktop-file-utils,
@@ -105,9 +106,10 @@ Build-Depends:
 #       util.c:#ifdef HAVE_X11_EXTENSIONS_XINERAMA_H
 #   xorg-docs-core                  provides X(7) which minstall.sh tries to
 #                                   detect
-#   debhelper (>= 9)                debian/compat = 9
+#   debhelper (>= 10)               debian/compat = 10
 #   quilt                           patch management system
 #   autotools-dev                   update config.guess, config.sub
+#   autoconf-dickey                 regenerate configure
 #   lynx | lynx-cur                 generates plain-text version of xterm faq
 #   desktop-file-utils              for installing xterm.desktop
 
