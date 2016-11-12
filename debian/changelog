@@ -3,6 +3,8 @@ xterm (327-2) UNRELEASED; urgency=medium
   * Bump debhelper compatibility level to 10.
     - Add autoconf-dickey to Build-Depends and an override for
       dh_autoreconf to debian/rules.
+  * Switch to format 3.0 (quilt).
+    - Drop quilt from Build-Depends and delete debian/README.source.
 
  -- Sven Joachim <svenjoac@gmx.de>  Sat, 12 Nov 2016 19:19:33 +0100
 

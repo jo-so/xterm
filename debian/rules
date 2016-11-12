@@ -72,7 +72,7 @@ override_dh_install:
 	dh_install --fail-missing
 
 %:
-	dh $@ --with quilt,autotools_dev --builddirectory=build/ --parallel
+	dh $@ --with autotools_dev --builddirectory=build/ --parallel
 
 debian/local/xterm.faq.html:
 	wget -O $@ http://invisible-island.net/xterm/xterm.faq.html

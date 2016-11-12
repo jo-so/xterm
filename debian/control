@@ -16,7 +16,6 @@ Build-Depends:
  libxcursor-dev,
  libxinerama-dev,
  debhelper (>= 10),
- quilt,
  autotools-dev,
  autoconf-dickey,
  lynx | lynx-cur,
@@ -107,7 +106,6 @@ Build-Depends:
 #   xorg-docs-core                  provides X(7) which minstall.sh tries to
 #                                   detect
 #   debhelper (>= 10)               debian/compat = 10
-#   quilt                           patch management system
 #   autotools-dev                   update config.guess, config.sub
 #   autoconf-dickey                 regenerate configure
 #   lynx | lynx-cur                 generates plain-text version of xterm faq
