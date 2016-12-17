@@ -19,7 +19,7 @@
  * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF   *
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.            *
  *****************************************************************************
-  $XTermId: xterm.faq.html,v 1.329 2016/09/16 09:19:01 tom Exp $
+  $XTermId: xterm.faq.html,v 1.332 2016/10/23 13:57:26 tom Exp $
   -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
 
@@ -523,10 +523,12 @@
   the same as xterm. For example,</p>
 
   <ul>
-    <li>PuTTY does this. But its wrapping behavior is incompatible
-    with xterm (and any vt100 emulator). You can see this in the
-    first menu entry for <a href=
-    "/vttest/vttest.html">vttest</a>.</li>
+    <li>PuTTY does this (see its FAQ <a href=
+    "http://www.chiark.greenend.org.uk/~sgtatham/putty/faq.html#faq-term">
+    <em>A.5.1 What terminal type does PuTTY use?</em></a>). But its
+    wrapping behavior is incompatible with xterm (and any vt100
+    emulator). You can see this in the first menu entry for
+    <a href="/vttest/vttest.html">vttest</a>.</li>
 
     <li>VTE does this. But consider the list of problems with
     <a href=
@@ -536,12 +538,14 @@
     GNOME Terminal</a>.</li>
 
     <li>Konsole does this as well&mdash;intentionally as shown in
-    <a href="https://bugs.kde.org/show_bug.cgi?id=145977">KDE
-    #145977</a>. The reasoning expressed there is that Konsole
-    "should" match xterm. Incidentally, one of the comments (about
-    xterm's support for mouse) cited as proof a <a href=
-    "http://www.linuxjournal.com/article/1136">page about Gpm</a>
-    from Linux Journal which was more than 12 years old.</li>
+    <a href="https://bugs.kde.org/show_bug.cgi?id=145977"><em>KDE
+    #145977 &ndash; Konsole has a terminfo entry of its own; please
+    change default $TERM</em></a>. The reasoning expressed there is
+    that Konsole "should" match xterm. Incidentally, one of the
+    comments (about xterm's support for mouse) cited as proof a
+    <a href="http://www.linuxjournal.com/article/1136">page about
+    Gpm</a> from Linux Journal which was more than 12 years
+    old.</li>
   </ul>
 
   <p>Each of the programs noted here which are well-established and
@@ -553,21 +557,30 @@
   programs. These include</p>
 
   <ul>
-    <li>Eterm</li>
+    <li><a href=
+    "/ncurses/terminfo.src.html#tic-_Eterm">Eterm</a></li>
 
-    <li>gnome (obsolete)</li>
+    <li><a href="/ncurses/terminfo.src.html#tic-gnome">gnome</a>
+    (obsolete)</li>
 
-    <li>konsole</li>
+    <li><a href=
+    "/ncurses/terminfo.src.html#tic-konsole">konsole</a></li>
 
-    <li>mlterm</li>
+    <li><a href=
+    "/ncurses/terminfo.src.html#tic-mlterm">mlterm</a></li>
 
-    <li>mrxvt</li>
+    <li><a href=
+    "/ncurses/terminfo.src.html#tic-mrxvt">mrxvt</a></li>
 
-    <li>putty</li>
+    <li><a href=
+    "/ncurses/terminfo.src.html#tic-putty">putty</a></li>
 
-    <li>rxvt</li>
+    <li><a href="/ncurses/terminfo.src.html#tic-rxvt">rxvt</a></li>
 
-    <li>vte (preferred)</li>
+    <li><a href="/ncurses/terminfo.src.html#tic-st">st</a></li>
+
+    <li><a href="/ncurses/terminfo.src.html#tic-vte">vte</a>
+    (preferred)</li>
   </ul>
 
   <h2 id="compare_versions-id"><a name="compare_versions" id=
@@ -3859,8 +3872,9 @@ ESC O F
   "xterm_terminfo">What $TERM should I use?</a></h4>
 
   <p><strong>XTerm</strong> provides in its sources both <a href=
-  "terminfo.html">terminfo</a> and termcap files. They are designed
-  to allow scripting to override the most common choices, e.g., the
+  "terminfo.html">terminfo</a> and <a href=
+  "termcap.html">termcap</a> files. They are designed to allow
+  scripting to override the most common choices, e.g., the
   backspace key.</p>
 
   <p>The <code>xterm-color</code> value for $TERM is a bad choice
@@ -6592,9 +6606,9 @@ larry.mcrcim.mcgill.edu (132.206.1.1) in
 
   <p>The toolkit-style configurability glibly referenced is the
   ability to redefine keys on the keyboard without recompiling the
-  program, i.e., the <a href=
-  "xterm.faq.html#how2_fkeys">translations</a> resource. It also is
-  the way mouse events and other actions are passed to xterm.</p>
+  program, i.e., the <a href="#how2_fkeys">translations</a>
+  resource. It also is the way mouse events and other actions are
+  passed to xterm.</p>
 
   <p>The toolkit-style configurability accounts for about 300kb,
   which does add up if you happen to be running 50 xterm processes
@@ -7558,7 +7572,8 @@ tbl ctlseqs.ms | groff -ms &gt;ctlseqs.ps
             <em><code>Control</code></em>) in <a href=
             "/xterm/xterm.log.html#xterm_51">patch #51</a>
             (1997/9/15) as the <a href=
-            "how2_fkeys"><code>sunKeyboard</code></a> resource.<br>
+            "#how2_fkeys"><code>sunKeyboard</code></a>
+            resource.<br>
             I did this to leave <em><code>Shift</code></em> for the
             VT220 UDK (user-defined keys).</li>
 
