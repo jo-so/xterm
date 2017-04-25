@@ -8561,11 +8561,11 @@ VTInitialize(Widget wrequest,
 		    TScreenOf(wnew)->graphics_max_wide = (Dimension) conf_wide;
 		} else {
 		    TRACE(("ignoring invalid maxGraphicSize %s\n",
-			   TScreenOf(wnew)->graphics_regis_screensize));
+			   TScreenOf(wnew)->graphics_max_size));
 		}
 	    } else {
 		TRACE(("ignoring invalid maxGraphicSize %s\n",
-		       TScreenOf(wnew)->graphics_regis_screensize));
+		       TScreenOf(wnew)->graphics_max_size));
 	    }
 	}
 # if OPT_REGIS_GRAPHICS
