@@ -4746,7 +4746,7 @@ doSelectionFormat(XtermWidget xw,
 
 /* obtain data from the screen, passing the endpoints to caller's parameters */
 static char *
-getDataFromScreen(XtermWidget xw, String method, CELL *start, CELL *finish)
+getDataFromScreen(XtermWidget xw, XEvent *event, String method, CELL *start, CELL *finish)
 {
     TScreen *screen = TScreenOf(xw);
 
@@ -4787,10 +4787,22 @@ getDataFromScreen(XtermWidget xw, String method, CELL *start, CELL *finish)
     screen->selectUnit = screen->selectMap[noClick];
 
     memset(start, 0, sizeof(*start));
-    start->row = screen->cur_row;
-    start->col = screen->cur_col;
-    finish->row = screen->cur_row;
-    finish->col = screen->max_col;
+    if (IsBtnEvent(event)) {
+	XButtonEvent *btn_event = (XButtonEvent *)event;
+	CELL cell;
+	screen->firstValidRow = 0;
+	screen->lastValidRow = screen->max_row;
+	PointToCELL(screen, btn_event->y, btn_event->x, &cell);
+	start->row = cell.row;
+	start->col = cell.col;
+	finish->row = cell.row;
+	finish->col = screen->max_col;
+    } else {
+	start->row = screen->cur_row;
+	start->col = screen->cur_col;
+	finish->row = screen->cur_row;
+	finish->col = screen->max_col;
+    }
 
     ComputeSelect(xw, start, finish, False);
     SaltTextAway(xw, &(screen->startSel), &(screen->endSel));
@@ -5173,7 +5185,7 @@ HandleExecFormatted(Widget w,
 
 void
 HandleExecSelectable(Widget w,
-		     XEvent *event GCC_UNUSED,
+		     XEvent *event,
 		     String *params,	/* selections */
 		     Cardinal *num_params)
 {
@@ -5187,7 +5199,7 @@ HandleExecSelectable(Widget w,
 	    char *data;
 	    char **argv;
 
-	    data = getDataFromScreen(xw, params[1], &start, &finish);
+	    data = getDataFromScreen(xw, event, params[1], &start, &finish);
 	    if (data != 0) {
 		if ((argv = tokenizeFormat(params[0])) != 0) {
 		    char *blob = argv[0];
@@ -5239,7 +5251,7 @@ HandleInsertFormatted(Widget w,
 
 void
 HandleInsertSelectable(Widget w,
-		       XEvent *event GCC_UNUSED,
+		       XEvent *event,
 		       String *params,	/* selections */
 		       Cardinal *num_params)
 {
@@ -5253,7 +5265,7 @@ HandleInsertSelectable(Widget w,
 	    char *data;
 	    char *temp = x_strdup(params[0]);
 
-	    data = getDataFromScreen(xw, params[1], &start, &finish);
+	    data = getDataFromScreen(xw, event, params[1], &start, &finish);
 	    if (data != 0) {
 		char *exps = expandFormat(xw, temp, data, &start, &finish);
 		if (exps != 0) {
