@@ -3282,6 +3282,11 @@ do_select_regex(TScreen *screen, CELL *startc, CELL *endc)
 		    int best_col = -1;
 		    int best_len = -1;
 
+		    startc->row = 0;
+		    startc->col = 0;
+		    endc->row = 0;
+		    endc->col = 0;
+
 		    for (col = 0; indexed[col] < len; ++col) {
 			if (regexec(&preg,
 				    search + indexed[col],
