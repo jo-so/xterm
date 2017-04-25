@@ -3297,7 +3297,7 @@ do_select_regex(TScreen *screen, CELL *startc, CELL *endc)
 			    int finis_col = indexToCol(indexed, len, finis_inx);
 
 			    if (start_col <= actual &&
-				actual < finis_col) {
+				actual <= finis_col) {
 				int test = finis_col - start_col;
 				if (best_len < test) {
 				    best_len = test;
